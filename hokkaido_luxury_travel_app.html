@@ -1485,12 +1485,21 @@
 
     window.switchMainTab = switchMainTab; window.switchUser = switchUser; window.switchDay = switchDay; window.resetCurrentDayOrder = resetCurrentDayOrder; window.openAddSpotModal = openAddSpotModal; window.openEditSpotModal = openEditSpotModal; window.closeSpotModal = closeSpotModal; window.saveSpotFromModal = saveSpotFromModal; window.deleteSpot = deleteSpot; window.toggleChecklistItem = toggleChecklistItem; window.switchMustBuyArea = switchMustBuyArea; window.addMustBuyToShopping = addMustBuyToShopping; window.addShoppingItem = addShoppingItem; window.toggleShoppingItem = toggleShoppingItem; window.deleteShoppingItem = deleteShoppingItem; window.convertCurrency = convertCurrency; window.updateSplitMembers = updateSplitMembers; window.addSplitExpense = addSplitExpense; window.clearSplitExpenses = clearSplitExpenses; window.toggleCloudModal = toggleCloudModal; window.createGroup = createGroup; window.joinGroup = joinGroup; window.leaveGroup = leaveGroup; window.copyInviteLink = copyInviteLink; window.copyToClipboard = copyToClipboard;
 
-    window.onload = async function() {
+  window.onload = async function() {
+      // 1. 優先讀取本機快取
       loadLocalState();
+      
+      // 2. 初始化基本介面
       switchMainTab('itinerary');
       switchUser('user1');
       renderAll();
-      startAuth();
+      
+      // 3. 關鍵修正：強迫網頁先完成雲端驗證，成功拿到名媛ID後，再重新刷新雲端狀態！
+      if (typeof startAuth === 'function') {
+        await startAuth();
+        // 驗證成功後，再次重新整理前台狀態，按鈕就會瞬間活過來！
+        renderAll();
+      }
     }
   </script>
 </body>

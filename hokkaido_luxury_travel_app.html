@@ -521,14 +521,14 @@
     // 🏆 終極路徑修正：統一使用單一的最深層安全路徑，確保不同裝置絕對能遇到彼此
     const appId = 'hokkaido-luxury-app-v3';
     
-  const firebaseConfig = {
-  apiKey: "AIzaSyC5C_auB6bY2-fdGLG7q8C7Eo6mMorKc14",
-  authDomain: "hokkaido-dy-a0644.firebaseapp.com",
-  projectId: "hokkaido-dy-a0644",
-  storageBucket: "hokkaido-dy-a0644.firebasestorage.app",
-  messagingSenderId: "8545937039",
-  appId: "1:8545937039:web:d133e2aa22e8b76be032fa"
-};
+    const firebaseConfig = {
+      apiKey: "AIzaSyC5C_auB6bY2-fdGLG7q8C7Eo6mMorKc14",
+      authDomain: "hokkaido-dy-a0644.firebaseapp.com",
+      projectId: "hokkaido-dy-a0644",
+      storageBucket: "hokkaido-dy-a0644.firebasestorage.app",
+      messagingSenderId: "8545937039",
+      appId: "1:8545937039:web:d010e0c4027fcbc6e032fa"
+    };
 
     let app, db, auth;
     try {
@@ -575,7 +575,7 @@
           ],
           [
             { id: "u1d3_1", time: "09:30 - 10:15", title: "搭乘 JR 快速列車往浪漫「小樽」", desc: "沿著蔚藍海岸線，一路向北前進日本最浪漫的海港小鎮小樽。", type: "transport", loc: "小樽車站", isPremium: false },
-            { id: "u1d3_2", time: "10:30 - 12:00", title: "三角市場：滝波食堂極品海鮮丼", desc: "一抵達小樽先衝三角市場！現點客製化奢華海鮮四色丼，滿滿 of 鮭魚卵、海膽與牡丹蝦！", type: "dining", loc: "小樽 三角市場 滝波食堂", isPremium: true },
+            { id: "u1d3_2", time: "10:30 - 12:00", title: "三角市場：滝波食堂極品海鮮丼", desc: "一抵達小樽先衝三角市場！現點客製化奢華海鮮四色丼，滿滿的鮭魚卵、海膽與牡丹蝦！", type: "dining", loc: "小樽 三角市場 滝波食堂", isPremium: true },
             { id: "u1d3_3", time: "12:15 - 14:30", title: "小樽運河與堺町通散策", desc: "漫步在富有歷史感的水道旁，參觀北一硝子玻璃工坊，探訪小樽八音盒堂。", type: "sight", loc: "小樽運河", isPremium: false },
             { id: "u1d3_4", time: "14:30 - 15:30", title: "LeTAO 旗艦店：高奢雙層乳酪蛋糕下午茶", desc: "在小樽本店頂樓鐘塔下，品嚐剛出爐的 Double Fromage 雙層起司蛋糕。", type: "dining", loc: "LeTAO 小樽本店", isPremium: true },
             { id: "u1d3_5", time: "16:00 - 18:00", title: "小樽政壽司：匠人之手晚宴", desc: "小樽最享譽盛名的高級壽司店。坐在板前看師傅捏製精緻壽司。", type: "dining", loc: "小樽政壽司 本店", isPremium: true },
@@ -593,16 +593,16 @@
             { id: "u1d5_1", time: "09:00 - 10:30", title: "北海道神宮與圓山公園晨間散策", desc: "清晨在古木參天的圓山公園與神宮境內漫步，徹底吸收森林芬多精。", type: "sight", loc: "圓山公園", isPremium: false },
             { id: "u1d5_2", time: "10:30 - 11:30", title: "森林秘境：六花亭圓山店特製下午茶", desc: "享用圓山店限定的新鮮判官餅（現烤紅豆麻糬）與經典萊姆葡萄霜餅。", type: "dining", loc: "六花亭 圓山店", isPremium: true },
             { id: "u1d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "前往火腿隊官方商店採購棒球周邊與大谷翔平精品！接著在大丸百貨、Stellar Place 展開血拼。", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
-            { id: "u1d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，將所有伴手禮與彩妝一次購齊。", type: "shopping", loc: "狸小路商店街", isPremium: false },
+            { id: "u1d5_4", time: "14:00 - 16:30", title: "狸小路商店街：薬妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，將所有伴手禮與彩妝一次購齊。", type: "shopping", loc: "狸小路商店街", isPremium: false },
             { id: "u1d5_5", time: "17:00 - 19:30", title: "宮美名媛的奢華甜點：INITIAL 法式芭菲聖代", desc: "狸小路超人氣「締めパフェ」夜聖代店。享用新鮮牛乳與當季頂級哈密瓜製作的精緻法式芭菲聖代。", type: "dining", loc: "INITIAL Sapporo", isPremium: true },
             { id: "u1d5_6", time: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "旅程最後一晚，不妨再次路過大通公園，喝杯冰涼札幌生啤酒。", type: "dining", loc: "大通公園", isPremium: false }
           ],
           [
             { id: "u1d6_1", time: "08:30 - 10:00", title: "優雅享用 Stream Hotel 精緻早餐", desc: "在飯店高空餐廳享用融合北海道在地農產的頂級奢華 Buffets。", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
             { id: "u1d6_2", time: "10:30 - 11:30", title: "札幌市區最後巡禮 & 伴手禮確認", desc: "可在薄野 or 大通站附近散步、做最後的街景留念。", type: "sight", loc: "COCONO SUSUKINO", isPremium: false },
-            { id: "u1d6_3", time: "11:30 - 12:15", title: "搭乘 JR 快速 Airport 列車直奔新千歲機場", desc: "優雅出發，因為新千歲機場國內線是日本公認最好逛的購物美食天堂！", type: "transport", loc: "新千歲機場", isPremium: false },
+            { id: "u1d6_3", time: "11:30 - 12:15", title: "搭乘 JR 快速 Airport 列車直奔新千歲機場", desc: "優雅出發，不用匆忙，提早抵達機場，因為新千歲機場國內線是日本公認最好逛的購物美食天堂！", type: "transport", loc: "新千歲機場", isPremium: false },
             { id: "u1d6_4", time: "12:30 - 13:45", title: "新千歲機場國內線：神級伴手禮大狂購", desc: "直奔國內線商場！橫掃「北菓樓」開拓泡芙、「六花亭」奶油夾心餅乾、「美瑛選菓」夢幻玉米麵包（需排隊）。", type: "shopping", loc: "新千歲機場 國內線航廈", isPremium: true },
-            { id: "u1d6_5", time: "13:45 - 14:15", title: "午餐朝聖：一幻甜蝦拉麵 (えびそば一幻)", desc: "在機場國內線「北海道拉麵道場」享用最富盛名的濃郁甜蝦頭熬製拉麵。", type: "dining", loc: "えびそば一幻 新千歲機場店", isPremium: true },
+            { id: "u1d6_5", time: "13:45 - 14:15", title: "午餐朝盛：一幻甜蝦拉麵 (えびそば一幻)", desc: "在機場國內線「北海道拉麵道場」享用最富盛名的濃郁甜蝦頭熬製拉麵。", type: "dining", loc: "えびそば一幻 新千歲機場店", isPremium: true },
             { id: "u1d6_6", time: "14:15 - 16:15", title: "辦理登機行李託運 ➔ 滿載幸福返台", desc: "16:15 搭乘星宇航空客機起飛，19:15 順利抵達台北，結束精彩絕倫的奢華避暑假期！", type: "transport", loc: "新千歲機場 國際線航廈", isPremium: false }
           ]
         ]
@@ -646,10 +646,10 @@
           [
             { id: "u2d5_1", time: "09:00 - 10:30", title: "北海道神宮與圓山公園晨間散策", desc: "與 User1 共同行程，徹底吸收森林芬多精，享受與自然和諧的靜謐時光。", type: "sight", loc: "圓山公園", isPremium: false },
             { id: "u2d5_2", time: "10:30 - 11:30", title: "森林秘境：六花亭圓山店特製下午茶", desc: "享用圓山店限定的新鮮判官餅（現烤紅豆麻糬）與經典萊姆葡萄霜餅。", type: "dining", loc: "六花亭 圓山店", isPremium: true },
-            { id: "u2d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "採購棒球周邊周邊與大谷翔平或新庄剛志系列精品！", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
-            { id: "u2d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大大掃貨", desc: "一整條拱廊式商圈，從最新的藥妝、日系服飾、驚安殿堂唐吉訶德到潮流小鋪。", type: "shopping", loc: "狸小路商店街", isPremium: false },
+            { id: "u2d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "採購棒球周邊與大谷翔平系列精品！", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
+            { id: "u2d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，從最新的藥妝、日系服飾、驚安殿堂唐吉訶德到潮流小鋪。", type: "shopping", loc: "狸小路商店街", isPremium: false },
             { id: "u2d5_5", time: "17:00 - 19:30", title: "宮美名媛的奢華甜點：INITIAL 法式芭菲聖代", desc: "享用由北海道新鮮牛乳與當季頂級哈密瓜、草莓製作的精緻法式芭菲聖代。", type: "dining", loc: "INITIAL Sapporo", isPremium: true },
-            { id: "u2d5_6", text: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "旅程最後一晚，不妨再次路過大通公園，喝杯冰涼札幌生啤酒。", type: "dining", loc: "大通公園", isPremium: false }
+            { id: "u2d5_6", time: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "旅程最後一晚，不妨再次路過大通公園，喝杯冰涼札幌生啤酒。", type: "dining", loc: "大通公園", isPremium: false }
           ],
           [
             { id: "u2d6_1", time: "08:00 - 08:30", title: "極致迅速早餐與快速辦理退房", desc: "中午 12:30 國際航班！登機報到最晚 10:30。完全沒時間延遲，今天上午不能排市區行程！建議於 08:30 完成 Check-out。", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
@@ -714,7 +714,6 @@
       localStorage.setItem('hokkaido_luxury_state_v3', JSON.stringify(state));
     }
 
-    // 🏆 核心打通路徑：全部強制綁定在同一個資料夾，不同手機絕對即時同步
     async function syncToCloud() {
       if (!activeGroupCode || !db || !firebaseUser || isUpdatingCloud) return;
       isUpdatingCloud = true;
@@ -745,6 +744,7 @@
       }
     }
 
+    // 🏆 補回：建立連線房間核心 JavaScript 代碼
     async function createGroup() {
       if (!db || !firebaseUser) {
         showToast("⚠️ 雲端共編服務未就緒，請稍候", "❌");
@@ -864,6 +864,33 @@
       });
       
       updateCloudUI();
+    }
+
+    // 🏆 補回：遺失的 startAuth() 匿名安全驗證函數本體 🏆
+    async function startAuth() {
+      if (!auth) return;
+      try {
+        let userCredential = await signInAnonymously(auth);
+        firebaseUser = userCredential.user;
+        const displayId = document.getElementById('user-id-display');
+        if (displayId) displayId.innerText = `名媛ID: ${firebaseUser.uid}`;
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const groupFromUrl = urlParams.get('group');
+        const savedGroup = localStorage.getItem('hokkaido_active_group_v3');
+        
+        if (groupFromUrl) { 
+          await joinGroup(groupFromUrl); 
+        } else if (savedGroup) { 
+          activeGroupCode = savedGroup; 
+          setupGroupListener(savedGroup); 
+        } else { 
+          updateCloudUI(); 
+        }
+      } catch (err) {
+        console.error("Firebase 驗證失敗:", err);
+        updateCloudUI();
+      }
     }
 
     function renderPresence(usersMap) {
@@ -996,17 +1023,6 @@
       return list;
     }
 
-    // 導航與圖示
-    function getSpotIcon(type) {
-      switch(type) {
-        case 'transport': return '✈️';
-        case 'hotel': return '🏨';
-        case 'dining': return '🍽️';
-        case 'shopping': return '🛍️';
-        default: return '🏰';
-      }
-    }
-
     function renderTimeline() {
       const container = document.getElementById('timeline-drag-container');
       const spots = getSortedDaySpots();
@@ -1070,49 +1086,6 @@
       }).join('');
 
       initSortable();
-    }
-
-    let sortableInstance = null;
-    function initSortable() {
-      const container = document.getElementById('timeline-drag-container');
-      if (sortableInstance) sortableInstance.destroy();
-      
-      sortableInstance = new Sortable(container, {
-        handle: '.drag-handle',
-        animation: 150,
-        ghostClass: 'drag-ghost',
-        onEnd: function() {
-          const cards = container.querySelectorAll('.itinerary-card');
-          const sortedIds = Array.from(cards).map(card => card.getAttribute('data-id'));
-          
-          if (!state.dragOrders[currentUser]) state.dragOrders[currentUser] = {};
-          state.dragOrders[currentUser][`day_${currentDayIdx}`] = sortedIds;
-          
-          saveState();
-          showToast("💾 新的行程動線已實時同步！");
-        }
-      });
-    }
-
-    function resetCurrentDayOrder() {
-      if (state.dragOrders[currentUser]?.[`day_${currentDayIdx}`]) {
-        delete state.dragOrders[currentUser][`day_${currentDayIdx}`];
-        saveState();
-        renderTimeline();
-        showToast("✨ 本日行程順序已重設為經典推薦動線");
-      }
-    }
-
-    function openAddSpotModal() {
-      document.getElementById('modal-title-text').innerText = "✨ 規劃新奢華行程點";
-      document.getElementById('modal-spot-id').value = "";
-      document.getElementById('modal-spot-time').value = "12:00 - 13:00";
-      document.getElementById('modal-spot-title').value = "";
-      document.getElementById('modal-spot-loc').value = "";
-      document.getElementById('modal-spot-desc').value = "";
-      document.getElementById('modal-spot-type').value = "sight";
-      document.getElementById('modal-spot-premium').checked = false;
-      document.getElementById('spot-modal').classList.remove('hidden');
     }
 
     function openEditSpotModal(id) {
@@ -1181,13 +1154,6 @@
       renderTimeline();
       showToast("🗑️ 行程點已成功移除");
     }
-
-    const checklistTemplates = [
-      { id: "item-passport", title: "護照（有效期大於6個月）與機票憑證", desc: "雲端和手機各存一份電子備份" },
-      { id: "item-visitjapan", title: "Visit Japan Web 完成登錄", desc: "通關 QR Code 截圖備份" },
-      { id: "item-esim", title: "日本上網卡 / eSIM 設定完成", desc: "確認抵達日本可立刻開啟" },
-      { id: "item-cash", title: "日幣現金與高回饋雙實體卡", desc: "藥妝血拼實體卡較為靈敏" }
-    ];
 
     function renderChecklist() {
       const container = document.getElementById('checklist-items');
@@ -1458,24 +1424,13 @@
       showToast(successMsg || '複製成功', "📋");
     }
 
-    async function startAuth() {
-      if (!auth) return;
-      try {
-        let userCredential = await signInAnonymously(auth);
-        firebaseUser = userCredential.user;
-        const displayId = document.getElementById('user-id-display');
-        if (displayId) displayId.innerText = `名媛ID: ${firebaseUser.uid}`;
-        
-        const urlParams = new URLSearchParams(window.location.search);
-        const groupFromUrl = urlParams.get('group');
-        const savedGroup = localStorage.getItem('hokkaido_active_group_v3');
-        
-        if (groupFromUrl) { joinGroup(groupFromUrl); } 
-        else if (savedGroup) { activeGroupCode = savedGroup; setupGroupListener(savedGroup); } 
-        else { updateCloudUI(); }
-      } catch (err) {
-        console.error("Firebase 驗證失敗:", err);
-        updateCloudUI();
+    function getSpotIcon(type) {
+      switch(type) {
+        case 'transport': return '✈️';
+        case 'hotel': return '🏨';
+        case 'dining': return '🍽️';
+        case 'shopping': return '🛍️';
+        default: return '🏰';
       }
     }
 
@@ -1485,21 +1440,17 @@
 
     window.switchMainTab = switchMainTab; window.switchUser = switchUser; window.switchDay = switchDay; window.resetCurrentDayOrder = resetCurrentDayOrder; window.openAddSpotModal = openAddSpotModal; window.openEditSpotModal = openEditSpotModal; window.closeSpotModal = closeSpotModal; window.saveSpotFromModal = saveSpotFromModal; window.deleteSpot = deleteSpot; window.toggleChecklistItem = toggleChecklistItem; window.switchMustBuyArea = switchMustBuyArea; window.addMustBuyToShopping = addMustBuyToShopping; window.addShoppingItem = addShoppingItem; window.toggleShoppingItem = toggleShoppingItem; window.deleteShoppingItem = deleteShoppingItem; window.convertCurrency = convertCurrency; window.updateSplitMembers = updateSplitMembers; window.addSplitExpense = addSplitExpense; window.clearSplitExpenses = clearSplitExpenses; window.toggleCloudModal = toggleCloudModal; window.createGroup = createGroup; window.joinGroup = joinGroup; window.leaveGroup = leaveGroup; window.copyInviteLink = copyInviteLink; window.copyToClipboard = copyToClipboard;
 
-  window.onload = async function() {
-      // 1. 優先讀取本機快取
+    // 🏆 最終精準加載順序：優先確保 startAuth 獲得名媛 ID 後，再進行完整的 UI 渲染刷新！
+    window.onload = async function() {
       loadLocalState();
-      
-      // 2. 初始化基本介面
       switchMainTab('itinerary');
       switchUser('user1');
       renderAll();
       
-      // 3. 關鍵修正：強迫網頁先完成雲端驗證，成功拿到名媛ID後，再重新刷新雲端狀態！
-      if (typeof startAuth === 'function') {
-        await startAuth();
-        // 驗證成功後，再次重新整理前台狀態，按鈕就會瞬間活過來！
-        renderAll();
-      }
+      // 強迫網頁等待背景驗證通電
+      await startAuth();
+      // 通電成功後，立即二度刷新前台按鈕與在線狀態
+      renderAll();
     }
   </script>
 </body>

@@ -562,7 +562,7 @@
             { id: "u1d1_3", time: "14:30 - 15:30", title: "體驗 COCONO SUSUKINO 與 どんぐり B1F 爆款烘焙", desc: "入住飯店後下樓直奔 B1 的「どんぐり (DONGURI)」麵包店，搶購薄野店限定商品與最經典的日本竹輪麵包始祖，鮪魚沙拉與 Q 彈竹輪完美融合！", type: "dining", loc: "どんぐり COCONO SUSUKINO店", isPremium: true },
             { id: "u1d1_4", time: "15:45 - 17:30", title: "北海道大學：漫步白楊木林蔭道", desc: "探訪日本最美的大學校園，徐徐涼風下散步在著名的古老建築與綠意盎然的白楊木大道，享受慢活午後。", type: "sight", loc: "北海道大學", isPremium: false },
             { id: "u1d1_5", time: "18:00 - 19:30", title: "大通公園散策", desc: "札幌心臟地帶，夏季繁花盛開，是極佳的散步與拍照聖地。", type: "sight", loc: "大通公園", isPremium: false },
-            { id: "u1d1_6", time: "19:30 - 21:30", title: "年度盛典：大通啤酒花園 (Sapporo Beer Garden)", desc: "正好趕上北海道盛夏最具代表性的露天大通啤酒節！在涼爽的晚風中與當地道民一同大啖烤肉與暢飲冰涼的新鮮扎啤，氣氛奢華且熱烈！", type: "dining", loc: "大通公園 啤酒花園", isPremium: true }
+            { id: "u1d6_2", time: "19:30 - 21:30", title: "年度盛典：大通啤酒花園 (Sapporo Beer Garden)", desc: "正好趕上北海道盛夏最具代表性的露天大通啤酒節！在涼爽的晚風中與當地道民一同大啖烤肉與暢飲冰涼的新鮮扎啤，氣氛奢華且熱烈！", type: "dining", loc: "大通公園 啤酒花園", isPremium: true }
           ],
           [
             { id: "u1d2_1", time: "08:15", title: "大通站集合 🚌 Klook 定山溪美學一日遊啟程", desc: "登上舒適觀光巴士，今天是一整天不費力的頂奢導覽行程。請務必提前預訂！", type: "transport", loc: "大通公園", isPremium: false },
@@ -592,7 +592,7 @@
             { id: "u1d5_1", time: "09:00 - 10:30", title: "北海道神宮與圓山公園晨間散策", desc: "清晨在古木參天的圓山公園與神宮境內漫步，徹底吸收森林芬多精。", type: "sight", loc: "圓山公園", isPremium: false },
             { id: "u1d5_2", time: "10:30 - 11:30", title: "森林秘境：六花亭圓山店特製下午茶", desc: "享用圓山店限定的新鮮判官餅（現烤紅豆麻糬）與經典萊姆葡萄霜餅。", type: "dining", loc: "六花亭 圓山店", isPremium: true },
             { id: "u1d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "前往火腿隊官方商店採購棒球周邊與大谷翔平精品！接著在大丸百貨、Stellar Place 展開血拼。", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
-            { id: "u1d5_4", py: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，將所有伴手禮與彩妝一次購齊。", type: "shopping", loc: "狸小路商店街", isPremium: false },
+            { id: "u1d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，將所有伴手禮與彩妝一次購齊。", type: "shopping", loc: "狸小路商店街", isPremium: false },
             { id: "u1d5_5", time: "17:00 - 19:30", title: "宮美名媛的奢華甜點：INITIAL 法式芭菲聖代", desc: "狸小路超人氣「締めパフェ」夜聖代店。享用新鮮牛乳與當季頂級哈密瓜製作的精緻法式芭菲聖代。", type: "dining", loc: "INITIAL Sapporo", isPremium: true },
             { id: "u1d5_6", time: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "旅程最後一晚，不妨再次路過大通公園，喝杯冰涼札幌生啤酒。", type: "dining", loc: "大通公園", isPremium: false }
           ],
@@ -1007,7 +1007,7 @@
       const spots = getSortedDaySpots();
 
       if (spots.length === 0) {
-        container.innerHTML = `<p class="text-center py-8 text-stone-400 italic text-xs">本日尚未排定任何奢華動線行程。</p>`;
+        container.innerHTML = `<p class="text-center py-8 text-stone-400 italic text-xs">本日尚未排定 any 行程。</p>`;
         return;
       }
 
@@ -1369,6 +1369,7 @@
       state.splitExpenses = []; saveState(); calculateAA();
     }
 
+    // 🏆 關鍵大修復：補上不小心漏掉的 classList 核心字眼，讓分頁按鈕絕對能動！
     function switchMainTab(target) {
       document.querySelectorAll('.tab-content').forEach(s => s.classList.add('hidden'));
       const el = document.getElementById(`section-${target}`);
@@ -1482,17 +1483,17 @@
       renderOverviewGrid(); renderDayTabs(); renderFlightCards(); renderLastDayAlert(); renderChecklist(); renderTimeline(); renderMustBuyList(); renderShoppingList(); renderPayerSelector(); calculateAA(); updateCloudUI();
     }
 
-    // 將所有函數綁定至 window 確保 inline onclick 有效
+    // 將所有函數外開給 HTML onclick 呼叫
     window.switchMainTab = switchMainTab; window.switchUser = switchUser; window.switchDay = switchDay; window.resetCurrentDayOrder = resetCurrentDayOrder; window.openAddSpotModal = openAddSpotModal; window.openEditSpotModal = openEditSpotModal; window.closeSpotModal = closeSpotModal; window.saveSpotFromModal = saveSpotFromModal; window.deleteSpot = deleteSpot; window.toggleChecklistItem = toggleChecklistItem; window.switchMustBuyArea = switchMustBuyArea; window.addMustBuyToShopping = addMustBuyToShopping; window.addShoppingItem = addShoppingItem; window.toggleShoppingItem = toggleShoppingItem; window.deleteShoppingItem = deleteShoppingItem; window.convertCurrency = convertCurrency; window.updateSplitMembers = updateSplitMembers; window.addSplitExpense = addSplitExpense; window.clearSplitExpenses = clearSplitExpenses; window.toggleCloudModal = toggleCloudModal; window.createGroup = createGroup; window.joinGroup = joinGroup; window.leaveGroup = leaveGroup; window.copyInviteLink = copyInviteLink; window.copyToClipboard = copyToClipboard;
 
-    // 🚀 精準加載：先渲染本地預設行程（保證絕不白畫面），再非同步去連線雲端認證
+    // 🚀 初始化：優先保障本地預設行程（防止白畫面），再進行非同步的雲端通電
     window.onload = async function() {
       loadLocalState();
       switchMainTab('itinerary');
       switchUser('user1');
       renderAll();
       
-      // 優雅等候雲端背景通道開啟
+      // 等候 Firebase 匿名認證
       await startAuth();
       renderAll();
     }

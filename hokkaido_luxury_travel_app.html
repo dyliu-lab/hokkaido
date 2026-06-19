@@ -4,10 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>北海道盛夏・宮美純掐自由行隨身 APP</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=300;400;500;700;900&family=Playfair+Display:ital,wght=0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- SortableJS (Touch Drag & Drop) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
   
   <script>
@@ -71,7 +74,7 @@
         北海道盛夏 宮美純掐奢華 APP
       </h1>
       <p class="text-[11px] md:text-xs text-stone-200 tracking-wider max-w-xl mx-auto leading-relaxed">
-        沉浸於北國盛夏的紫霧花海，整合實時雲端共編、自訂行程動線、必買推薦與閨蜜 AA 分帳秘書。
+        沉浸於北國盛夏的紫霧花海，整合自訂行程動線、必買推薦與閨蜜 AA 分帳秘書。
       </p>
     </div>
   </header>
@@ -99,41 +102,9 @@
 
   <main class="max-w-7xl mx-auto px-4 py-6 md:py-8">
 
+    <!-- 行程專區 -->
     <section id="section-itinerary" class="tab-content space-y-6">
       
-      <div class="bg-gradient-to-r from-morandi-accentlight to-white rounded-2xl border-2 border-morandi-accent p-5 shadow-md relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-32 h-32 bg-morandi-accent/5 rounded-full -mr-12 -mt-12 pointer-events-none"></div>
-        
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 relative z-10">
-          <div class="space-y-1">
-            <div class="flex items-center gap-2">
-              <span class="text-2xl animate-spin" style="animation-duration: 8s;">🌸</span>
-              <h3 class="font-bold text-morandi-dark text-base sm:text-lg flex items-center gap-1.5">
-                宮美純掐雲端共編中心 
-                <span id="sync-badge" class="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 font-semibold tracking-wider">
-                  離線儲存中
-                </span>
-              </h3>
-            </div>
-            <p class="text-xs text-stone-500 max-w-2xl leading-relaxed">
-              透過雲端進行多人同步！開啟共編後，行程調整、戰利品勾選、記帳明細，都會實時推送到所有旅伴的手機。
-            </p>
-          </div>
-          
-          <div class="flex flex-wrap gap-2 w-full md:w-auto">
-            <button onclick="toggleCloudModal()" class="w-full sm:w-auto px-5 py-2.5 bg-morandi-medium hover:bg-morandi-dark text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center justify-center gap-1">
-              ⚙️ 連線管理 / 建立房間
-            </button>
-          </div>
-        </div>
-
-        <div id="presence-panel" class="hidden mt-3 pt-3 border-t border-morandi-goldborder flex flex-wrap items-center gap-3 text-xs">
-          <span class="text-stone-400">👭 當前在線共編姬：</span>
-          <div id="presence-list" class="flex flex-wrap gap-2">
-            </div>
-        </div>
-      </div>
-
       <div class="flex flex-col sm:flex-row items-center justify-between bg-white rounded-2xl border border-morandi-border p-4 gap-4 shadow-sm">
         <div class="flex items-center gap-3">
           <span class="text-xs uppercase tracking-widest text-morandi-medium font-semibold">當前規劃視角：</span>
@@ -150,12 +121,13 @@
       <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm overflow-hidden">
         <div class="overflow-x-auto custom-scrollbar -mx-5 px-5">
           <div class="grid grid-cols-6 min-w-[700px] gap-3 py-1" id="overview-grid">
-            </div>
+          </div>
         </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
+        <!-- 左側欄 -->
         <div class="lg:col-span-4 space-y-6">
           <div class="bg-white rounded-2xl border border-morandi-border overflow-hidden shadow-sm">
             <div class="bg-gradient-to-r from-morandi-medium to-morandi-dark p-3.5 text-white flex justify-between items-center">
@@ -163,14 +135,13 @@
               <span class="text-[10px] bg-morandi-accent text-white px-2 py-0.5 rounded-full">SAPPORO STREAM</span>
             </div>
             <div class="p-4 space-y-4 text-xs">
-              <div class="bg-morandi-light p-3 rounded-xl border border-morandi-border space-y-2" id="flight-info-card">
-                </div>
+              <div class="bg-morandi-light p-3 rounded-xl border border-morandi-border space-y-2" id="flight-info-card"></div>
               <div class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder space-y-2">
                 <p class="font-bold text-morandi-dark text-sm">SAPPORO STREAM HOTEL (5晚)</p>
                 <p class="text-stone-500">札幌線流飯店 (與 COCONO SUSUKINO 商場直結)</p>
                 <div class="flex gap-1.5 pt-1">
                   <button onclick="copyToClipboard('SAPPORO STREAM HOTEL', '已複製飯店名稱')" class="flex-1 py-1 bg-white hover:bg-stone-100 border border-stone-200 rounded text-[11px] font-medium transition">📋 複製</button>
-                  <a href="https://maps.google.com" target="_blank" class="flex-1 py-1 bg-morandi-medium hover:bg-morandi-dark text-white rounded text-[11px] font-medium text-center transition">🗺️ 導航</a>
+                  <a href="https://maps.google.com/?q=SAPPORO+STREAM+HOTEL" target="_blank" class="flex-1 py-1 bg-morandi-medium hover:bg-morandi-dark text-white rounded text-[11px] font-medium text-center transition">🗺️ 導航</a>
                 </div>
               </div>
             </div>
@@ -183,14 +154,13 @@
               <h4 class="font-bold text-xs text-morandi-dark uppercase tracking-wider">🧳 行前必備行李核對</h4>
               <span class="text-[11px] bg-morandi-light text-morandi-medium px-2 py-0.5 rounded-full font-bold" id="checklist-progress">0%</span>
             </div>
-            <div class="space-y-2 text-xs" id="checklist-items">
-              </div>
+            <div class="space-y-2 text-xs" id="checklist-items"></div>
           </div>
         </div>
 
+        <!-- 右側時間軸 -->
         <div class="lg:col-span-8 space-y-4">
-          <div class="flex border-b border-morandi-border overflow-x-auto custom-scrollbar gap-1" id="day-tabs-container">
-            </div>
+          <div class="flex border-b border-morandi-border overflow-x-auto custom-scrollbar gap-1" id="day-tabs-container"></div>
 
           <div class="flex justify-between items-center">
             <span class="text-[11px] text-morandi-medium font-bold uppercase tracking-widest flex items-center gap-1">
@@ -207,12 +177,12 @@
             </div>
           </div>
 
-          <div id="timeline-drag-container" class="space-y-3 min-h-[200px]">
-            </div>
+          <div id="timeline-drag-container" class="space-y-3 min-h-[200px]"></div>
         </div>
       </div>
     </section>
 
+    <!-- 必買清單 -->
     <section id="section-mustbuys" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl border border-morandi-border p-6 shadow-sm">
         <h3 class="font-serif italic text-2xl text-morandi-dark text-center mb-2">Hokkaido Gourmet & Souvenirs</h3>
@@ -226,11 +196,11 @@
           <button onclick="switchMustBuyArea('airport')" id="mb-area-airport" class="mb-area-btn px-4 py-2 text-xs font-medium border-b-2 border-transparent transition whitespace-nowrap">✈️ 新千歲機場</button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="mustbuy-cards-container">
-          </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="mustbuy-cards-container"></div>
       </div>
     </section>
 
+    <!-- 購物清單 -->
     <section id="section-shopping" class="tab-content hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
@@ -279,12 +249,12 @@
             <span class="text-xs bg-morandi-light text-morandi-medium font-bold px-3 py-1 rounded-full" id="shopping-progress">已採購 0 / 0</span>
           </div>
 
-          <div class="space-y-2 max-h-[500px] overflow-y-auto custom-scrollbar pr-1" id="shopping-list-container">
-            </div>
+          <div class="space-y-2 max-h-[500px] overflow-y-auto custom-scrollbar pr-1" id="shopping-list-container"></div>
         </div>
       </div>
     </section>
 
+    <!-- 旅行工具 -->
     <section id="section-tools" class="tab-content hidden space-y-6">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
@@ -374,8 +344,7 @@
               <div class="grid grid-cols-2 gap-2 items-center">
                 <div>
                   <label class="text-[10px] text-stone-400 block">誰付的款？</label>
-                  <select id="split-item-payer" class="w-full px-2 py-1 border border-stone-200 rounded bg-white mt-0.5">
-                    </select>
+                  <select id="split-item-payer" class="w-full px-2 py-1 border border-stone-200 rounded bg-white mt-0.5"></select>
                 </div>
                 <button onclick="addSplitExpense()" class="w-full py-2 bg-morandi-medium hover:bg-morandi-dark text-white rounded-lg font-bold transition mt-3">
                   確認記入 ➔
@@ -385,8 +354,7 @@
 
             <div class="space-y-2">
               <p class="font-bold text-stone-700">3. 結算清單 (誰該付誰多少)</p>
-              <div id="split-results" class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder text-xs space-y-1.5">
-                </div>
+              <div id="split-results" class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder text-xs space-y-1.5"></div>
             </div>
           </div>
         </div>
@@ -429,6 +397,7 @@
 
   </main>
 
+  <!-- 行程編輯/新增 Modal -->
   <div id="spot-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl border border-morandi-border max-w-md w-full p-6 shadow-2xl space-y-4">
       <div class="flex justify-between items-center pb-2 border-b border-stone-100">
@@ -477,47 +446,12 @@
     </div>
   </div>
 
-  <div id="cloud-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
-    <div class="bg-white rounded-2xl border border-morandi-border max-w-sm w-full p-6 shadow-2xl space-y-4">
-      <div class="flex justify-between items-center pb-2 border-b border-stone-100">
-        <h3 class="font-bold text-morandi-dark text-base">🌸 宮美雲端協作中心</h3>
-        <button onclick="toggleCloudModal()" class="text-stone-400 hover:text-stone-600">✕</button>
-      </div>
-      <div class="space-y-4 text-xs">
-        <p class="text-stone-500 leading-relaxed">
-          建立或輸入高奢群組代碼後，可實時同步修改至好姊妹的裝置！
-        </p>
-        <div id="cloud-offline-ui" class="space-y-3">
-          <div class="flex gap-2">
-            <input type="text" id="group-code-input" placeholder="輸入 6 碼群組代碼" class="flex-1 px-3 py-2 border border-stone-200 rounded-lg uppercase tracking-wider text-center font-bold bg-stone-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-morandi-medium">
-            <button onclick="joinGroup()" class="bg-morandi-medium hover:bg-morandi-dark text-white px-4 rounded-lg font-bold transition">連線</button>
-          </div>
-          <button onclick="createGroup()" class="w-full py-2.5 border border-morandi-accent hover:bg-stone-50 text-morandi-accent rounded-lg font-bold text-center transition">
-            ✨ 建立新奢華群組代碼
-          </button>
-        </div>
-        <div id="cloud-online-ui" class="hidden space-y-3">
-          <div class="bg-morandi-light p-4 rounded-xl text-center space-y-1.5 border border-morandi-border">
-            <p class="text-[10px] text-morandi-medium tracking-widest font-bold">🌸 當前奢華連線代碼</p>
-            <p id="active-group-code" class="text-2xl font-serif font-black text-morandi-dark tracking-widest">------</p>
-          </div>
-          <div class="flex gap-2">
-            <button onclick="copyInviteLink()" class="flex-1 py-2 bg-morandi-medium hover:bg-morandi-dark text-white font-bold rounded-lg text-center transition">📋 複製邀請連結</button>
-            <button onclick="leaveGroup()" class="py-2 px-3 border border-red-200 text-red-500 hover:bg-red-50 rounded-lg transition">斷開</button>
-          </div>
-        </div>
-        <div class="pt-2 border-t border-stone-100 text-[10px] text-stone-400">
-          <span id="user-id-display">名媛ID: 讀取中...</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div id="toast" class="fixed bottom-24 md:bottom-6 left-1/2 transform -translate-x-1/2 bg-morandi-dark text-white px-6 py-3 rounded-full shadow-2xl text-xs font-medium transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
     <span id="toast-icon">✨</span>
     <span id="toast-msg">複製成功！</span>
   </div>
 
+  <!-- Firebase JavaScript SDK 模組 -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
     import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
@@ -525,7 +459,7 @@
 
     const appId = 'hokkaido-luxury-app-v3';
     
-    // 貼上你在 Firebase 後台切換到 CDN 時顯示的正式設定資料
+    // 正式 Firebase 配置資料
     const firebaseConfig = {
       apiKey: "AIzaSyC5C_auB6bY2-fdGLG7q8C7Eo6mMorKc14",
       authDomain: "hokkaido-dy-a0644.firebaseapp.com",
@@ -553,6 +487,7 @@
     let isUpdatingCloud = false;
     let firebaseUser = null;
 
+    // 六日行程資料庫完整復原
     const defaultItineraryData = {
       user1: {
         name: "楓香嬌黛 👑",
@@ -561,23 +496,60 @@
           back: "回程 ✈️ 星宇航空 (7/31) — 16:15 札幌 ➔ 19:15 台北"
         },
         days: [
+          // Day 1
           [
             { id: "u1d1_1", time: "06:55 - 11:55", title: "星宇高奢啟航：飛往新千歲機場", desc: "在清晨飛向北國涼爽的天空，下飛機後前往 JR 乘車處搭乘快速 Airport 列車直接前往札幌市區。", type: "transport", loc: "新千歲機場", isPremium: false },
             { id: "u1d1_2", time: "13:30 - 14:30", title: "SAPPORO STREAM HOTEL 辦理入住", desc: "抵達飯店寄存行李，享受與 COCONO SUSUKINO 直接共構的頂級高奢便利感。", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
-            { id: "u1d1_3", time: "14:30 - 15:30", title: "體驗 COCONO SUSUKINO 與 どんぐり B1F 爆款烘焙", desc: "入住飯店後下樓直奔 B1 的「どんぐり (DONGURI)」麵包店，搶購薄野店限定商品與最經典的日本竹輪麵包始祖。", type: "dining", loc: "どんぐり COCONO SUSUKINO店", isPremium: true },
-            { id: "u1d1_4", time: "15:45 - 17:30", title: "北海道大學：漫步白楊木林蔭道", desc: "探訪日本最美的大學校園，徐徐涼風下散步在著名的古老建築與綠意盎然的白楊木大道。", type: "sight", loc: "北海道大學", isPremium: false },
+            { id: "u1d1_3", time: "14:30 - 15:30", title: "體驗 COCONO SUSUKINO 與 どんぐり B1F 爆款烘焙", desc: "入住飯店後下樓直奔 B1 的「どんぐり (DONGURI)」麵包店，搶購薄野店限定商品與最經典的日本竹輪麵包始祖，鮪魚沙拉與 Q 彈竹輪完美融合！", type: "dining", loc: "どんぐり COCONO SUSUKINO店", isPremium: true },
+            { id: "u1d1_4", time: "15:45 - 17:30", title: "北海道大學：漫步白楊木林蔭道", desc: "探訪日本最美的大學校園，徐徐涼風下散步在著名的古老建築與綠意盎然的白楊木大道，享受慢活午後。", type: "sight", loc: "北海道大學", isPremium: false },
             { id: "u1d1_5", time: "18:00 - 19:30", title: "大通公園散策", desc: "札幌心臟地帶，夏季繁花盛開，是極佳的散步與拍照聖地。", type: "sight", loc: "大通公園", isPremium: false },
-            { id: "u1d1_6", time: "19:30 - 21:30", title: "年度盛典：大通啤酒花園 (Sapporo Beer Garden)", desc: "正好趕上北海道盛夏最具代表性的露天大通啤酒節！", type: "dining", loc: "大通公園 啤酒花園", isPremium: true }
+            { id: "u1d1_6", time: "19:30 - 21:30", title: "年度盛典：大通啤酒花園 (Sapporo Beer Garden)", desc: "正好趕上北海道盛夏最具代表性的露天大通啤酒節！在涼爽的晚風中與當地道民一同大啖烤肉與暢飲冰涼的新鮮扎啤，氣氛奢華且熱烈！", type: "dining", loc: "大通公園 啤酒花園", isPremium: true }
           ],
+          // Day 2
           [
             { id: "u1d2_1", time: "08:15", title: "大通站集合 🚌 Klook 定山溪美學一日遊啟程", desc: "登上舒適觀光巴士，今天是一整天不費力的頂奢導覽行程。請務必提前預訂！", type: "transport", loc: "大通公園", isPremium: false },
-            { id: "u1d2_2", time: "09:00 - 10:15", title: "安藤忠雄大師之作：真駒內瀧野陵園「頭大佛」", desc: "由普立茲克建築獎大師安藤忠雄打造的震撼地標。大佛被半埋於薰衣草山丘中，唯有從天空才能看見佛首。", type: "sight", loc: "真駒內瀧野靈園 頭大佛", isPremium: true },
+            { id: "u1d2_2", time: "09:00 - 10:15", title: "安藤忠雄大師之作：真駒內瀧野陵園「頭大佛」", desc: "由普立茲克建築獎大師安藤忠雄打造的震撼地標。大佛被半埋於薰衣草山丘中，唯有從天空才能看見佛首，進入清水混凝土隧道後才得見大佛全貌，禪意與美學完美交織，極度震撼。", type: "sight", loc: "真駒內瀧野靈園 頭大佛", isPremium: true },
             { id: "u1d2_3", time: "10:45 - 11:45", title: "北海道神宮：林蔭參拜", desc: "在參天古木之中參拜北海道總鎮守，感受被大自然包圍的靜謐靈氣。", type: "sight", loc: "北海道神宮", isPremium: false },
-            { id: "u1d2_4", time: "12:15 - 13:45", title: "札幌場外市場：頂奢海鮮午宴", desc: "一日遊巴士載您直奔海鮮天堂，大啖現撈鱈場蟹、奢華海膽丼與新鮮刺身。", type: "dining", loc: "札幌場外市場", isPremium: true },
-            { id: "u1d2_5", time: "14:30 - 16:30", title: "定山溪溫泉散策：森之美學", desc: "漫步在翠綠山谷環抱的定山溪河畔，享受免費足湯，沉浸於純天然的芬多精。", type: "sight", loc: "定山溪溫泉", isPremium: false },
-            { id: "u1d2_6", time: "17:30", title: "返回札幌大通：自由購物與晚餐", desc: "巴士返回市區。晚餐推薦在薄野享受著名的成吉思汗烤羊肉。", type: "dining", loc: "成吉思汗烤肉 達摩 4.4店", isPremium: true }
+            { id: "u1d2_4", time: "12:15 - 13:45", title: "札幌場外市場：頂奢海鮮午宴", desc: "一日遊巴士載您直奔海鮮天堂，大啖現撈鱈場蟹、奢華海膽丼與新鮮刺身，盡享宮美名媛的極致味蕾享受。", type: "dining", loc: "札幌場外市場", isPremium: true },
+            { id: "u1d2_5", time: "14:30 - 16:30", title: "定山溪溫泉散策：森之美學", desc: "漫步在翠綠山谷環抱的定山溪河畔，享受免費足湯，沉浸於純天然的芬多精與療癒溫泉氛圍。", type: "sight", loc: "定山溪溫泉", isPremium: false },
+            { id: "u1d2_6", time: "17:30", title: "返回札幌大通 : 自由購物與晚餐", desc: "巴士返回市區。晚餐推薦在薄野享受著名的「成吉思汗烤羊肉 達摩」或是溫暖身心的「Suage+ 湯咖哩」。", type: "dining", loc: "成吉思汗烤肉 達摩 4.4店", isPremium: true }
           ],
-          [],[],[],[] // 預留 D3-D6 陣列空間維持六天結構
+          // Day 3
+          [
+            { id: "u1d3_1", time: "09:30 - 10:15", title: "搭乘 JR 快速列車往浪漫「小樽」", desc: "沿著蔚藍海岸線，一路向北前進日本最浪漫的海港小鎮小樽。", type: "transport", loc: "小樽車站", isPremium: false },
+            { id: "u1d3_2", time: "10:30 - 12:00", title: "三角市場：滝波食堂極品海鮮丼", desc: "一抵達小樽先衝三角市場！現點客製化奢華海鮮四色丼，滿滿的爆卵鮭魚卵、海膽與肥美牡丹蝦，極致罪惡美味。", type: "dining", loc: "小樽 三角市場 滝波食堂", isPremium: true },
+            { id: "u1d3_3", time: "12:15 - 14:30", title: "小樽運河與堺町通散策", desc: "漫步在富有歷史感的水道旁，參觀北一硝子玻璃工坊，探訪小樽八音盒堂，沿途伴隨悠揚的風鈴與音樂盒聲。", type: "sight", loc: "小樽運河", isPremium: false },
+            { id: "u1d3_4", time: "14:30 - 15:30", title: "LeTAO 旗艦店：高奢雙層乳酪蛋糕下午茶", desc: "在小樽本店頂樓鐘塔下，品嚐剛出爐的 Double Fromage 雙層起司蛋糕，搭配限定紅茶，優雅萬分。", type: "dining", loc: "LeTAO 小樽本店", isPremium: true },
+            { id: "u1d3_5", time: "16:00 - 18:00", title: "小樽政壽司：匠人之手晚宴", desc: "小樽最享譽盛名的高級壽司店。坐在板前看師傅捏製精緻壽司，入口即化，極具儀式感。", type: "dining", loc: "小樽政壽司 本店", isPremium: true },
+            { id: "u1d3_6", time: "18:30 - 19:15", title: "搭乘 JR 返回札幌，入住飯店休息", desc: "返回 Stream Hotel，可在 COCONO 購買限定宵夜或下樓散步薄野不夜城。", type: "transport", loc: "SAPPORO STREAM HOTEL", isPremium: false }
+          ],
+          // Day 4
+          [
+            { id: "u1d4_1", time: "07:30 - 09:30", title: "自駕或富良野美瑛觀光巴士啟程", desc: "前往北海道最精華的富良野與美瑛地區，夏日限定的彩色拼圖即將展開。", type: "transport", loc: "富良野車站", isPremium: false },
+            { id: "u1d4_2", time: "09:45 - 11:30", title: "富田農場 (Farm Tomita)：薰衣草紫霧", desc: "北海道最頂級的花海景致。紫色薰衣草在盛夏開得最為濃烈，務必買一支夏日限定的「薰衣草冰淇淋」，精緻拍照極美！", type: "sight", loc: "富田農場", isPremium: true },
+            { id: "u1d4_3", time: "12:00 - 13:15", title: "哈密瓜天堂：富田哈密瓜工房", desc: "盛夏來北海道就是要瘋狂吃哈密瓜！在工房大啖無敵甜度的現切富良野哈密瓜，以及哈密瓜戚風蛋糕與奢華布丁。", type: "dining", loc: "富田哈密瓜工房", isPremium: true },
+            { id: "u1d4_4", time: "13:30 - 14:15", title: "美瑛：四季彩之丘彩色地毯", desc: "搭乘高爾夫球車穿梭在數十公頃的大地彩色巨幅花毯中，繽紛亮麗的花草如瀑布般鋪在山丘上。", type: "sight", loc: "四季彩之丘", isPremium: true },
+            { id: "u1d4_5", time: "14:45 - 15:45", title: "美瑛白金青池與白鬚瀑布", desc: "Tiffany 藍的夢幻水面與挺立的枯木群構成如明信片般的寂靜絕景。接著前往鄰近的白鬚瀑布欣賞奔騰藍水。", type: "sight", loc: "白金青池", isPremium: false },
+            { id: "u1d4_6", time: "16:00 - 18:30", title: "啟程返回札幌＆晚餐推薦：根室花丸迴轉壽司", desc: "回到札幌站，前往超人氣的「根室花丸」品嚐高 CP 值的極致鮮甜壽司，為完美的花海一日畫下句點。", type: "dining", loc: "根室花丸 札幌JR Tower店", isPremium: true }
+          ],
+          // Day 5
+          [
+            { id: "u1d5_1", time: "09:00 - 10:30", title: "北海道神宮與圓山公園晨間散策", desc: "清晨在古木參天的圓山公園與神宮境內漫步，徹底吸收森林芬多精，享受與自然和諧的靜謐時光。", type: "sight", loc: "圓山公園", isPremium: false },
+            { id: "u1d5_2", time: "10:30 - 11:30", title: "森林秘境：六花亭圓山店特製下午茶", desc: "就位在公園旁。坐在面向大片落地窗的庭園座席，享用圓山店限定的新鮮判官餅（現烤紅豆麻糬）與經典萊姆葡萄霜餅，極具宮美情調。", type: "dining", loc: "六花亭 圓山店", isPremium: true },
+            { id: "u1d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "前往火腿隊官方商店採購棒球周邊與大谷翔平或新庄剛志系列精品！接著在 JR Tower 內的大丸百貨、Stellar Place 展開高奢精品血拼。", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
+            { id: "u1d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，從最新的藥妝、日系服飾、驚安殿堂唐吉訶德到潮流小鋪，將所有伴手禮與彩妝一次購齊。", type: "shopping", loc: "狸小路商店街", isPremium: false },
+            { id: "u1d5_5", time: "17:00 - 19:30", title: "宮美名媛的奢華甜點：INITIAL 法式芭菲聖代", desc: "狸小路超人氣「締めパフェ」夜聖代店。在優雅的工業極簡風店面中，享用由北海道新鮮牛乳與當季頂級哈密瓜、草莓製作的精緻法式芭菲聖代，視覺與味覺的雙重饗宴。", type: "dining", loc: "INITIAL Sapporo", isPremium: true },
+            { id: "u1d5_6", time: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "旅程最後一晚，若是意猶未盡，不妨再次路過大通公園，喝杯冰涼札幌生啤酒，向這座迷人的夏季城市致敬。", type: "dining", loc: "大通公園", isPremium: false }
+          ],
+          // Day 6
+          [
+            { id: "u1d6_1", time: "08:30 - 10:00", title: "優雅享用 Stream Hotel 精緻早餐", desc: "在飯店高空餐廳享用融合北海道在地農產的頂級奢華 Buffets，退房前在奢華客房內完成最後行李整理。", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
+            { id: "u1d6_2", time: "10:30 - 11:30", title: "札幌市區最後巡禮 & 伴手禮確認", desc: "可在薄野 or 大通站附近散步、喝杯精品手沖咖啡，做最後的街景留念。", type: "sight", loc: "COCONO SUSUKINO", isPremium: false },
+            { id: "u1d6_3", time: "11:30 - 12:15", title: "搭乘 JR 快速 Airport 列車直奔新千歲機場", desc: "優雅出發，不用匆忙，提早抵達機場，因為新千歲機場國內線是日本公認最好逛的購物美食天堂！", type: "transport", loc: "新千歲機場", isPremium: false },
+            { id: "u1d6_4", time: "12:30 - 13:45", title: "新千歲機場國內線：神級伴手禮大狂購", desc: "直奔國內線商場！橫掃「北菓樓」開拓泡芙、「六花亭」奶油夾心餅乾、「美瑛選菓」夢幻玉米麵包（需排隊），並買一隻「極上牛乳霜淇淋」邊吃邊逛。", type: "shopping", loc: "新千歲機場 國內線航廈", isPremium: true },
+            { id: "u1d6_5", time: "13:45 - 14:15", title: "午餐朝朝聖：一幻甜蝦拉麵 (えびそば一幻)", desc: "在機場國內線「北海道拉麵道場」享用最富盛名的濃郁甜蝦頭熬製拉麵，湯頭鮮甜濃郁至極，為旅程進行完美收尾。", type: "dining", loc: "えびそば一幻 新千歲機場店", isPremium: true },
+            { id: "u1d6_6", time: "14:15 - 16:15", title: "辦理登機行李託運 ➔ 滿載幸福返台", desc: "14:15 抵達國際線櫃檯辦理退稅與登機。16:15 搭乘星宇航空客機起飛，19:15 順利抵達台北，結束精彩絕倫的奢華避暑假期！", type: "transport", loc: "新千歲機場 國際線航廈", isPremium: false }
+          ]
         ]
       },
       user2: {
@@ -587,30 +559,59 @@
           back: "回程 ✈️ 中華航空 (7/31) — 12:30 札幌 ➔ 15:30 台北 (中午航班)"
         },
         days: [
+          // Day 1 (Kerrie)
           [
-            { id: "u2d1_1", time: "13:00 - 17:55", title: "酷航高空航程：出發前往北海道", desc: "午後飛抵新千歲機場，降落後迅速辦理入境手煙，準備與旅伴在札幌會合！", type: "transport", loc: "新千歲機場", isPremium: false },
+            { id: "u2d1_1", time: "13:00 - 17:55", title: "酷航高空航程：出發前往北海道", desc: "午後飛抵新千歲機場，降落後迅速辦理入境手續，準備與旅伴在札幌會合！", type: "transport", loc: "新千歲機場", isPremium: false },
             { id: "u2d1_2", time: "18:15 - 19:15", title: "搭乘快速 Airport 列車直奔札幌市區", desc: "沿途欣賞北海道的晚霞，直接坐到地鐵薄野站與大家在線流飯店集合。", type: "transport", loc: "薄野車站", isPremium: false },
             { id: "u2d1_3", time: "19:15 - 19:45", title: "SAPPORO STREAM HOTEL 辦理入住", desc: "豪華房型 Check-In 寄存行李，下樓下電梯就能跟閨蜜們會合！", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
-            { id: "u2d1_4", time: "20:00 - 22:00", title: "合體盛宴：大通啤酒花園露天狂歡", desc: "立刻與好姊妹們會合！在涼爽的札幌盛夏夜空下，暢飲大通公園啤酒節的新鮮扎啤。", type: "dining", loc: "大通公園 啤酒花園", isPremium: true }
+            { id: "u2d1_4", time: "20:00 - 22:00", title: "合體盛宴：大通啤酒花園露天狂歡", desc: "立刻與好姊妹們會合！在涼爽的札幌盛夏夜空下，暢飲大通公園啤酒節的新鮮扎啤，搭配北海道炸雞與烤肉，氣氛直接拉滿！", type: "dining", loc: "大通公園 啤酒花園", isPremium: true }
           ],
+          // Day 2 (Kerrie)
           [
-            { id: "u2d2_1", time: "08:15", title: "大通站集合 🚌 Klook 定山溪美學一日遊啟程", desc: "與 User1 共同行程。", type: "transport", loc: "大通公園", isPremium: false },
-            { id: "u2d2_2", time: "09:00 - 10:15", title: "安藤忠雄大師之作：真駒內瀧野陵園「頭大佛」", desc: "共同行程。", type: "sight", loc: "真駒內瀧野靈園 頭大佛", isPremium: true },
-            { id: "u2d2_3", time: "10:45 - 11:45", title: "北海道神宮：林蔭參拜", desc: "共同行程。", type: "sight", loc: "北海道神宮", isPremium: false },
-            { id: "u2d2_4", time: "12:15 - 13:45", title: "札幌場外市場：頂奢海鮮午宴", desc: "共同行程。", type: "dining", loc: "札幌場外市場", isPremium: true },
-            { id: "u2d2_5", time: "14:30 - 16:30", title: "定山溪溫泉散策：森之美學", desc: "共同行程。", type: "sight", loc: "定山溪溫泉", isPremium: false },
-            { id: "u2d2_6", time: "17:30", title: "返回札幌大通 : 自由購物與晚餐", desc: "共同行程。", type: "dining", loc: "成吉思汗烤肉 達摩 4.4店", isPremium: true }
+            { id: "u2d2_1", time: "08:15", title: "大通站集合 🚌 Klook 定山溪美學一日遊啟程", desc: "登上舒適觀光巴士，今天是一整天不費力的頂奢導覽行程。請務必提前預訂！", type: "transport", loc: "大通公園", isPremium: false },
+            { id: "u2d2_2", time: "09:00 - 10:15", title: "安藤忠雄大師之作：真駒內瀧野陵園「頭大佛」", desc: "由普立茲克建築獎大師安藤忠雄打造的震撼地標。大佛被半埋於薰衣草山丘中，唯有從天空才能看見佛首，進入清水混凝土隧道後才得見大佛全貌，禪意與美學完美交織，極度震撼。", type: "sight", loc: "真駒內瀧野靈園 頭大佛", isPremium: true },
+            { id: "u2d2_3", time: "10:45 - 11:45", title: "北海道神宮：林蔭參拜", desc: "在參天古木之中參拜北海道總鎮守，感受被大自然包圍的靜謐靈氣。", type: "sight", loc: "北海道神宮", isPremium: false },
+            { id: "u2d2_4", time: "12:15 - 13:45", title: "札幌場外市場：頂奢海鮮午宴", desc: "一日遊巴士載您直奔海鮮天堂，大啖現撈鱈場蟹、奢華海膽丼與新鮮刺身，盡享宮美名媛的極致味蕾享受。", type: "dining", loc: "札幌場外市場", isPremium: true },
+            { id: "u2d2_5", time: "14:30 - 16:30", title: "定山溪溫泉散策：森之美學", desc: "漫步在翠綠山谷環抱的定山溪河畔，享受免費足湯，沉浸於純天然的芬多精與療癒溫泉氛圍。", type: "sight", loc: "定山溪溫泉", isPremium: false },
+            { id: "u2d2_6", time: "17:30", title: "返回札幌大通 : 自由購物與晚餐", desc: "巴士返回市區。晚餐推薦在薄野享受著名的「成吉思汗烤羊肉 達摩」或是溫暖身心的「Suage+ 湯咖哩」。", type: "dining", loc: "成吉思汗烤肉 達摩 4.4店", isPremium: true }
           ],
-          [],[],[],[]
+          // Day 3 (Kerrie)
+          [
+            { id: "u2d3_1", time: "10:00 - 12:30", title: "札幌 JR Tower 頂級百貨狂瀾血拼", desc: "Kerrie 今天留在札幌不跑遠！在大丸百貨與 Stellar Place 的各大歐美一線精品與日系潮流名鋪盡情挑選。", type: "shopping", loc: "大丸百貨 札幌店", isPremium: true },
+            { id: "u2d3_2", time: "12:30 - 14:00", title: "札幌名物下午茶：佐藤夜聖代 (咖啡與名店名點)", desc: "前往著名的「極品咖啡 佐藤」，享受精緻的餐間聖代點心與高質感咖啡，極盡慵懶。", type: "dining", loc: "パフェ、珈琲、ピスタチオ、砂糖", isPremium: true },
+            { id: "u2d3_3", time: "14:30 - 16:30", title: "白色戀人公園：VIP 巧克力私密體驗之旅", desc: "前往英式夢幻歐風城堡般的巧克力觀光工廠，漫步在玫瑰莊園與華麗鐘塔下，品味最地道的北海道香濃巧克力甜點。", type: "sight", loc: "白色戀人公園", isPremium: false },
+            { id: "u2d3_4", time: "17:30 - 18:30", title: "藻岩山空中纜車：登頂日本新三大夜景", desc: "搭乘雙層空中纜車直達標高 531 公尺的藻岩山頂，準備俯瞰如璀璨繁星般的札幌整座城市夜景。", type: "sight", loc: "藻岩山纜車", isPremium: true },
+            { id: "u2d3_5", time: "18:30 - 20:30", title: "法式山頂星光晚宴：THE JEWELS Restaurant", desc: "在山頂全玻璃環繞、能俯瞰 270 度夜景的頂級法式餐廳，享用運用北海道當季高級食材烹調的精緻法餐，極致浪漫奢華。", type: "dining", loc: "THE JEWELS", isPremium: true }
+          ],
+          // Day 4 (Kerrie)
+          [
+            { id: "u2d4_1", time: "07:30 - 09:30", title: "自駕或富良野美瑛觀光巴士啟程", desc: "與 User1 共同行程，前往北海道最精華的富良野與美瑛地區。", type: "transport", loc: "富良野車站", isPremium: false },
+            { id: "u2d4_2", time: "09:45 - 11:30", title: "富田農場 (Farm Tomita)：薰衣草紫霧", desc: "紫色薰衣草在盛夏開得最為濃烈，務必買一支夏日限定的「薰衣草冰淇淋」，精緻拍照極美！", type: "sight", loc: "富田農場", isPremium: true },
+            { id: "u2d4_3", time: "12:00 - 13:15", title: "哈密瓜天堂：富田哈密瓜工房", desc: "大啖無敵甜度現切富良野哈密瓜，以及哈密瓜戚風蛋糕與奢華布丁。", type: "dining", loc: "富田哈密瓜工房", isPremium: true },
+            { id: "u2d4_4", time: "13:30 - 14:15", title: "美瑛：四季彩之丘彩色地毯", desc: "搭乘高爾夫球車穿梭在數十公頃的大地彩色巨幅花毯中。", type: "sight", loc: "四季彩之丘", isPremium: true },
+            { id: "u2d4_5", time: "14:45 - 15:45", title: "美瑛白金青池與白鬚瀑布", desc: "Tiffany 藍的夢幻水面與挺立的枯木群構成如明信片般的寂靜絕景。", type: "sight", loc: "白金青池", isPremium: false },
+            { id: "u2d4_6", time: "16:00 - 18:30", title: "啟程返回札幌＆晚餐推薦：根室花丸迴轉壽司", desc: "回到札幌站，前往超人氣的「根室花丸」品嚐高 CP 值的極致鮮甜壽司。", type: "dining", loc: "根室花丸 札幌JR Tower店", isPremium: true }
+          ],
+          // Day 5 (Kerrie)
+          [
+            { id: "u2d5_1", time: "09:00 - 10:30", title: "北海道神宮與圓山公園晨間散策", desc: "與 User1 共同行程，徹底吸收森林芬多精，享受與自然和諧的靜謐時光。", type: "sight", loc: "圓山公園", isPremium: false },
+            { id: "u2d5_2", time: "10:30 - 11:30", title: "森林秘境：六花亭圓山店特製下午茶", desc: "享用圓山店限定的新鮮判官餅（現烤紅豆麻糬）與經典萊姆葡萄霜餅。", type: "dining", loc: "六花亭 圓山店", isPremium: true },
+            { id: "u2d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "採購棒球周邊周邊與大谷翔平或新庄剛志系列精品！", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
+            { id: "u2d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，從最新的藥妝、日系服飾、驚安殿堂唐吉訶德到潮流小鋪。", type: "shopping", loc: "狸小路商店街", isPremium: false },
+            { id: "u2d5_5", time: "17:00 - 19:30", title: "宮美名媛的奢華甜點：INITIAL 法式芭菲聖代", desc: "享用由北海道新鮮牛乳與當季頂級哈密瓜、草莓製作的精緻法式芭菲聖代。", type: "dining", loc: "INITIAL Sapporo", isPremium: true },
+            { id: "u2d5_6", time: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "旅程最後一晚，不妨再次路過大通公園，喝杯冰涼札幌生啤酒。", type: "dining", loc: "大通公園", isPremium: false }
+          ],
+          // Day 6 (Kerrie)
+          [
+            { id: "u2d6_1", time: "08:00 - 08:30", title: "極致迅速早餐與快速辦理退房", desc: "中午 12:30 國際航班！登機報到最晚 10:30。完全沒時間延遲，今天上午不能排市區行程！建議於 08:30 完成 Check-out。", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
+            { id: "u2d6_2", time: "08:45 - 09:40", title: "火速搭乘 JR 快速 Airport 列車直奔機場", desc: "搭乘 09:00 出發的 JR 快速機場特急，在 09:40 左右抵達新千歲機場，與大部隊和行李一同行動。", type: "transport", loc: "新千歲機場", isPremium: false },
+            { id: "u2d6_3", time: "09:45 - 10:30", title: "國際線櫃檯報到與行李托運 (10:30 截止)", desc: "一到機場請直接前往中華航空櫃檯，辦理登機證列印與大行李託運手續，以防排隊耽誤行程。", type: "transport", loc: "新千歲機場 國際線航廈", isPremium: false },
+            { id: "u2d6_4", time: "10:35 - 11:30", title: "最後 50 分鐘！國內線極速補貨與 Royce 掃貨", desc: "在通關前的黃金時間，以行軍般的步伐衝向國內線大堂，補齊 Royce'生巧克力或北菓樓泡芙，隨後立刻返回國際線準備安檢。", type: "shopping", loc: "新千歲機場 國內線航廈", isPremium: true },
+            { id: "u2d6_5", time: "11:40 - 12:30", title: "登機門安檢通關 ➔ 快樂返回台北", desc: "完成安全檢查並在 12:00 抵達登機門準備登機。12:30 中華航空客機準時起飛，於 15:30 抵達台北，結束滿載美好回憶的北海道之旅！", type: "transport", loc: "新千歲機場 國際線航廈", isPremium: false }
+          ]
         ]
       }
     };
-
-    // 補齊預設的六天陣列架構以防遺失原本資料結構
-    for(let i=2; i<=5; i++) {
-      if(!defaultItineraryData.user1.days[i]) defaultItineraryData.user1.days[i] = [];
-      if(!defaultItineraryData.user2.days[i]) defaultItineraryData.user2.days[i] = [];
-    }
 
     const defaultMustBuyData = [
       { id: "mb1", name: "どんぐり 竹輪麵包", area: "sapporo", regionName: "🏢 札幌市區", desc: "鮪魚沙拉塞入 Q 彈竹輪，外裹香濃烘烤麵包。大推薄野分店限定款！", price: "約 ￥200", icon: "🥖" },
@@ -639,7 +640,18 @@
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (parsed.itinerary) state.itinerary = parsed.itinerary;
+          if (parsed.itinerary) {
+            // 智能修補機制：檢測是否含有舊版破損的空行程（Days 3~6）
+            ['user1', 'user2'].forEach(userKey => {
+              for (let i = 0; i < 6; i++) {
+                if (!parsed.itinerary[userKey].days[i] || parsed.itinerary[userKey].days[i].length === 0) {
+                  // 自動校正並塞入預設好的一日遊完整資料
+                  parsed.itinerary[userKey].days[i] = JSON.parse(JSON.stringify(defaultItineraryData[userKey].days[i]));
+                }
+              }
+            });
+            state.itinerary = parsed.itinerary;
+          }
           if (parsed.dragOrders) state.dragOrders = parsed.dragOrders;
           if (parsed.shoppingList) state.shoppingList = parsed.shoppingList;
           if (parsed.checklist) state.checklist = parsed.checklist;
@@ -728,7 +740,7 @@
         return;
       }
       const input = document.getElementById('group-code-input');
-      const targetCode = (codeFromUrl || input.value).trim().toUpperCase();
+      const targetCode = (codeFromUrl || (input ? input.value : '')).trim().toUpperCase();
 
       if (!targetCode) {
         showToast("⚠️ 請輸入有效的群組代碼！", "✏️");
@@ -758,7 +770,7 @@
           isUpdatingCloud = false;
           
           const modal = document.getElementById('cloud-modal');
-          if (!modal.classList.contains('hidden')) {
+          if (modal && !modal.classList.contains('hidden')) {
             toggleCloudModal();
           }
         } else {
@@ -810,10 +822,10 @@
       const listContainer = document.getElementById('presence-list');
       const panel = document.getElementById('presence-panel');
       if (!usersMap) {
-        panel.classList.add('hidden');
+        if (panel) panel.classList.add('hidden');
         return;
       }
-      panel.classList.remove('hidden');
+      if (panel) panel.classList.remove('hidden');
       const now = new Date().getTime();
       let html = '';
       Object.keys(usersMap).forEach(uid => {
@@ -829,7 +841,7 @@
           `;
         }
       });
-      listContainer.innerHTML = html || `<span class="text-stone-400 italic">目前無其他閨蜜在線</span>`;
+      if (listContainer) listContainer.innerHTML = html || `<span class="text-stone-400 italic">目前無其他閨蜜在線</span>`;
     }
 
     function updateCloudUI() {
@@ -839,17 +851,22 @@
       const codeText = document.getElementById('active-group-code');
 
       if (activeGroupCode) {
-        offlineUI.classList.add('hidden');
-        onlineUI.classList.remove('hidden');
-        badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold tracking-wider animate-pulse flex items-center gap-1";
-        badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 🌸 奢華雲端同步中 (房號: ${activeGroupCode})`;
-        codeText.innerText = activeGroupCode;
+        if (offlineUI) offlineUI.classList.add('hidden');
+        if (onlineUI) onlineUI.classList.remove('hidden');
+        if (badge) {
+          badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-bold tracking-wider animate-pulse flex items-center gap-1";
+          badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 🌸 奢華雲端同步中 (房號: ${activeGroupCode})`;
+        }
+        if (codeText) codeText.innerText = activeGroupCode;
       } else {
-        offlineUI.classList.remove('hidden');
-        onlineUI.classList.add('hidden');
-        badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 font-semibold tracking-wider";
-        badge.innerText = "本機離線規劃中";
-        document.getElementById('presence-panel').classList.add('hidden');
+        if (offlineUI) offlineUI.classList.remove('hidden');
+        if (onlineUI) onlineUI.classList.add('hidden');
+        if (badge) {
+          badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 font-semibold tracking-wider";
+          badge.innerText = "離線儲存中";
+        }
+        const presencePanel = document.getElementById('presence-panel');
+        if (presencePanel) presencePanel.classList.add('hidden');
       }
     }
 
@@ -866,18 +883,18 @@
         user1: [
           { d: "7/26 D1", title: "盛夏啟航", core: "入住高奢、どんぐり、啤酒節", icon: "🍺" },
           { d: "7/27 D2", title: "美學與足湯", core: "真駒內頭大佛、神宮、定山溪", icon: "🪷" },
-          { d: "7/28 D3", title: "浪漫小樽", core: "未設定行程", icon: "🕯️" },
-          { d: "7/29 D4", title: "富良野紫霧", core: "未設定行程", icon: "🪻" },
-          { d: "7/30 D5", title: "晨漫與血拼", core: "未設定行程", icon: "🛍️" },
-          { d: "7/31 D6", title: "新千歲爆買", core: "未設定行程", icon: "✈️" }
+          { d: "7/28 D3", title: "浪漫小樽", core: "小樽運河、海鮮丼、政壽司饗宴", icon: "🕯️" },
+          { d: "7/29 D4", title: "富良野紫霧", core: "富田農場薰衣草、四季彩之丘、青池", icon: "🪻" },
+          { d: "7/30 D5", title: "神宮與精品血拼", core: "圓山公園、六花亭、狸小路與夜聖代", icon: "🛍️" },
+          { d: "7/31 D6", title: "機場極致血拼", core: "新千歲國內線大採購、一幻甜蝦拉麵", icon: "✈️" }
         ],
         user2: [
           { d: "7/26 D1", title: "晚飛會合", core: "酷航抵達、直接合體啤酒節", icon: "✈️" },
-          { d: "7/27 D2", title: "美學與足湯", core: "與 User1 共同行程", icon: "🪷" },
-          { d: "7/28 D3", title: "未規畫", core: "未設定行程", icon: "💍" },
-          { d: "7/29 D4", title: "未規畫", core: "未設定行程", icon: "🪻" },
-          { d: "7/30 D5", title: "未規畫", core: "未設定行程", icon: "🛍️" },
-          { d: "7/31 D6", title: "火速返台", core: "未設定行程", icon: "⚠️" }
+          { d: "7/27 D2", title: "美學與足湯", core: "真駒內頭大佛、神宮、定山溪", icon: "🪷" },
+          { d: "7/28 D3", title: "札幌奢華血拼", core: "大丸百貨購物、白色戀人公園、藻岩山法餐", icon: "💍" },
+          { d: "7/29 D4", title: "富良野紫霧", core: "富田農場薰衣草、四季彩之丘、青池", icon: "🪻" },
+          { d: "7/30 D5", title: "神宮與精品血拼", core: "圓山公園、六花亭、狸小路與夜聖代", icon: "🛍️" },
+          { d: "7/31 D6", title: "火速返台", core: "極速退房、09:00機場快線、搭機返台", icon: "⚠️" }
         ]
       };
 
@@ -980,9 +997,24 @@
               </div>
               <p class="text-stone-500 leading-relaxed text-[11px]">${item.desc}</p>
               
+              <!-- 當日 Klook 加碼資訊卡 -->
+              ${item.title.includes("Klook") ? `
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 text-xs text-orange-900 mt-2 space-y-1">
+                  <p class="font-bold">🎫 Klook 精緻一日遊方案 (神宮、定山溪、頭大佛、螃蟹市場)</p>
+                  <p class="text-stone-600">由於夏季是北海道賞花與溫泉旺季，觀光巴士名額極有限！</p>
+                  <p class="font-semibold text-rose-600">⚠️ 最佳訂購時機：最遲於出發前一個月 6/27 23:59 前，進入連結完成付款！</p>
+                  <div class="pt-2">
+                    <a href="https://www.klook.com/zh-TW/activity/148089-hokkaido-shrine-jyozankei-crab-market-day-trip-from-sapporo/?spm=SearchResult.SearchResult_LIST&clickId=f71e636a10" target="_blank" class="inline-flex items-center gap-1 bg-orange-600 hover:bg-orange-700 text-white font-bold py-1.5 px-3 rounded text-[10px] transition">
+                      🔥 點我進入 Klook 官方搶票連結 ➔
+                    </a>
+                  </div>
+                </div>
+              ` : ''}
+
+              <!-- 景點快速動作按鈕 (一鍵複製、Google Map 導航) -->
               <div class="flex gap-1.5 pt-1">
                 <button onclick="copyToClipboard('${item.loc}', '名店關鍵字已複製')" class="py-0.5 px-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-600 rounded text-[10px] font-medium transition">📋 複製關鍵字</button>
-                <a href="https://maps.google.com" target="_blank" class="py-0.5 px-2 bg-morandi-light hover:bg-morandi-border text-morandi-dark rounded text-[10px] font-medium transition text-center">🗺️ Google 地圖</a>
+                <a href="https://maps.google.com/?q=${encodeURIComponent(item.loc)}" target="_blank" class="py-0.5 px-2 bg-morandi-light hover:bg-morandi-border text-morandi-dark rounded text-[10px] font-medium transition text-center">🗺️ Google 地圖</a>
               </div>
             </div>
           </div>
@@ -1009,7 +1041,7 @@
           state.dragOrders[currentUser][`day_${currentDayIdx}`] = sortedIds;
           
           saveState();
-          showToast("💾 新的行程動線已實時同步雲端！");
+          showToast("💾 新的行程動線已實時同步！");
         }
       });
     }
@@ -1099,7 +1131,7 @@
       }
       saveState();
       renderTimeline();
-      showToast("🗑️ 行程點已成功移除並雲端同步");
+      showToast("🗑️ 行程點已成功移除");
     }
 
     const checklistTemplates = [
@@ -1358,7 +1390,11 @@
       }
     }
 
-    function toggleCloudModal() { document.getElementById('cloud-modal').classList.toggle('hidden'); }
+    // Modal 輔助方法
+    function toggleCloudModal() { 
+      const modal = document.getElementById('cloud-modal');
+      if (modal) modal.classList.toggle('hidden'); 
+    }
 
     function showToast(message, icon = "✨") {
       const toast = document.getElementById('toast');
@@ -1378,7 +1414,8 @@
       try {
         let userCredential = await signInAnonymously(auth);
         firebaseUser = userCredential.user;
-        document.getElementById('user-id-display').innerText = `名媛ID: ${firebaseUser.uid}`;
+        const displayId = document.getElementById('user-id-display');
+        if (displayId) displayId.innerText = `名媛ID: ${firebaseUser.uid}`;
         
         const urlParams = new URLSearchParams(window.location.search);
         const groupFromUrl = urlParams.get('group');

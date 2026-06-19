@@ -110,7 +110,7 @@
               <h3 class="font-bold text-morandi-dark text-base sm:text-lg flex items-center gap-1.5">
                 宮美純掐雲端共編中心 
                 <span id="sync-badge" class="text-[10px] px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 font-semibold tracking-wider">
-                  離線儲存中
+                  讀取雲端狀態中...
                 </span>
               </h3>
             </div>
@@ -518,7 +518,6 @@
     import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
     import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
 
-    // 🏆 終極路徑修正：統一使用單一的最深層安全路徑，確保不同裝置絕對能遇到彼此
     const appId = 'hokkaido-luxury-app-v3';
     
     const firebaseConfig = {
@@ -548,7 +547,7 @@
     let isUpdatingCloud = false;
     let firebaseUser = null;
 
-    // 六日行程基礎資料庫
+    // 六日行程資料庫完整包
     const defaultItineraryData = {
       user1: {
         name: "楓香嬌黛 👑",
@@ -593,7 +592,7 @@
             { id: "u1d5_1", time: "09:00 - 10:30", title: "北海道神宮與圓山公園晨間散策", desc: "清晨在古木參天的圓山公園與神宮境內漫步，徹底吸收森林芬多精。", type: "sight", loc: "圓山公園", isPremium: false },
             { id: "u1d5_2", time: "10:30 - 11:30", title: "森林秘境：六花亭圓山店特製下午茶", desc: "享用圓山店限定的新鮮判官餅（現烤紅豆麻糬）與經典萊姆葡萄霜餅。", type: "dining", loc: "六花亭 圓山店", isPremium: true },
             { id: "u1d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "前往火腿隊官方商店採購棒球周邊與大谷翔平精品！接著在大丸百貨、Stellar Place 展開血拼。", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
-            { id: "u1d5_4", time: "14:00 - 16:30", title: "狸小路商店街：薬妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，將所有伴手禮與彩妝一次購齊。", type: "shopping", loc: "狸小路商店街", isPremium: false },
+            { id: "u1d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，將所有伴手禮與彩妝一次購齊。", type: "shopping", loc: "狸小路商店街", isPremium: false },
             { id: "u1d5_5", time: "17:00 - 19:30", title: "宮美名媛的奢華甜點：INITIAL 法式芭菲聖代", desc: "狸小路超人氣「締めパフェ」夜聖代店。享用新鮮牛乳與當季頂級哈密瓜製作的精緻法式芭菲聖代。", type: "dining", loc: "INITIAL Sapporo", isPremium: true },
             { id: "u1d5_6", time: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "旅程最後一晚，不妨再次路過大通公園，喝杯冰涼札幌生啤酒。", type: "dining", loc: "大通公園", isPremium: false }
           ],
@@ -601,8 +600,8 @@
             { id: "u1d6_1", time: "08:30 - 10:00", title: "優雅享用 Stream Hotel 精緻早餐", desc: "在飯店高空餐廳享用融合北海道在地農產的頂級奢華 Buffets。", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
             { id: "u1d6_2", time: "10:30 - 11:30", title: "札幌市區最後巡禮 & 伴手禮確認", desc: "可在薄野 or 大通站附近散步、做最後的街景留念。", type: "sight", loc: "COCONO SUSUKINO", isPremium: false },
             { id: "u1d6_3", time: "11:30 - 12:15", title: "搭乘 JR 快速 Airport 列車直奔新千歲機場", desc: "優雅出發，不用匆忙，提早抵達機場，因為新千歲機場國內線是日本公認最好逛的購物美食天堂！", type: "transport", loc: "新千歲機場", isPremium: false },
-            { id: "u1d6_4", time: "12:30 - 13:45", title: "新千歲機場國內線：神級伴手禮大狂購", desc: "直奔國內線商場！橫掃「北菓樓」開拓泡芙、「六花亭」奶油夾心餅乾、「美瑛選菓」夢幻玉米麵包（需排隊）。", type: "shopping", loc: "新千歲機場 國內線航廈", isPremium: true },
-            { id: "u1d6_5", time: "13:45 - 14:15", title: "午餐朝盛：一幻甜蝦拉麵 (えびそば一幻)", desc: "在機場國內線「北海道拉麵道場」享用最富盛名的濃郁甜蝦頭熬製拉麵。", type: "dining", loc: "えびそば一幻 新千歲機場店", isPremium: true },
+            { id: "u1d6_4", time: "12:30 - 13:45", title: "新千歲機場國內線：神級伴手禮大狂購", desc: "直奔國內線商商場！橫掃「北菓樓」開拓泡芙、「六花亭」奶油夾心餅乾、「美瑛選菓」夢幻玉米麵包（需排隊）。", type: "shopping", loc: "新千歲機場 國內線航廈", isPremium: true },
+            { id: "u1d6_5", time: "13:45 - 14:15", title: "午餐朝聖：一幻甜蝦拉麵 (えびそば一幻)", desc: "在機場國內線「北海道拉麵道場」享用最富盛名的濃郁甜蝦頭熬製拉麵。", type: "dining", loc: "えびそば一幻 新千歲機場店", isPremium: true },
             { id: "u1d6_6", time: "14:15 - 16:15", title: "辦理登機行李託運 ➔ 滿載幸福返台", desc: "16:15 搭乘星宇航空客機起飛，19:15 順利抵達台北，結束精彩絕倫的奢華避暑假期！", type: "transport", loc: "新千歲機場 國際線航廈", isPremium: false }
           ]
         ]
@@ -621,12 +620,12 @@
             { id: "u2d1_4", time: "20:00 - 22:00", title: "合體盛宴：大通啤酒花園露天狂歡", desc: "立刻與好姊妹們會合！在涼爽的札幌盛夏夜空下，暢飲大通公園啤酒節的新鮮扎啤，搭配北海道炸雞與烤肉，氣氛直接拉滿！", type: "dining", loc: "大通公園 啤酒花園", isPremium: true }
           ],
           [
-            { id: "u2d2_1", time: "08:15", title: "大通站集合 🚌 Klook 定山溪美學一日遊啟程", desc: "登上舒適觀光巴士，今天是一整天不費力的頂奢導覽行程。請務必提前預訂！", type: "transport", loc: "大通公園", isPremium: false },
-            { id: "u2d2_2", time: "09:00 - 10:15", title: "安藤忠雄大師之作：真駒內瀧野陵園「頭大佛」", desc: "由普立茲克建築獎大師安藤忠雄打造的震撼地標。大佛被半埋於薰衣草山丘中，唯有從天空才能看見佛首，進入清水混凝土隧道後才得見大佛全貌，禪意與美學完美交織，極度震撼。", type: "sight", loc: "真駒內瀧野靈園 頭大佛", isPremium: true },
-            { id: "u2d2_3", time: "10:45 - 11:45", title: "北海道神宮：林蔭參拜", desc: "在參天古木之中參拜北海道總鎮守，感受被大自然包圍的靜謐靈氣。", type: "sight", loc: "北海道神宮", isPremium: false },
-            { id: "u2d2_4", time: "12:15 - 13:45", title: "札幌場外市場：頂奢海鮮午宴", desc: "一日遊巴士載您直奔海鮮天堂，大啖現撈鱈場蟹、奢華海膽丼與新鮮刺身，盡享宮美名媛的極致味蕾享受。", type: "dining", loc: "札幌場外市場", isPremium: true },
-            { id: "u2d2_5", time: "14:30 - 16:30", title: "定山溪溫泉散策：森之美學", desc: "漫步在翠綠山谷環抱的定山溪河畔，享受免費足湯，沉浸於純天然的芬多精與療癒溫泉氛圍。", type: "sight", loc: "定山溪溫泉", isPremium: false },
-            { id: "u2d2_6", time: "17:30", title: "返回札幌大通 : 自由購物與晚餐", desc: "巴士返回市區。晚餐推薦在薄野享受著名的「成吉思汗烤羊肉 達摩」或是溫暖身心的「Suage+ 湯咖哩」。", type: "dining", loc: "成吉思汗烤肉 達摩 4.4店", isPremium: true }
+            { id: "u2d2_1", time: "08:15", title: "大通站集合 🚌 Klook 定山溪美學一日遊啟程", desc: "與 User1 共同行程。", type: "transport", loc: "大通公園", isPremium: false },
+            { id: "u2d2_2", time: "09:00 - 10:15", title: "安藤忠雄大師之作：真駒內瀧野陵園「頭大佛」", desc: "與 User1 共同行程。", type: "sight", loc: "真駒內瀧野靈園 頭大佛", isPremium: true },
+            { id: "u2d2_3", time: "10:45 - 11:45", title: "北海道神宮：林蔭參拜", desc: "與 User1 共同行程。", type: "sight", loc: "北海道神宮", isPremium: false },
+            { id: "u2d2_4", time: "12:15 - 13:45", title: "札幌場外市場：頂奢海鮮午宴", desc: "與 User1 共同行程。", type: "dining", loc: "札幌場外市場", isPremium: true },
+            { id: "u2d2_5", time: "14:30 - 16:30", title: "定山溪溫泉散策：森之美學", desc: "與 User1 共同行程。", type: "sight", loc: "定山溪溫泉", isPremium: false },
+            { id: "u2d2_6", time: "17:30", title: "返回札幌大通 : 自由購物與晚餐", desc: "與 User1 共同行程。", type: "dining", loc: "成吉思汗烤肉 達摩 4.4店", isPremium: true }
           ],
           [
             { id: "u2d3_1", time: "10:00 - 12:30", title: "札幌 JR Tower 頂級百貨狂瀾血拼", desc: "Kerrie 今天留在札幌不跑遠！在大丸百貨與 Stellar Place 的各大歐美一線精品與日系潮流名鋪盡情挑選。", type: "shopping", loc: "大丸百貨 札幌店", isPremium: true },
@@ -636,20 +635,20 @@
             { id: "u2d3_5", time: "18:30 - 20:30", title: "法式山頂星光晚宴：THE JEWELS Restaurant", desc: "在山頂全玻璃環繞、能俯瞰 270 度夜景的頂級法式餐廳，享用運用北海道當季高級食材烹調的精緻法餐，極致浪漫奢華。", type: "dining", loc: "THE JEWELS", isPremium: true }
           ],
           [
-            { id: "u2d4_1", time: "07:30 - 09:30", title: "自駕或富良野美瑛觀光巴士啟程", desc: "與 User1 共同行程，前往北海道最精華的富良野與美瑛地區。", type: "transport", loc: "富良野車站", isPremium: false },
-            { id: "u2d4_2", time: "09:45 - 11:30", title: "富田農場 (Farm Tomita)：薰衣草紫霧", desc: "紫色薰衣草在盛夏開得最為濃烈，務必買一支夏日限定的「薰衣草冰淇淋」，精緻拍照極美！", type: "sight", loc: "富田農場", isPremium: true },
-            { id: "u2d4_3", time: "12:00 - 13:15", title: "哈密瓜天堂：富田哈密瓜工房", desc: "大啖無敵甜度現切富良野哈密瓜，以及哈密瓜戚風蛋糕與奢華布丁。", type: "dining", loc: "富田哈密瓜工房", isPremium: true },
-            { id: "u2d4_4", time: "13:30 - 14:15", title: "美瑛：四季彩之丘彩色地毯", desc: "搭乘高爾夫球車穿梭在數十公頃的大地彩色巨幅花毯中。", type: "sight", loc: "四季彩之丘", isPremium: true },
-            { id: "u2d4_5", time: "14:45 - 15:45", title: "美瑛白金青池與白鬚瀑布", desc: "Tiffany 藍的夢幻水面與挺立的枯木群構成如明信片般的寂靜絕景。", type: "sight", loc: "白金青池", isPremium: false },
-            { id: "u2d4_6", time: "16:00 - 18:30", title: "啟程返回札幌＆晚餐推薦：根室花丸迴轉壽司", desc: "回到札幌站，前往超人氣的「根室花丸」品嚐高 CP 值的極致鮮甜壽司。", type: "dining", loc: "根室花丸 札幌JR Tower店", isPremium: true }
+            { id: "u2d4_1", time: "07:30 - 09:30", title: "自駕或富良野美瑛觀光巴士啟程", desc: "與 User1 共同行程。", type: "transport", loc: "富良野車站", isPremium: false },
+            { id: "u2d4_2", time: "09:45 - 11:30", title: "富田農場 (Farm Tomita)：薰衣客紫霧", desc: "與 User1 共同行程。", type: "sight", loc: "富田農場", isPremium: true },
+            { id: "u2d4_3", time: "12:00 - 13:15", title: "哈密瓜天堂：富田哈密瓜工房", desc: "與 User1 共同行程。", type: "dining", loc: "富田哈密瓜工房", isPremium: true },
+            { id: "u2d4_4", time: "13:30 - 14:15", title: "美瑛：四季彩之丘彩色地毯", desc: "與 User1 共同行程。", type: "sight", loc: "四季彩之丘", isPremium: true },
+            { id: "u2d4_5", time: "14:45 - 15:45", title: "美瑛白金青池與白鬚瀑布", desc: "與 User1 共同行程。", type: "sight", loc: "白金青池", isPremium: false },
+            { id: "u2d4_6", time: "16:00 - 18:30", title: "啟程返回札幌＆晚餐推薦：根室花丸迴轉壽司", desc: "與 User1 共同行程。", type: "dining", loc: "根室花丸 札幌JR Tower店", isPremium: true }
           ],
           [
-            { id: "u2d5_1", time: "09:00 - 10:30", title: "北海道神宮與圓山公園晨間散策", desc: "與 User1 共同行程，徹底吸收森林芬多精，享受與自然和諧的靜謐時光。", type: "sight", loc: "圓山公園", isPremium: false },
-            { id: "u2d5_2", time: "10:30 - 11:30", title: "森林秘境：六花亭圓山店特製下午茶", desc: "享用圓山店限定的新鮮判官餅（現烤紅豆麻糬）與經典萊姆葡萄霜餅。", type: "dining", loc: "六花亭 圓山店", isPremium: true },
-            { id: "u2d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "採購棒球周邊與大谷翔平系列精品！", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
-            { id: "u2d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "一整條拱廊式商圈，從最新的藥妝、日系服飾、驚安殿堂唐吉訶德到潮流小鋪。", type: "shopping", loc: "狸小路商店街", isPremium: false },
-            { id: "u2d5_5", time: "17:00 - 19:30", title: "宮美名媛的奢華甜點：INITIAL 法式芭菲聖代", desc: "享用由北海道新鮮牛乳與當季頂級哈密瓜、草莓製作的精緻法式芭菲聖代。", type: "dining", loc: "INITIAL Sapporo", isPremium: true },
-            { id: "u2d5_6", time: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "旅程最後一晚，不妨再次路過大通公園，喝杯冰涼札幌生啤酒。", type: "dining", loc: "大通公園", isPremium: false }
+            { id: "u2d5_1", time: "09:00 - 10:30", title: "北海道神宮與圓山公園晨間散策", desc: "與 User1 共同行程。", type: "sight", loc: "圓山公園", isPremium: false },
+            { id: "u2d5_2", time: "10:30 - 11:30", title: "森林秘境：六花亭圓山店特製下午茶", desc: "與 User1 共同行程。", type: "dining", loc: "六花亭 圓山店", isPremium: true },
+            { id: "u2d5_3", time: "12:00 - 13:30", title: "⚾ 日本火腿官方商店 & 札幌站百貨狂熱血拼", desc: "與 User1 共同行程。", type: "shopping", loc: "北海道日本火腿鬥士 官方商店", isPremium: false },
+            { id: "u2d5_4", time: "14:00 - 16:30", title: "狸小路商店街：藥妝與潮流好物大掃貨", desc: "與 User1 共同行程。", type: "shopping", loc: "狸小路商店街", isPremium: false },
+            { id: "u2d5_5", time: "17:00 - 19:30", title: "宮美名媛的奢華甜點：INITIAL 法式芭菲聖代", desc: "與 User1 共同行程。", type: "dining", loc: "INITIAL Sapporo", isPremium: true },
+            { id: "u2d5_6", time: "20:00 - 22:00", title: "大通公園啤酒花園 (路過再次暢飲)", desc: "與 User1 共同行程。", type: "dining", loc: "大通公園", isPremium: false }
           ],
           [
             { id: "u2d6_1", time: "08:00 - 08:30", title: "極致迅速早餐與快速辦理退房", desc: "中午 12:30 國際航班！登機報到最晚 10:30。完全沒時間延遲，今天上午不能排市區行程！建議於 08:30 完成 Check-out。", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
@@ -691,6 +690,9 @@
           const parsed = JSON.parse(stored);
           if (parsed.itinerary) {
             ['user1', 'user2'].forEach(userKey => {
+              if (!parsed.itinerary[userKey] || !parsed.itinerary[userKey].days) {
+                parsed.itinerary[userKey] = JSON.parse(JSON.stringify(defaultItineraryData[userKey]));
+              }
               for (let i = 0; i < 6; i++) {
                 if (!parsed.itinerary[userKey].days[i] || parsed.itinerary[userKey].days[i].length === 0) {
                   parsed.itinerary[userKey].days[i] = JSON.parse(JSON.stringify(defaultItineraryData[userKey].days[i]));
@@ -744,7 +746,6 @@
       }
     }
 
-    // 🏆 補回：建立連線房間核心 JavaScript 代碼
     async function createGroup() {
       if (!db || !firebaseUser) {
         showToast("⚠️ 雲端共編服務未就緒，請稍候", "❌");
@@ -866,7 +867,6 @@
       updateCloudUI();
     }
 
-    // 🏆 補回：遺失的 startAuth() 匿名安全驗證函數本體 🏆
     async function startAuth() {
       if (!auth) return;
       try {
@@ -938,7 +938,7 @@
         if (onlineUI) onlineUI.classList.add('hidden');
         if (badge) {
           badge.className = "text-[10px] px-2 py-0.5 rounded-full bg-stone-100 text-stone-500 font-semibold tracking-wider";
-          badge.innerText = "本機離線規劃中";
+          badge.innerText = firebaseUser ? "本機離線規劃中" : "正在等待雲端連線就緒...";
         }
         const presencePanel = document.getElementById('presence-panel');
         if (presencePanel) presencePanel.classList.add('hidden');
@@ -975,56 +975,45 @@
       };
 
       const days = dayThemes[currentUser];
-      grid.innerHTML = days.map((d, idx) => `
-        <div onclick="switchDay(${idx})" class="cursor-pointer transition-all duration-300 p-3 rounded-xl border ${idx === currentDayIdx ? 'bg-morandi-light border-morandi-medium shadow-md' : 'bg-stone-50 border-stone-200 hover:border-morandi-medium'}">
-          <div class="flex justify-between items-center mb-1">
-            <span class="text-[9px] font-bold text-morandi-accent tracking-widest uppercase">${d.d}</span>
-            <span class="text-xs">${d.icon}</span>
+      if (grid) {
+        grid.innerHTML = days.map((d, idx) => `
+          <div onclick="switchDay(${idx})" class="cursor-pointer transition-all duration-300 p-3 rounded-xl border ${idx === currentDayIdx ? 'bg-morandi-light border-morandi-medium shadow-md' : 'bg-stone-50 border-stone-200 hover:border-morandi-medium'}">
+            <div class="flex justify-between items-center mb-1">
+              <span class="text-[9px] font-bold text-morandi-accent tracking-widest uppercase">${d.d}</span>
+              <span class="text-xs">${d.icon}</span>
+            </div>
+            <p class="font-bold text-morandi-dark text-[11px] mb-0.5 truncate">${d.title}</p>
+            <p class="text-[9px] text-stone-400 line-clamp-2 leading-relaxed">${d.core}</p>
           </div>
-          <p class="font-bold text-morandi-dark text-[11px] mb-0.5 truncate">${d.title}</p>
-          <p class="text-[9px] text-stone-400 line-clamp-2 leading-relaxed">${d.core}</p>
-        </div>
-      `).join('');
+        `).join('');
+      }
     }
 
     function renderDayTabs() {
       const container = document.getElementById('day-tabs-container');
       const daysStr = ["7/26 (五) D1", "7/27 (六) D2", "7/28 (日) D3", "7/29 (一) D4", "7/30 (二) D5", "7/31 (三) D6"];
-      container.innerHTML = daysStr.map((day, idx) => `
-        <button onclick="switchDay(${idx})" class="px-4 py-2 border-b-2 font-bold text-xs transition tracking-wider whitespace-nowrap ${idx === currentDayIdx ? 'border-morandi-medium text-morandi-dark font-black' : 'border-transparent text-stone-400 hover:text-stone-600'}">
-          ${day}
-        </button>
-      `).join('');
-    }
-
-    function switchDay(idx) {
-      currentDayIdx = idx;
-      renderOverviewGrid();
-      renderDayTabs();
-      renderTimeline();
-    }
-
-    function getSortedDaySpots() {
-      const list = state.itinerary[currentUser].days[currentDayIdx] || [];
-      const order = state.dragOrders[currentUser]?.[`day_${currentDayIdx}`];
-
-      if (order && order.length > 0) {
-        const itemMap = new Map(list.map(item => [item.id, item]));
-        const sorted = [];
-        order.forEach(id => {
-          if (itemMap.has(id)) {
-            sorted.push(itemMap.get(id));
-            itemMap.delete(id);
-          }
-        });
-        itemMap.forEach(item => sorted.push(item));
-        return sorted;
+      if (container) {
+        container.innerHTML = daysStr.map((day, idx) => `
+          <button onclick="switchDay(${idx})" class="px-4 py-2 border-b-2 font-bold text-xs transition tracking-wider whitespace-nowrap ${idx === currentDayIdx ? 'border-morandi-medium text-morandi-dark font-black' : 'border-transparent text-stone-400 hover:text-stone-600'}">
+            ${day}
+          </button>
+        `).join('');
       }
-      return list;
+    }
+
+    function getSpotIcon(type) {
+      switch(type) {
+        case 'transport': return '✈️';
+        case 'hotel': return '🏨';
+        case 'dining': return '🍽️';
+        case 'shopping': return '🛍️';
+        default: return '🏰';
+      }
     }
 
     function renderTimeline() {
       const container = document.getElementById('timeline-drag-container');
+      if (!container) return;
       const spots = getSortedDaySpots();
 
       if (spots.length === 0) {
@@ -1035,7 +1024,7 @@
       container.innerHTML = spots.map(item => {
         const catIcon = getSpotIcon(item.type);
         const premBadge = item.isPremium ? `<span class="bg-amber-50 border border-amber-200 text-amber-800 text-[9px] font-bold px-2 py-0.5 rounded-full">宮美推薦 ✨</span>` : '';
-        const klookBadge = item.title.includes("Klook") ? `<span class="bg-orange-50 border border-orange-200 text-orange-800 text-[9px] font-bold px-2 py-0.5 rounded-full">Klook 一日遊</span>` : '';
+        const klookBadge = item.title && item.title.includes("Klook") ? `<span class="bg-orange-50 border border-orange-200 text-orange-800 text-[9px] font-bold px-2 py-0.5 rounded-full">Klook 一日遊</span>` : '';
         
         return `
           <div class="itinerary-card bg-white rounded-xl border border-morandi-border p-4 relative transition duration-300 shadow-xs hover:shadow flex flex-col sm:flex-row sm:items-start gap-3" data-id="${item.id}">
@@ -1063,11 +1052,11 @@
               </div>
               <p class="text-stone-500 leading-relaxed text-[11px]">${item.desc}</p>
               
-              ${item.title.includes("Klook") ? `
+              ${item.title && item.title.includes("Klook") ? `
                 <div class="bg-orange-50 border border-orange-200 rounded-lg p-3 text-xs text-orange-900 mt-2 space-y-1">
                   <p class="font-bold">🎫 Klook 精緻一日遊方案 (神宮、定山溪、頭大佛、螃蟹市場)</p>
                   <p class="text-stone-600">由於夏季是北海道賞花與溫泉旺季，觀光巴士名額極有限！</p>
-                  <p class="font-semibold text-rose-600">⚠️ 最佳訂購時機：最遲於出發前一個月 6/27 23:59 前，進入連結完成付款！</p>
+                  <p class="font-semibold text-rose-600">⚠️ 最佳訂購時機：最遲於出發前一個月完成付款！</p>
                   <div class="pt-2">
                     <a href="https://www.klook.com/zh-TW/activity/148089-hokkaido-shrine-jyozankei-crab-market-day-trip-from-sapporo/?spm=SearchResult.SearchResult_LIST&clickId=f71e636a10" target="_blank" class="inline-flex items-center gap-1 bg-orange-600 hover:bg-orange-700 text-white font-bold py-1.5 px-3 rounded text-[10px] transition">
                       🔥 點我進入 Klook 官方搶票連結 ➔
@@ -1078,7 +1067,7 @@
 
               <div class="flex gap-1.5 pt-1">
                 <button onclick="copyToClipboard('${item.loc}', '名店關鍵字已複製')" class="py-0.5 px-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-600 rounded text-[10px] font-medium transition">📋 複製關鍵字</button>
-                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(item.loc)}" target="_blank" class="py-0.5 px-2 bg-morandi-light hover:bg-morandi-border text-morandi-dark rounded text-[10px] font-medium transition text-center">🗺️ Google 地圖</a>
+                <a href="https://maps.google.com/?q=${encodeURIComponent(item.loc || '')}" target="_blank" class="py-0.5 px-2 bg-morandi-light hover:bg-morandi-border text-morandi-dark rounded text-[10px] font-medium transition text-center">🗺️ Google 地圖</a>
               </div>
             </div>
           </div>
@@ -1086,6 +1075,50 @@
       }).join('');
 
       initSortable();
+    }
+
+    let sortableInstance = null;
+    function initSortable() {
+      const container = document.getElementById('timeline-drag-container');
+      if (!container) return;
+      if (sortableInstance) sortableInstance.destroy();
+      
+      sortableInstance = new Sortable(container, {
+        handle: '.drag-handle',
+        animation: 150,
+        ghostClass: 'drag-ghost',
+        onEnd: function() {
+          const cards = container.querySelectorAll('.itinerary-card');
+          const sortedIds = Array.from(cards).map(card => card.getAttribute('data-id'));
+          
+          if (!state.dragOrders[currentUser]) state.dragOrders[currentUser] = {};
+          state.dragOrders[currentUser][`day_${currentDayIdx}`] = sortedIds;
+          
+          saveState();
+          showToast("💾 新的行程動線已實時同步！");
+        }
+      });
+    }
+
+    function resetCurrentDayOrder() {
+      if (state.dragOrders[currentUser]?.[`day_${currentDayIdx}`]) {
+        delete state.dragOrders[currentUser][`day_${currentDayIdx}`];
+        saveState();
+        renderTimeline();
+        showToast("✨ 本日行程順序已重設為經典推薦動線");
+      }
+    }
+
+    function openAddSpotModal() {
+      document.getElementById('modal-title-text').innerText = "✨ 規劃新奢華行程點";
+      document.getElementById('modal-spot-id').value = "";
+      document.getElementById('modal-spot-time').value = "12:00 - 13:00";
+      document.getElementById('modal-spot-title').value = "";
+      document.getElementById('modal-spot-loc').value = "";
+      document.getElementById('modal-spot-desc').value = "";
+      document.getElementById('modal-spot-type').value = "sight";
+      document.getElementById('modal-spot-premium').checked = false;
+      document.getElementById('spot-modal').classList.remove('hidden');
     }
 
     function openEditSpotModal(id) {
@@ -1157,15 +1190,17 @@
 
     function renderChecklist() {
       const container = document.getElementById('checklist-items');
-      container.innerHTML = checklistTemplates.map(item => `
-        <label class="flex items-start gap-2.5 p-1.5 hover:bg-morandi-light rounded cursor-pointer transition">
-          <input type="checkbox" id="${item.id}" onchange="toggleChecklistItem('${item.id}')" class="mt-0.5 rounded text-morandi-medium focus:ring-morandi-medium" ${state.checklist.includes(item.id) ? 'checked' : ''}>
-          <div>
-            <p class="font-bold text-stone-700">${item.title}</p>
-            <p class="text-[10px] text-stone-400">${item.desc}</p>
-          </div>
-        </label>
-      `).join('');
+      if (container) {
+        container.innerHTML = checklistTemplates.map(item => `
+          <label class="flex items-start gap-2.5 p-1.5 hover:bg-morandi-light rounded cursor-pointer transition">
+            <input type="checkbox" id="${item.id}" onchange="toggleChecklistItem('${item.id}')" class="mt-0.5 rounded text-morandi-medium focus:ring-morandi-medium" ${state.checklist.includes(item.id) ? 'checked' : ''}>
+            <div>
+              <p class="font-bold text-stone-700">${item.title}</p>
+              <p class="text-[10px] text-stone-400">${item.desc}</p>
+            </div>
+          </label>
+        `).join('');
+      }
       updateChecklistProgress();
     }
 
@@ -1183,20 +1218,24 @@
       const count = state.checklist.length;
       const total = checklistTemplates.length;
       const percent = total > 0 ? Math.round((count / total) * 100) : 0;
-      document.getElementById('checklist-progress').innerText = `${percent}%`;
+      const el = document.getElementById('checklist-progress');
+      if (el) el.innerText = `${percent}%`;
     }
 
     function renderFlightCards() {
       const flights = state.itinerary[currentUser].flights;
-      document.getElementById('flight-info-card').innerHTML = `
-        <div class="space-y-1.5 leading-normal">
-          <p class="font-bold text-morandi-medium">🛫 去程航班資訊</p>
-          <p class="text-stone-700">${flights.go}</p>
-          <div class="border-t border-dashed border-stone-200 my-1.5"></div>
-          <p class="font-bold text-morandi-medium">🛬 回程航班資訊</p>
-          <p class="text-stone-700">${flights.back}</p>
-        </div>
-      `;
+      const el = document.getElementById('flight-info-card');
+      if (el && flights) {
+        el.innerHTML = `
+          <div class="space-y-1.5 leading-normal">
+            <p class="font-bold text-morandi-medium">🛫 去程航班資訊</p>
+            <p class="text-stone-700">${flights.go || '未設定'}</p>
+            <div class="border-t border-dashed border-stone-200 my-1.5"></div>
+            <p class="font-bold text-morandi-medium">🛬 回程航班資訊</p>
+            <p class="text-stone-700">${flights.back || '未設定'}</p>
+          </div>
+        `;
+      }
     }
 
     function renderLastDayAlert() {
@@ -1220,6 +1259,7 @@
 
     function renderMustBuyList() {
       const container = document.getElementById('mustbuy-cards-container');
+      if (!container) return;
       const filtered = currentMustBuyArea === 'all' ? defaultMustBuyData : defaultMustBuyData.filter(item => item.area === currentMustBuyArea);
       container.innerHTML = filtered.map(item => `
         <div class="bg-stone-50 hover:bg-morandi-accentlight border border-morandi-border hover:border-morandi-goldborder rounded-2xl p-4.5 transition duration-300 shadow-xs flex flex-col justify-between space-y-4">
@@ -1244,7 +1284,8 @@
       document.querySelectorAll('.mb-area-btn').forEach(btn => {
         btn.className = "mb-area-btn px-4 py-2 text-xs font-medium border-b-2 border-transparent transition whitespace-nowrap text-stone-400";
       });
-      document.getElementById(`mb-area-${area}`).className = "mb-area-btn px-4 py-2 text-xs font-bold border-b-2 border-morandi-medium text-morandi-medium transition whitespace-nowrap";
+      const el = document.getElementById(`mb-area-${area}`);
+      if (el) el.className = "mb-area-btn px-4 py-2 text-xs font-bold border-b-2 border-morandi-medium text-morandi-medium transition whitespace-nowrap";
       renderMustBuyList();
     }
 
@@ -1256,10 +1297,12 @@
 
     function renderShoppingList() {
       const container = document.getElementById('shopping-list-container');
+      if (!container) return;
       const list = state.shoppingList || [];
       if (list.length === 0) {
         container.innerHTML = `<p class="text-center py-12 text-stone-400 italic text-xs">購物清單空空如也！</p>`;
-        document.getElementById('shopping-progress').innerText = "已採購 0 / 0";
+        const progressEl = document.getElementById('shopping-progress');
+        if (progressEl) progressEl.innerText = "已採購 0 / 0";
         return;
       }
       container.innerHTML = list.map(item => `
@@ -1274,7 +1317,8 @@
           <button onclick="deleteShoppingItem('${item.id}')" class="text-stone-300 hover:text-red-500 transition text-sm">🗑️</button>
         </div>
       `).join('');
-      document.getElementById('shopping-progress').innerText = `已採購 ${list.filter(item => item.checked).length} / ${list.length}`;
+      const progressEl = document.getElementById('shopping-progress');
+      if (progressEl) progressEl.innerText = `已採購 ${list.filter(item => item.checked).length} / ${list.length}`;
     }
 
     function addShoppingItem() {
@@ -1318,7 +1362,8 @@
     }
 
     function renderPayerSelector() {
-      document.getElementById('split-item-payer').innerHTML = state.splitMembers.map(m => `<option value="${m}">${m}</option>`).join('');
+      const el = document.getElementById('split-item-payer');
+      if (el) el.innerHTML = state.splitMembers.map(m => `<option value="${m}">${m}</option>`).join('');
     }
 
     function addSplitExpense() {
@@ -1338,6 +1383,7 @@
       const list = state.splitExpenses || [];
       const members = state.splitMembers || [];
       const resultsDiv = document.getElementById('split-results');
+      if (!resultsDiv) return;
 
       if (members.length === 0 || list.length === 0) {
         resultsDiv.innerHTML = `<p class="text-stone-400 text-center py-4">目前尚無消費紀錄</p>`;
@@ -1379,9 +1425,11 @@
 
     function switchMainTab(target) {
       document.querySelectorAll('.tab-content').forEach(s => s.classList.add('hidden'));
-      document.getElementById(`section-${target}`).classList.remove('hidden');
+      const el = document.getElementById(`section-${target}`);
+      if (el) el.classList.remove('hidden');
       document.querySelectorAll('[id^="nav-"]').forEach(b => b.classList.remove('tab-active'));
-      document.getElementById(`nav-${target}`).classList.add('tab-active');
+      const navEl = document.getElementById(`nav-${target}`);
+      if (navEl) navEl.add('tab-active');
       if (target === 'itinerary') renderTimeline();
     }
 
@@ -1390,11 +1438,11 @@
       const btn1 = document.getElementById('btn-user1');
       const btn2 = document.getElementById('btn-user2');
       if (userId === 'user1') {
-        btn1.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-morandi-medium text-white shadow-sm";
-        btn2.className = "px-4 py-1.5 rounded-full text-xs font-medium text-stone-500 bg-transparent";
+        if (btn1) btn1.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-morandi-medium text-white shadow-sm";
+        if (btn2) btn2.className = "px-4 py-1.5 rounded-full text-xs font-medium text-stone-500 bg-transparent";
       } else {
-        btn1.className = "px-4 py-1.5 rounded-full text-xs font-medium text-stone-500 bg-transparent";
-        btn2.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-[#8E7C93] text-white shadow-sm relative";
+        if (btn1) btn1.className = "px-4 py-1.5 rounded-full text-xs font-medium text-stone-500 bg-transparent";
+        if (btn2) btn2.className = "px-4 py-1.5 rounded-full text-xs font-bold bg-[#8E7C93] text-white shadow-sm relative";
       }
       renderFlightCards(); renderLastDayAlert(); renderOverviewGrid(); renderTimeline();
       
@@ -1413,6 +1461,7 @@
 
     function showToast(message, icon = "✨") {
       const toast = document.getElementById('toast');
+      if (!toast) return;
       document.getElementById('toast-msg').innerText = message;
       document.getElementById('toast-icon').innerText = icon;
       toast.classList.remove('opacity-0', 'pointer-events-none');
@@ -1424,32 +1473,41 @@
       showToast(successMsg || '複製成功', "📋");
     }
 
-    function getSpotIcon(type) {
-      switch(type) {
-        case 'transport': return '✈️';
-        case 'hotel': return '🏨';
-        case 'dining': return '🍽️';
-        case 'shopping': return '🛍️';
-        default: return '🏰';
+    function getSortedDaySpots() {
+      const list = state.itinerary[currentUser].days[currentDayIdx] || [];
+      const order = state.dragOrders[currentUser]?.[`day_${currentDayIdx}`];
+
+      if (order && order.length > 0) {
+        const itemMap = new Map(list.map(item => [item.id, item]));
+        const sorted = [];
+        order.forEach(id => {
+          if (itemMap.has(id)) {
+            sorted.push(itemMap.get(id));
+            itemMap.delete(id);
+          }
+        });
+        itemMap.forEach(item => sorted.push(item));
+        return sorted;
       }
+      return list;
     }
 
     function renderAll() {
       renderOverviewGrid(); renderDayTabs(); renderFlightCards(); renderLastDayAlert(); renderChecklist(); renderTimeline(); renderMustBuyList(); renderShoppingList(); renderPayerSelector(); calculateAA(); updateCloudUI();
     }
 
+    // 將所有函數綁定至 window 確保 inline onclick 有效
     window.switchMainTab = switchMainTab; window.switchUser = switchUser; window.switchDay = switchDay; window.resetCurrentDayOrder = resetCurrentDayOrder; window.openAddSpotModal = openAddSpotModal; window.openEditSpotModal = openEditSpotModal; window.closeSpotModal = closeSpotModal; window.saveSpotFromModal = saveSpotFromModal; window.deleteSpot = deleteSpot; window.toggleChecklistItem = toggleChecklistItem; window.switchMustBuyArea = switchMustBuyArea; window.addMustBuyToShopping = addMustBuyToShopping; window.addShoppingItem = addShoppingItem; window.toggleShoppingItem = toggleShoppingItem; window.deleteShoppingItem = deleteShoppingItem; window.convertCurrency = convertCurrency; window.updateSplitMembers = updateSplitMembers; window.addSplitExpense = addSplitExpense; window.clearSplitExpenses = clearSplitExpenses; window.toggleCloudModal = toggleCloudModal; window.createGroup = createGroup; window.joinGroup = joinGroup; window.leaveGroup = leaveGroup; window.copyInviteLink = copyInviteLink; window.copyToClipboard = copyToClipboard;
 
-    // 🏆 最終精準加載順序：優先確保 startAuth 獲得名媛 ID 後，再進行完整的 UI 渲染刷新！
+    // 🚀 精準加載：先渲染本地預設行程（保證絕不白畫面），再非同步去連線雲端認證
     window.onload = async function() {
       loadLocalState();
       switchMainTab('itinerary');
       switchUser('user1');
       renderAll();
       
-      // 強迫網頁等待背景驗證通電
+      // 優雅等候雲端背景通道開啟
       await startAuth();
-      // 通電成功後，立即二度刷新前台按鈕與在線狀態
       renderAll();
     }
   </script>

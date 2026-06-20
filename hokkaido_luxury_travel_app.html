@@ -1828,5 +1828,89 @@
       startAuth();
     }
   </script>
+
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+    import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+    // 這裡就是妳最棒的專屬金鑰配置
+    const firebaseConfig = {
+      apiKey: "AIzaSyC5C_auB6bY2-fdGLG7q8C7Eo6mMorKc14",
+      authDomain: "hokkaido-dy-a0644.firebaseapp.com",
+      projectId: "hokkaido-dy-a0644",
+      storageBucket: "hokkaido-dy-a0644.firebasestorage.app",
+      messagingSenderId: "8545937039",
+      appId: "1:8545937039:web:d010e0c4027fcbc6e032fa"
+    };
+
+    let app, db, auth;
+    try {
+      app = initializeApp(firebaseConfig);
+      db = getFirestore(app);
+      auth = getAuth(app);
+    } catch (e) {
+      console.warn("Firebase 初始化失敗", e);
+    }
+
+    // 將 Firebase 專屬的雲端操作函數外開給 HTML 按鈕呼叫
+    window.createGroup = async function() {
+      if (!db || !firebaseUser) { showToast("⚠️ 雲端共編服務未就緒", "❌"); return; }
+      const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+      activeGroupCode = code;
+      try {
+        await setDoc(doc(db, 'hokkaido_rooms', code), {
+          state: state,
+          createdAt: new Date().toISOString(),
+          updatedBy: firebaseUser.uid
+        });
+        localStorage.setItem('hokkaido_active_group_v3', code);
+        setupGroupListener(code);
+        showToast(`🎉 群組創建成功！房號: ${code}`, "💖");
+      } catch (err) { console.error(err); }
+    };
+
+    window.joinGroup = async function(codeFromUrl = null) {
+      const input = document.getElementById('group-code-input');
+      const targetCode = (codeFromUrl || (input ? input.value : '')).trim().toUpperCase();
+      if (!targetCode) return;
+      try {
+        const docSnap = await getDoc(doc(db, 'hokkaido_rooms', targetCode));
+        if (docSnap.exists()) {
+          activeGroupCode = targetCode;
+          localStorage.setItem('hokkaido_active_group_v3', targetCode);
+          setupGroupListener(targetCode);
+          showToast(`🟢 成功連線房號: ${targetCode}`, "🤝");
+          toggleCloudModal();
+        } else { showToast("⚠️ 查無此房間", "❌"); }
+      } catch (err) { console.error(err); }
+    };
+
+    window.startAuth = async function() {
+      if (!auth) return;
+      try {
+        let userCredential = await signInAnonymously(auth);
+        firebaseUser = userCredential.user;
+        document.getElementById('user-id-display').innerText = `名媛ID: ${firebaseUser.uid}`;
+        const urlParams = new URLSearchParams(window.location.search);
+        const groupFromUrl = urlParams.get('group');
+        const savedGroup = localStorage.getItem('hokkaido_active_group_v3');
+        if (groupFromUrl) { await joinGroup(groupFromUrl); } 
+        else if (savedGroup) { activeGroupCode = savedGroup; setupGroupListener(savedGroup); } 
+        else { updateCloudUI(); }
+      } catch (err) { console.error(err); updateCloudUI(); }
+    };
+
+    function setupGroupListener(code) {
+      onSnapshot(doc(db, 'hokkaido_rooms', code), (snapshot) => {
+        if (snapshot.exists()) {
+          const data = snapshot.data();
+          if (data && data.state) { state = data.state; renderAll(); }
+        }
+      });
+      updateCloudUI();
+    }
+  </script>
 </body>
 </html>

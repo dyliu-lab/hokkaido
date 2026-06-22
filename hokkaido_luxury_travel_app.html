@@ -4,13 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>北海道盛夏・宮美純掐自由行隨身 APP</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght=300;400;500;700;900&family=Playfair+Display:ital,wght=0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <!-- SortableJS (Touch Drag & Drop) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
   
   <script>
@@ -66,7 +63,6 @@
 </head>
 <body class="font-sans antialiased min-h-screen pb-12">
 
-  <!-- 頂部奢華 Header -->
   <header class="bg-gradient-to-r from-[#5B5061] via-[#7D7382] to-[#5B5061] text-white py-8 px-4 relative overflow-hidden shadow-md">
     <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08)_0%,transparent_70%)]"></div>
     <div class="max-w-7xl mx-auto text-center relative z-10">
@@ -85,7 +81,6 @@
     </div>
   </header>
 
-  <!-- 頂部黏性固定導覽列 -->
   <div class="sticky top-0 bg-white border-b border-morandi-border z-40 shadow-sm">
     <div class="max-w-7xl mx-auto flex justify-around md:justify-center md:gap-8">
       <button onclick="switchMainTab('itinerary')" id="nav-itinerary" class="flex-1 md:flex-initial py-3 px-4 text-center border-b-2 border-transparent text-stone-400 hover:text-morandi-medium transition duration-300 flex flex-col md:flex-row items-center justify-center gap-1">
@@ -109,10 +104,8 @@
 
   <main class="max-w-7xl mx-auto px-4 py-6 md:py-8">
 
-    <!-- ==================== 頁籤 1: 行程區塊 ==================== -->
     <section id="section-itinerary" class="tab-content space-y-6">
 
-      <!-- 旅客視角切換 -->
       <div class="flex flex-col sm:flex-row items-center justify-between bg-white rounded-2xl border border-morandi-border p-4 gap-4 shadow-sm">
         <div class="flex items-center gap-3">
           <span class="text-xs uppercase tracking-widest text-morandi-medium font-semibold">當前規劃視角：</span>
@@ -126,22 +119,17 @@
         <span class="text-xs text-stone-400">提示：切換視角可見兩位名媛專屬的每日班機與客製動線</span>
       </div>
 
-      <!-- 六日總覽表 -->
       <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm overflow-hidden">
         <div class="overflow-x-auto custom-scrollbar -mx-5 px-5">
           <div class="grid grid-cols-6 min-w-[700px] gap-3 py-1" id="overview-grid">
-            <!-- JS動態生成一覽表 -->
-          </div>
+            </div>
         </div>
       </div>
 
-      <!-- 雙欄架構 -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- 左欄：核心交通、提醒與行李清單 -->
         <div class="lg:col-span-4 space-y-6">
           
-          <!-- 航班與飯店 -->
           <div class="bg-white rounded-2xl border border-morandi-border overflow-hidden shadow-sm">
             <div class="bg-gradient-to-r from-morandi-medium to-morandi-dark p-3.5 text-white flex justify-between items-center">
               <span class="font-bold text-sm tracking-wide">🏨 住宿與交通核心</span>
@@ -149,8 +137,7 @@
             </div>
             <div class="p-4 space-y-4 text-xs">
               <div class="bg-morandi-light p-3 rounded-xl border border-morandi-border space-y-2" id="flight-info-card">
-                <!-- 動態航班 -->
-              </div>
+                </div>
               <div class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder space-y-2">
                 <p class="font-bold text-morandi-dark text-sm">SAPPORO STREAM HOTEL (5晚)</p>
                 <p class="text-stone-500">札幌線流飯店 (與 COCONO SUSUKINO 商場直結)</p>
@@ -162,27 +149,21 @@
             </div>
           </div>
 
-          <!-- 最終日提醒 -->
           <div id="last-day-alert-container"></div>
 
-          <!-- 行行前準備與行李檢查 -->
           <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm">
             <div class="flex justify-between items-center mb-3">
               <h4 class="font-bold text-xs text-morandi-dark uppercase tracking-wider">🧳 行前必備行李核對</h4>
               <span class="text-[11px] bg-morandi-light text-morandi-medium px-2 py-0.5 rounded-full font-bold" id="checklist-progress">0%</span>
             </div>
             <div class="space-y-2 text-xs" id="checklist-items">
-              <!-- JS 動態生成行李核對 -->
-            </div>
+              </div>
           </div>
         </div>
 
-        <!-- 右欄：時間軸與可拖拽行程 -->
         <div class="lg:col-span-8 space-y-4">
-          <!-- 天數子選單 -->
           <div class="flex border-b border-morandi-border overflow-x-auto custom-scrollbar gap-1" id="day-tabs-container">
-            <!-- 動態生成天數頁籤 -->
-          </div>
+            </div>
 
           <div class="flex justify-between items-center">
             <span class="text-[11px] text-morandi-medium font-bold uppercase tracking-widest flex items-center gap-1">
@@ -200,19 +181,16 @@
           </div>
 
           <div id="timeline-drag-container" class="space-y-3 min-h-[200px]">
-            <!-- JS依當日及旅客渲染行程卡 -->
-          </div>
+            </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== 頁籤 2: 必買推薦 ==================== -->
     <section id="section-mustbuys" class="tab-content hidden space-y-6">
       <div class="bg-white rounded-2xl border border-morandi-border p-6 shadow-sm">
         <h3 class="font-serif italic text-2xl text-morandi-dark text-center mb-2">Hokkaido Gourmet & Souvenirs</h3>
         <p class="text-xs text-stone-500 text-center max-w-lg mx-auto mb-6">精心彙整北國最頂級的必買清單，按照地理區域完美歸類，一鍵即可加入您的手寫購物清單！</p>
         
-        <!-- 必買區域切換 -->
         <div class="flex border-b border-morandi-border overflow-x-auto custom-scrollbar justify-start md:justify-center mb-6 gap-2">
           <button onclick="switchMustBuyArea('all')" id="mb-area-all" class="mb-area-btn px-4 py-2 text-xs font-bold border-b-2 border-transparent transition whitespace-nowrap">全部名產</button>
           <button onclick="switchMustBuyArea('sapporo')" id="mb-area-sapporo" class="mb-area-btn px-4 py-2 text-xs font-medium border-b-2 border-transparent transition whitespace-nowrap">🏢 札幌市區</button>
@@ -222,16 +200,13 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="mustbuy-cards-container">
-          <!-- JS 動態渲染必買精品卡片 -->
-        </div>
+          </div>
       </div>
     </section>
 
-    <!-- ==================== 頁籤 3: 購物清單 ==================== -->
     <section id="section-shopping" class="tab-content hidden space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
-        <!-- 左欄：手寫新增購物單 -->
         <div class="lg:col-span-4 bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
           <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
             <span>✍️ 新增奢華戰利品</span>
@@ -268,7 +243,6 @@
           </div>
         </div>
 
-        <!-- 右欄：採購清單檢視 -->
         <div class="lg:col-span-8 bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
           <div class="flex justify-between items-center pb-3 border-b border-morandi-border">
             <div>
@@ -279,19 +253,15 @@
           </div>
 
           <div class="space-y-2 max-h-[500px] overflow-y-auto custom-scrollbar pr-1" id="shopping-list-container">
-            <!-- JS 動態生成購物清單 -->
-          </div>
+            </div>
         </div>
       </div>
     </section>
 
-    <!-- ==================== 頁籤 4: 旅行工具 ==================== -->
     <section id="section-tools" class="tab-content hidden space-y-6">
       
-      <!-- 混合排版：上方大欄 + 下方多宮格工具配置 -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
-        <!-- 1. Google 翻譯 & 實用日語速查 -->
         <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
           <div class="flex justify-between items-center border-b border-stone-100 pb-2">
             <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
@@ -327,7 +297,6 @@
           </div>
         </div>
 
-        <!-- 2. 日圓 ⇄ 台幣 即時匯率換算 (已連接實時 API) -->
         <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
           <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
             <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
@@ -355,17 +324,14 @@
               </div>
             </div>
 
-            <!-- 常見面額對照表 -->
             <div class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder space-y-1 text-[11px]">
               <p class="font-bold text-morandi-dark mb-1">💡 購物速看對照表 (實時即時更新)</p>
               <div class="grid grid-cols-2 gap-2 text-stone-600 font-semibold" id="rate-table-container">
-                <!-- 動態更新 -->
-              </div>
+                </div>
             </div>
           </div>
         </div>
 
-        <!-- 3. AA 奢華分帳秘書 -->
         <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
           <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
             <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
@@ -374,14 +340,12 @@
             <button onclick="clearSplitExpenses()" class="text-[10px] text-red-500 hover:underline">清空所有費用</button>
           </div>
 
-          <!-- 成員設置 -->
           <div class="text-xs space-y-3">
             <div class="bg-stone-50 p-3 rounded-xl border border-stone-100 space-y-2">
               <p class="font-bold text-stone-700">1. 成員名單 (逗號分隔)</p>
               <input type="text" id="split-members" value="楓香嬌黛, KERRIE" onchange="updateSplitMembers()" class="w-full px-3 py-1.5 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-white">
             </div>
 
-            <!-- 新增費用 -->
             <div class="bg-morandi-light p-3 rounded-xl border border-morandi-border space-y-2">
               <p class="font-bold text-stone-700">2. 新增一筆消費</p>
               <div class="grid grid-cols-2 gap-2">
@@ -392,8 +356,7 @@
                 <div>
                   <label class="text-[10px] text-stone-400 block">誰付的款？</label>
                   <select id="split-item-payer" class="w-full px-2 py-1 border border-stone-200 rounded bg-white mt-0.5">
-                    <!-- JS 動態渲染付款人選單 -->
-                  </select>
+                    </select>
                 </div>
                 <button onclick="addSplitExpense()" class="w-full py-2 bg-morandi-medium hover:bg-morandi-dark text-white rounded-lg font-bold transition mt-3">
                   確認記入 ➔
@@ -401,17 +364,14 @@
               </div>
             </div>
 
-            <!-- 費用清單與分帳明細 -->
             <div class="space-y-2">
               <p class="font-bold text-stone-700">3. 結算清單 (誰該付誰多少)</p>
               <div id="split-results" class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder text-xs space-y-1.5 font-sans">
-                <!-- JS 計算結果 -->
-              </div>
+                </div>
             </div>
           </div>
         </div>
 
-        <!-- 4. 北海道氣象情報 (已連接實時 API) -->
         <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
           <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
             <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
@@ -445,7 +405,6 @@
               </div>
             </div>
 
-            <!-- 宮美穿搭推薦 -->
             <div class="bg-stone-50 p-3 rounded-xl border border-stone-200 text-xs">
               <p class="font-bold text-morandi-dark mb-1">👗 宮美盛夏穿搭與出行建議：</p>
               <p class="text-stone-600 leading-relaxed text-[11px]">
@@ -457,7 +416,6 @@
 
       </div>
 
-      <!-- 5. 雲端同步協作中心 (精緻卡片化，取代原先置頂區) -->
       <div class="bg-white rounded-2xl border border-morandi-accent p-6 shadow-sm mt-6 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-32 h-32 bg-morandi-accent/5 rounded-full -mr-12 -mt-12 pointer-events-none"></div>
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
@@ -471,12 +429,10 @@
             <p class="text-xs text-stone-500 max-w-3xl leading-relaxed">
               建立或輸入群組代碼後，可實時同步「行程動線修改」、「手寫購物清單」以及「AA分帳費用」至好姊妹的裝置，同步體驗精彩絕倫的北國之旅。
             </p>
-            <!-- 在線姬感知面板 -->
             <div id="presence-panel" class="hidden pt-3 border-t border-morandi-goldborder flex flex-wrap items-center gap-3 text-xs">
               <span class="text-stone-400">👭 當前在線共編姬：</span>
               <div id="presence-list" class="flex flex-wrap gap-2">
-                <!-- 動態生成在線旅伴狀態 -->
-              </div>
+                </div>
             </div>
           </div>
           
@@ -489,7 +445,6 @@
 
   </main>
 
-  <!-- ==================== 彈出視窗 1: 編輯/新增行程 Modal ==================== -->
   <div id="spot-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl border border-morandi-border max-w-md w-full p-6 shadow-2xl space-y-4">
       <div class="flex justify-between items-center pb-2 border-b border-stone-100">
@@ -540,7 +495,6 @@
     </div>
   </div>
 
-  <!-- ==================== 彈出視窗 2: 雲端共編管理 Modal ==================== -->
   <div id="cloud-modal" class="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 z-50 hidden">
     <div class="bg-white rounded-2xl border border-morandi-border max-w-sm w-full p-6 shadow-2xl space-y-4">
       <div class="flex justify-between items-center pb-2 border-b border-stone-100">
@@ -553,7 +507,6 @@
           建立或輸入高奢群組代碼後，可實時同步「行程動線修改」、「手寫購物清單」以及「AA分帳費用」至好姊妹的裝置，體驗同步規劃的驚喜！
         </p>
 
-        <!-- 未連線時 -->
         <div id="cloud-offline-ui" class="space-y-3">
           <div class="flex gap-2">
             <input type="text" id="group-code-input" placeholder="輸入 6 碼群組代碼" class="flex-1 px-3 py-2 border border-stone-200 rounded-lg uppercase tracking-wider text-center font-bold bg-stone-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-morandi-medium">
@@ -564,7 +517,6 @@
           </button>
         </div>
 
-        <!-- 已連線時 -->
         <div id="cloud-online-ui" class="hidden space-y-3">
           <div class="bg-morandi-light p-4 rounded-xl text-center space-y-1.5 border border-morandi-border">
             <p class="text-[10px] text-morandi-medium tracking-widest font-bold">🌸 當前奢華連線代碼</p>
@@ -583,19 +535,16 @@
     </div>
   </div>
 
-  <!-- 浮動 Toast 提示 -->
   <div id="toast" class="fixed bottom-24 md:bottom-6 left-1/2 transform -translate-x-1/2 bg-morandi-dark text-white px-6 py-3 rounded-full shadow-2xl text-xs font-medium transition-all duration-300 opacity-0 pointer-events-none z-50 flex items-center gap-2">
     <span id="toast-icon">✨</span>
     <span id="toast-msg">複製成功！</span>
   </div>
 
-  <!-- Firebase & Core App Scripts module -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-    import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import { getFirestore, doc, getDoc, setDoc, onSnapshot, updateDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-    // 🏆 整合優化的 Firebase 設定 (採用您的安全與路徑規範)
     const appId = typeof __app_id !== 'undefined' ? __app_id : 'hokkaido-luxury-app-v3';
     
     const firebaseConfig = {
@@ -617,16 +566,15 @@
     }
 
     // ==================== 全局資料狀態 ====================
-    let currentUser = 'user1'; // 'user1' (楓香嬌黛) or 'user2' (KERRIE)
+    let currentUser = 'user1'; 
     let currentDayIdx = 0;
     let currentMustBuyArea = 'all';
     let activeGroupCode = null;
     let groupUnsubscribe = null;
     let isUpdatingCloud = false;
     let firebaseUser = null; 
-    let currentExchangeRate = 0.21; // 預設匯率備用
+    let currentExchangeRate = 0.21; 
 
-    // 內建奢華行程主資料
     const defaultItineraryData = {
       user1: {
         name: "楓香嬌黛 👑",
@@ -662,7 +610,7 @@
           [
             { id: "u1d4_1", time: "07:30 - 09:30", title: "自駕或富良野美瑛觀光巴士啟程", desc: "前往北海道最精華的富良野與美瑛地區，夏日限定的彩色拼圖即將展開。", type: "transport", loc: "富良野車站", isPremium: false },
             { id: "u1d4_2", time: "09:45 - 11:30", title: "富田農場 (Farm Tomita)：薰衣草紫霧", desc: "北海道最頂級的花海景致。紫色薰衣草在盛夏開得最為濃烈，務必買一支夏日限定的「薰衣草冰淇淋」，精緻拍照極美！", type: "sight", loc: "富田農場", isPremium: true },
-            { id: "u1d4_3", time: "12:00 - 13:15", title: "哈密瓜天堂：富田哈密瓜工房", desc: "盛夏來北海道就是要瘋狂吃哈密瓜！在工房大啖無敵甜度的現切富良野哈密瓜，以及哈密瓜戚風蛋糕與奢華布丁。", type: "dining", loc: "富田哈密瓜工房", isPremium: true },
+            { id: "u1d4_3", time: "12:00 - 13:15", title: "哈密瓜天堂：富田哈密瓜工房", desc: "盛夏來北海道就是要瘋狂吃哈密瓜！在工房大啖無敵甜度現切富良野哈密瓜，以及哈密瓜戚風蛋糕與奢華布丁。", type: "dining", loc: "富田哈密瓜工房", isPremium: true },
             { id: "u1d4_4", time: "13:30 - 14:15", title: "美瑛：四季彩之丘彩色地毯", desc: "搭乘高爾夫球車穿梭在數十公頃的大地彩色巨幅花毯中，繽紛亮麗的花草如瀑布般鋪在山丘上。", type: "sight", loc: "四季彩之丘", isPremium: true },
             { id: "u1d4_5", time: "14:45 - 15:45", title: "美瑛白金青池與白鬚瀑布", desc: "Tiffany 藍的夢幻水面與挺立的枯木群構成如明信片般的寂靜絕景。接著前往鄰近的白鬚瀑布欣賞奔騰藍水。", type: "sight", loc: "白金青池", isPremium: false },
             { id: "u1d4_6", time: "16:00 - 18:30", title: "啟程返回札幌＆晚餐推薦：根室花丸迴轉壽司", desc: "回到札幌站，前往超人氣的「根室花丸」品嚐高 CP 值的極致鮮甜壽司，為完美的花海一日畫下句點。", type: "dining", loc: "根室花丸 札幌JR Tower店", isPremium: true }
@@ -740,7 +688,6 @@
       }
     };
 
-    // 必買推薦預設資料
     const defaultMustBuyData = [
       { id: "mb1", name: "どんぐり 竹輪麵包", area: "sapporo", regionName: "🏢 札幌市區", desc: "鮪魚沙拉塞入 Q 彈竹輪，外裹香濃烘烤麵包。大推薄野分店限定款！", price: "約 ￥200", icon: "🥖" },
       { id: "mb2", name: "六花亭 判官餅", area: "sapporo", regionName: "🏢 札幌市區", desc: "圓山店現烤蕎麥紅豆麻糬，外酥內Q。坐在森林落地窗前享用極美。", price: "約 ￥150", icon: "🍵" },
@@ -799,15 +746,19 @@
         const groupDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'rooms', activeGroupCode);
         const myName = currentUser === 'user1' ? '楓香嬌黛 👑' : 'KERRIE 🎀';
         
+        // 修正點：分開保存主狀態與更新目前使用者在線時間，避免 A 直接覆寫掉 B 剛推上來的最新 activeUsers
         await setDoc(groupDocRef, {
           state: state,
           updatedAt: new Date().toISOString(),
-          updatedBy: firebaseUser.uid,
+          updatedBy: firebaseUser.uid
+        }, { merge: true });
+
+        await updateDoc(groupDocRef, {
           [`activeUsers.${firebaseUser.uid}`]: {
             name: myName,
             lastActive: new Date().toISOString()
           }
-        }, { merge: true });
+        });
       } catch (err) {
         console.error("同步至雲端失敗:", err);
       } finally {
@@ -822,7 +773,7 @@
       }
     }
 
-    // 建立新房間 (遵守 RULE 1 / PUBLIC DATA / STRICT PATH)
+    // 建立新房間
     async function createGroup() {
       if (!db || !firebaseUser) {
         showToast("⚠️ 雲端共編服務未就緒，請稍候", "❌");
@@ -860,7 +811,7 @@
       }
     }
 
-    // 加入現成群組 (遵守 RULE 1 / PUBLIC DATA / STRICT PATH)
+    // 加入現成群組
     async function joinGroup(codeFromUrl = null) {
       if (!db || !firebaseUser) {
         showToast("⚠️ 雲端服務尚未就緒", "❌");
@@ -886,15 +837,14 @@
           setupGroupListener(targetCode);
           showToast(`🟢 成功連線房號: ${targetCode}`, "🤝");
           
-          // 立刻更新一次身份至該房內
           isUpdatingCloud = true;
           const myName = currentUser === 'user1' ? '楓香嬌黛 👑' : 'KERRIE 🎀';
-          await setDoc(groupDocRef, {
+          await updateDoc(groupDocRef, {
             [`activeUsers.${firebaseUser.uid}`]: {
               name: myName,
               lastActive: new Date().toISOString()
             }
-          }, { merge: true });
+          });
           isUpdatingCloud = false;
           
           const modal = document.getElementById('cloud-modal');
@@ -924,7 +874,7 @@
       toggleCloudModal();
     }
 
-    // 實時共編監聽（Rule 3 Guarded + Error Callbacks）
+    // 實時共編監聽
     function setupGroupListener(code) {
       if (groupUnsubscribe) groupUnsubscribe();
       if (!firebaseUser) return;
@@ -1054,7 +1004,6 @@
           document.getElementById(`weather-conn-${city.id}`).innerText = "🟢 即時氣候";
         } catch (e) {
           console.warn(`無法獲取 ${city.name} 的即時氣候，改用經典常溫`);
-          // 恢復經典靜態數值
           if (city.id === "sapporo") {
             document.getElementById('weather-temp-sapporo').innerText = "22°C - 28°C";
             document.getElementById('weather-status-sapporo').innerText = "降雨機率 10%";
@@ -1203,7 +1152,6 @@
         return `
           <div class="itinerary-card bg-white rounded-xl border border-morandi-border p-4 relative transition duration-300 shadow-xs hover:shadow flex flex-col sm:flex-row sm:items-start gap-3" data-id="${item.id}">
             
-            <!-- 時間把柄 -->
             <div class="flex items-center justify-between sm:flex-col sm:items-start gap-1.5 sm:w-28 flex-shrink-0">
               <div class="flex items-center gap-1.5">
                 <span class="drag-handle cursor-move text-stone-300 hover:text-morandi-medium text-base select-none">⋮⋮</span>
@@ -1218,7 +1166,6 @@
               </div>
             </div>
 
-            <!-- 行程核心 -->
             <div class="flex-1 space-y-1.5 text-xs">
               <div class="flex justify-between items-start gap-3">
                 <h4 class="font-bold text-morandi-dark text-sm sm:text-base">${item.title}</h4>
@@ -1229,7 +1176,6 @@
               </div>
               <p class="text-stone-500 leading-relaxed text-[11px]">${item.desc}</p>
               
-              <!-- Klook 購票通知 -->
               ${item.title.includes("Klook") ? `
                 <div class="bg-orange-50 border border-orange-100 rounded-lg p-2.5 text-[10px] text-orange-900 space-y-1 my-1">
                   <p class="font-bold">🎫 Klook 精緻一日遊（頭大佛、神宮、螃蟹市場、定山溪）</p>
@@ -1239,7 +1185,6 @@
                 </div>
               ` : ''}
 
-              <!-- 動作列 -->
               <div class="flex gap-1.5 pt-1">
                 <button onclick="copyToClipboard('${item.loc}', '名店關鍵字已複製')" class="py-0.5 px-2 bg-stone-50 hover:bg-stone-100 border border-stone-200 text-stone-600 rounded text-[10px] font-medium transition">📋 複製關鍵字</button>
                 <a href="https://maps.google.com/?q=${encodeURIComponent(item.loc)}" target="_blank" class="py-0.5 px-2 bg-morandi-light hover:bg-morandi-border text-morandi-dark rounded text-[10px] font-medium transition text-center">🗺️ Google 地圖</a>
@@ -1262,23 +1207,24 @@
         handle: '.drag-handle',
         animation: 150,
         ghostClass: 'drag-ghost',
-        onEnd: function() {
+        onEnd: async function() {
           const cards = container.querySelectorAll('.itinerary-card');
           const sortedIds = Array.from(cards).map(card => card.getAttribute('data-id'));
           
           if (!state.dragOrders[currentUser]) state.dragOrders[currentUser] = {};
           state.dragOrders[currentUser][`day_${currentDayIdx}`] = sortedIds;
           
-          saveState();
+          // 修正點：加上 await 確保拖拽排序即時上傳
+          await saveState();
           showToast("💾 新的行程動線已實時同步雲端！");
         }
       });
     }
 
-    function resetCurrentDayOrder() {
+    async function resetCurrentDayOrder() {
       if (state.dragOrders[currentUser]?.[`day_${currentDayIdx}`]) {
         delete state.dragOrders[currentUser][`day_${currentDayIdx}`];
-        saveState();
+        await saveState();
         renderTimeline();
         showToast("✨ 本日行程順序已重設為經典推薦動線");
       }
@@ -1319,7 +1265,7 @@
       document.getElementById('spot-modal').classList.add('hidden');
     }
 
-    function saveSpotFromModal() {
+    async function saveSpotFromModal() {
       const id = document.getElementById('modal-spot-id').value;
       const time = document.getElementById('modal-spot-time').value.trim() || "全天";
       const title = document.getElementById('modal-spot-title').value.trim();
@@ -1349,13 +1295,14 @@
         spots.push(newSpot);
       }
 
-      saveState();
+      // 修正點：加上 await 確保編輯視窗內存檔確實推送
+      await saveState();
       renderTimeline();
       closeSpotModal();
       showToast("💾 行程修改成功並即時同步！");
     }
 
-    function deleteSpot(id) {
+    async function deleteSpot(id) {
       const spots = state.itinerary[currentUser].days[currentDayIdx];
       state.itinerary[currentUser].days[currentDayIdx] = spots.filter(s => s.id !== id);
       
@@ -1363,7 +1310,7 @@
         state.dragOrders[currentUser][`day_${currentDayIdx}`] = state.dragOrders[currentUser][`day_${currentDayIdx}`].filter(cardId => cardId !== id);
       }
 
-      saveState();
+      await saveState();
       renderTimeline();
       showToast("🗑️ 行程點已成功移除並雲端同步");
     }
@@ -1391,13 +1338,13 @@
       updateChecklistProgress();
     }
 
-    function toggleChecklistItem(id) {
+    async function toggleChecklistItem(id) {
       if (state.checklist.includes(id)) {
         state.checklist = state.checklist.filter(i => i !== id);
       } else {
         state.checklist.push(id);
       }
-      saveState();
+      await saveState();
       updateChecklistProgress();
     }
 
@@ -1486,7 +1433,7 @@
       renderMustBuyList();
     }
 
-    function addMustBuyToShopping(name, area) {
+    async function addMustBuyToShopping(name, area) {
       const newItem = {
         id: "shop_" + Date.now(),
         name,
@@ -1496,7 +1443,7 @@
         checked: false
       };
       state.shoppingList.push(newItem);
-      saveState();
+      await saveState();
       showToast(`🛒 已將 ${name} 置入購物清單！`);
     }
 
@@ -1529,7 +1476,7 @@
       document.getElementById('shopping-progress').innerText = `已採購 ${checkedCount} / ${list.length}`;
     }
 
-    function addShoppingItem() {
+    async function addShoppingItem() {
       const nameInput = document.getElementById('shop-input-name');
       const qtyInput = document.getElementById('shop-input-qty');
       const areaInput = document.getElementById('shop-input-area');
@@ -1551,7 +1498,7 @@
       };
 
       state.shoppingList.push(newItem);
-      saveState();
+      await saveState();
       renderShoppingList();
 
       nameInput.value = "";
@@ -1560,19 +1507,18 @@
       showToast(`🛒 購物清單已同步新增: ${name}`);
     }
 
-    // 更新購物核對
-    function toggleShoppingItem(id) {
+    async function toggleShoppingItem(id) {
       const item = state.shoppingList.find(s => s.id === id);
       if (item) {
         item.checked = !item.checked;
-        saveState();
+        await saveState();
         renderShoppingList();
       }
     }
 
-    function deleteShoppingItem(id) {
+    async function deleteShoppingItem(id) {
       state.shoppingList = state.shoppingList.filter(s => s.id !== id);
-      saveState();
+      await saveState();
       renderShoppingList();
       showToast("🗑️ 購物清單品項已移除");
     }
@@ -1591,10 +1537,10 @@
       }
     }
 
-    function updateSplitMembers() {
+    async function updateSplitMembers() {
       const val = document.getElementById('split-members').value;
       state.splitMembers = val.split(',').map(m => m.trim()).filter(m => m !== '');
-      saveState();
+      await saveState();
       renderPayerSelector();
       calculateAA();
     }
@@ -1608,7 +1554,7 @@
       }
     }
 
-    function addSplitExpense() {
+    async function addSplitExpense() {
       const name = document.getElementById('split-item-name').value.trim();
       const amount = parseFloat(document.getElementById('split-item-amount').value) || 0;
       const payer = document.getElementById('split-item-payer').value;
@@ -1623,7 +1569,7 @@
         name, amount, payer
       };
       state.splitExpenses.push(newExp);
-      saveState();
+      await saveState();
       
       document.getElementById('split-item-name').value = "";
       document.getElementById('split-item-amount').value = "";
@@ -1723,9 +1669,9 @@
       resultsDiv.innerHTML = breakdownHTML + settlementHTML;
     }
 
-    function clearSplitExpenses() {
+    async function clearSplitExpenses() {
       state.splitExpenses = [];
-      saveState();
+      await saveState();
       calculateAA();
       showToast("🗑️ 費用已全部清空並實時同步");
     }
@@ -1764,17 +1710,17 @@
       renderOverviewGrid();
       renderTimeline();
       
-      // 如果已在雲端連線中，將新的身分寫入雲端存在感知
+      // 修正點：切換旅伴視角時，主動通知雲端，避免覆寫 activeUsers 的錯誤
       if (activeGroupCode && db && firebaseUser) {
         const groupDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'rooms', activeGroupCode);
         const myName = currentUser === 'user1' ? '楓香嬌黛 👑' : 'KERRIE 🎀';
         isUpdatingCloud = true;
-        await setDoc(groupDocRef, {
+        await updateDoc(groupDocRef, {
           [`activeUsers.${firebaseUser.uid}`]: {
             name: myName,
             lastActive: new Date().toISOString()
           }
-        }, { merge: true });
+        });
         isUpdatingCloud = false;
       }
       
@@ -1813,7 +1759,6 @@
       showToast(`${successMsg || '複製成功'}`, "📋");
     }
 
-    // 🏆 異步啟動 Firebase 認證 (遵守 RULE 3 / ALWAYS AUTH FIRST)
     async function startAuth() {
       if (!auth) return;
       try {
@@ -1828,7 +1773,6 @@
         firebaseUser = userCredential.user;
         document.getElementById('user-id-display').innerText = `名媛ID: ${firebaseUser.uid}`;
         
-        // 判定 URL 房號 或 本地儲存的共編房間
         const urlParams = new URLSearchParams(window.location.search);
         const groupFromUrl = urlParams.get('group');
         const savedGroup = localStorage.getItem('hokkaido_active_group_v3');
@@ -1891,19 +1835,15 @@
 
     // 初始化加載
     window.onload = async function() {
-      // 1. 優先讀取本機快取
       loadLocalState();
 
-      // 2. 首次 UI 渲染 (保證頁籤與界面立即可用)
       switchMainTab('itinerary');
       switchUser('user1');
       renderAll();
 
-      // 3. 獲取實時在線匯率與氣候
       fetchExchangeRate();
       fetchHokkaidoWeather();
 
-      // 4. 啟動背景 Firebase 認證 (遵守 Rule 3)
       startAuth();
     }
   </script>

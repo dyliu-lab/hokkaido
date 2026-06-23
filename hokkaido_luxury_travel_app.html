@@ -92,8 +92,8 @@
         <span class="text-xs md:text-sm font-bold">必買推薦</span>
       </button>
       <button onclick="switchMainTab('shopping')" id="nav-shopping" class="flex-1 md:flex-initial py-3 px-4 text-center border-b-2 border-transparent text-stone-400 hover:text-morandi-medium transition duration-300 flex flex-col md:flex-row items-center justify-center gap-1">
-        <span class="text-xl">🛒</span>
-        <span class="text-xs md:text-sm font-bold">購物清單</span>
+        <span class="text-xl">📝</span>
+        <span class="text-xs md:text-sm font-bold">心願與清單</span>
       </button>
       <button onclick="switchMainTab('tools')" id="nav-tools" class="flex-1 md:flex-initial py-3 px-4 text-center border-b-2 border-transparent text-stone-400 hover:text-morandi-medium transition duration-300 flex flex-col md:flex-row items-center justify-center gap-1">
         <span class="text-xl">🛠️</span>
@@ -119,13 +119,99 @@
         <span class="text-xs text-stone-400">提示：切換視角可見兩位名媛專屬的每日班機與客製動線</span>
       </div>
 
+      <!-- Days Grid Selector -->
       <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm overflow-hidden">
         <div class="overflow-x-auto custom-scrollbar -mx-5 px-5">
           <div class="grid grid-cols-6 min-w-[700px] gap-3 py-1" id="overview-grid">
-            </div>
+          </div>
         </div>
       </div>
 
+      <!-- Realtime Widgets (Weather & Exchange Rate Side-by-Side right below Days) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Live Weather Panel -->
+        <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
+          <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
+            <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
+              <span>🌦️ 盛夏北海道即時氣候指南</span>
+            </h4>
+            <span class="text-[9px] bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-bold animate-pulse">即時連線</span>
+          </div>
+          
+          <div class="space-y-3">
+            <div class="grid grid-cols-3 gap-2">
+              <div class="bg-purple-50 p-2.5 rounded-xl border border-purple-100 text-center">
+                <p class="text-[10px] text-purple-800 font-bold">札幌市</p>
+                <p class="text-xl my-1" id="weather-emoji-sapporo">☀️</p>
+                <p class="text-xs font-bold text-stone-700" id="weather-temp-sapporo">--°C</p>
+                <p class="text-[9px] text-stone-400" id="weather-status-sapporo">連線中</p>
+                <span id="weather-conn-sapporo" class="text-[8px] text-emerald-600 block mt-1 font-bold">● LIVE</span>
+              </div>
+              <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-100 text-center">
+                <p class="text-[10px] text-amber-800 font-bold">小樽港</p>
+                <p class="text-xl my-1" id="weather-emoji-otaru">⛅</p>
+                <p class="text-xs font-bold text-stone-700" id="weather-temp-otaru">--°C</p>
+                <p class="text-[9px] text-stone-400" id="weather-status-otaru">連線中</p>
+                <span id="weather-conn-otaru" class="text-[8px] text-emerald-600 block mt-1 font-bold">● LIVE</span>
+              </div>
+              <div class="bg-indigo-50 p-2.5 rounded-xl border border-indigo-100 text-center">
+                <p class="text-[10px] text-indigo-800 font-bold">富良野</p>
+                <p class="text-xl my-1" id="weather-emoji-furano">☀️</p>
+                <p class="text-xs font-bold text-stone-700" id="weather-temp-furano">--°C</p>
+                <p class="text-[9px] text-stone-400" id="weather-status-furano">連線中</p>
+                <span id="weather-conn-furano" class="text-[8px] text-emerald-600 block mt-1 font-bold">● LIVE</span>
+              </div>
+            </div>
+
+            <div class="bg-stone-50 p-3 rounded-xl border border-stone-200 text-xs">
+              <p class="font-bold text-morandi-dark mb-1">👗 宮美盛夏穿搭與出行建議：</p>
+              <p class="text-stone-600 leading-relaxed text-[11px]">
+                北海道盛夏涼爽。但清晨、入夜與海邊（小樽）風大體感偏涼，建議穿著亮色洋裝，並**隨身攜帶一件薄針織或防風外衣**，防曬遮陽與保暖兼具。
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Live Exchange Rate Panel -->
+        <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
+          <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
+            <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
+              <span>💴 宮美即時匯率換算</span>
+            </h4>
+            <span id="rate-display-badge" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold animate-pulse">即時連線中</span>
+          </div>
+          <p id="rate-display-text" class="text-xs text-stone-500">正在取得最新線上匯率資訊...</p>
+          
+          <div class="space-y-3 text-xs">
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-stone-500 mb-1 font-medium">日幣金額 (JPY)</label>
+                <div class="relative">
+                  <input type="number" id="rate-jpy" value="1000" oninput="convertCurrency('jpy')" class="w-full pl-3 pr-8 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-stone-50 text-sm font-bold">
+                  <span class="absolute right-3 top-2.5 text-stone-400 font-bold">￥</span>
+                </div>
+              </div>
+              <div>
+                <label class="block text-stone-500 mb-1 font-medium">折合台幣 (TWD)</label>
+                <div class="relative">
+                  <input type="number" id="rate-twd" value="210" oninput="convertCurrency('twd')" class="w-full pl-3 pr-8 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-stone-50 text-sm font-bold">
+                  <span class="absolute right-3 top-2.5 text-stone-400 font-bold">$</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder space-y-1 text-[11px]">
+              <p class="font-bold text-morandi-dark mb-1">💡 購物速看對照表 (實時即時更新)</p>
+              <div class="grid grid-cols-2 gap-2 text-stone-600 font-semibold" id="rate-table-container">
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Detailed Day-by-Day View split -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         <div class="lg:col-span-4 space-y-6">
@@ -137,7 +223,7 @@
             </div>
             <div class="p-4 space-y-4 text-xs">
               <div class="bg-morandi-light p-3 rounded-xl border border-morandi-border space-y-2" id="flight-info-card">
-                </div>
+              </div>
               <div class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder space-y-2">
                 <p class="font-bold text-morandi-dark text-sm">SAPPORO STREAM HOTEL (5晚)</p>
                 <p class="text-stone-500">札幌線流飯店 (與 COCONO SUSUKINO 商場直結)</p>
@@ -151,24 +237,25 @@
 
           <div id="last-day-alert-container"></div>
 
+          <!-- Legacy suitcase check -->
           <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm">
             <div class="flex justify-between items-center mb-3">
-              <h4 class="font-bold text-xs text-morandi-dark uppercase tracking-wider">🧳 行前必備行李核對</h4>
+              <h4 class="font-bold text-xs text-morandi-dark uppercase tracking-wider">🧳 行前必備安全檢核</h4>
               <span class="text-[11px] bg-morandi-light text-morandi-medium px-2 py-0.5 rounded-full font-bold" id="checklist-progress">0%</span>
             </div>
             <div class="space-y-2 text-xs" id="checklist-items">
-              </div>
+            </div>
           </div>
         </div>
 
         <div class="lg:col-span-8 space-y-4">
           <div class="flex border-b border-morandi-border overflow-x-auto custom-scrollbar gap-1" id="day-tabs-container">
-            </div>
+          </div>
 
           <div class="flex justify-between items-center">
             <span class="text-[11px] text-morandi-medium font-bold uppercase tracking-widest flex items-center gap-1">
               <span>🕒 每日奢華動線</span>
-              <span class="text-[9px] bg-morandi-light px-1.5 py-0.5 rounded">可手勢拖曳排序（隨時同步）</span>
+              <span class="text-[9px] bg-morandi-light px-1.5 py-0.5 rounded">可手勢拖曳排序</span>
             </span>
             <div class="flex gap-2">
               <button onclick="openAddSpotModal()" class="text-xs text-morandi-medium hover:text-morandi-dark font-bold transition flex items-center gap-0.5">
@@ -181,7 +268,7 @@
           </div>
 
           <div id="timeline-drag-container" class="space-y-3 min-h-[200px]">
-            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -200,60 +287,45 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="mustbuy-cards-container">
-          </div>
+        </div>
       </div>
     </section>
 
     <section id="section-shopping" class="tab-content hidden space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        
-        <div class="lg:col-span-4 bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
-          <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
-            <span>✍️ 新增奢華戰利品</span>
-          </h4>
-          
-          <div class="space-y-3 text-xs">
+      <!-- Customizable wishlists & Planner blocks dashboard -->
+      <div class="bg-white rounded-2xl border border-morandi-border p-6 shadow-sm space-y-6">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-stone-100 pb-4">
+          <div>
+            <h3 class="font-serif italic text-2xl text-morandi-dark">宮美心願備忘與手寫清單</h3>
+            <p class="text-xs text-stone-400 mt-1">規劃要吃的店、要買的東西與攜帶物品，並能自由新增專屬旅行主題區塊！</p>
+          </div>
+          <button onclick="toggleAddBlockForm(true)" class="px-4 py-2.5 bg-morandi-medium hover:bg-morandi-dark text-white text-xs font-bold rounded-xl shadow-sm transition flex items-center gap-1.5">
+            ✨ 新增心願清單區塊
+          </button>
+        </div>
+
+        <!-- Add block inline dynamic form -->
+        <div id="add-block-form" class="hidden bg-morandi-light border border-morandi-border p-4 rounded-xl space-y-3">
+          <p class="font-bold text-xs text-morandi-dark">✨ 創立專屬宮美旅行清單區塊</p>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label class="block font-medium text-stone-500 mb-1">🛍️ 商品名稱</label>
-              <input type="text" id="shop-input-name" placeholder="例如：六花亭 萊姆葡萄餅乾" class="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-stone-50">
+              <label class="block text-[10px] text-stone-400 mb-1">選擇表情符號 (Emoji)</label>
+              <input type="text" id="new-block-emoji" placeholder="例如: 🍣" class="w-full px-3 py-2 border border-stone-200 rounded-lg text-xs bg-white text-center focus:ring-1 focus:ring-morandi-medium focus:outline-none">
             </div>
-            <div class="grid grid-cols-3 gap-2">
-              <div class="col-span-1">
-                <label class="block font-medium text-stone-500 mb-1">🔢 數量</label>
-                <input type="number" id="shop-input-qty" value="1" min="1" class="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-stone-50 text-center">
-              </div>
-              <div class="col-span-2">
-                <label class="block font-medium text-stone-500 mb-1">📍 預計購買地</label>
-                <select id="shop-input-area" class="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-stone-50">
-                  <option value="通用">隨緣 / 通用</option>
-                  <option value="札幌市區">札幌市區</option>
-                  <option value="小樽">小樽浪漫街</option>
-                  <option value="富良野">富良野與美瑛</option>
-                  <option value="新千歲機場">新千歲機場</option>
-                </select>
-              </div>
+            <div class="sm:col-span-2">
+              <label class="block text-[10px] text-stone-400 mb-1">區塊主題名稱</label>
+              <input type="text" id="new-block-title" placeholder="例如: 預計拍美照景點 / 帶回台的伴手禮" class="w-full px-3 py-2 border border-stone-200 rounded-lg text-xs bg-white focus:ring-1 focus:ring-morandi-medium focus:outline-none">
             </div>
-            <div>
-              <label class="block font-medium text-stone-500 mb-1">📝 規格與備註</label>
-              <textarea id="shop-input-note" rows="2" placeholder="例如：10入裝2盒、送給閨蜜們的優雅手信" class="w-full px-3 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-stone-50"></textarea>
-            </div>
-            <button onclick="addShoppingItem()" class="w-full py-2.5 bg-morandi-medium hover:bg-morandi-dark text-white rounded-lg font-bold transition flex items-center justify-center gap-1 text-xs">
-              ✨ 納入名媛購物清單
-            </button>
+          </div>
+          <div class="flex justify-end gap-2 pt-1">
+            <button onclick="toggleAddBlockForm(false)" class="px-3 py-1.5 border border-stone-300 rounded-lg text-xs text-stone-500 bg-white">取消</button>
+            <button onclick="createNewListBlock()" class="px-4 py-1.5 bg-morandi-medium hover:bg-morandi-dark text-white rounded-lg text-xs font-bold">建立區塊 ➔</button>
           </div>
         </div>
 
-        <div class="lg:col-span-8 bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
-          <div class="flex justify-between items-center pb-3 border-b border-morandi-border">
-            <div>
-              <h3 class="font-bold text-base text-morandi-dark">🛒 戰利品檢視清單</h3>
-              <p class="text-[10px] text-stone-400">出門血拼邊走邊勾選，核對不漏勾</p>
-            </div>
-            <span class="text-xs bg-morandi-light text-morandi-medium font-bold px-3 py-1 rounded-full" id="shopping-progress">已採購 0 / 0</span>
-          </div>
-
-          <div class="space-y-2 max-h-[500px] overflow-y-auto custom-scrollbar pr-1" id="shopping-list-container">
-            </div>
+        <!-- Dynamic Customizable Lists Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6" id="custom-lists-container">
+          <!-- Will be fully generated in Javascript -->
         </div>
       </div>
     </section>
@@ -300,41 +372,6 @@
         <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
           <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
             <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
-              <span>💴 宮美即時匯率換算</span>
-            </h4>
-            <span id="rate-display-badge" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold animate-pulse">即時連線中</span>
-          </div>
-          <p id="rate-display-text" class="text-xs text-stone-500">正在取得最新線上匯率資訊...</p>
-          
-          <div class="space-y-3 text-xs">
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="block text-stone-500 mb-1 font-medium">日幣金額 (JPY)</label>
-                <div class="relative">
-                  <input type="number" id="rate-jpy" value="1000" oninput="convertCurrency('jpy')" class="w-full pl-3 pr-8 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-stone-50 text-sm font-bold">
-                  <span class="absolute right-3 top-2.5 text-stone-400 font-bold">￥</span>
-                </div>
-              </div>
-              <div>
-                <label class="block text-stone-500 mb-1 font-medium">折合台幣 (TWD)</label>
-                <div class="relative">
-                  <input type="number" id="rate-twd" value="210" oninput="convertCurrency('twd')" class="w-full pl-3 pr-8 py-2 border border-stone-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-morandi-medium bg-stone-50 text-sm font-bold">
-                  <span class="absolute right-3 top-2.5 text-stone-400 font-bold">$</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder space-y-1 text-[11px]">
-              <p class="font-bold text-morandi-dark mb-1">💡 購物速看對照表 (實時即時更新)</p>
-              <div class="grid grid-cols-2 gap-2 text-stone-600 font-semibold" id="rate-table-container">
-                </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
-          <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
-            <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
               <span>🧮 閨蜜 AA 奢華結算機</span>
             </h4>
             <button onclick="clearSplitExpenses()" class="text-[10px] text-red-500 hover:underline">清空所有費用</button>
@@ -356,7 +393,7 @@
                 <div>
                   <label class="text-[10px] text-stone-400 block">誰付的款？</label>
                   <select id="split-item-payer" class="w-full px-2 py-1 border border-stone-200 rounded bg-white mt-0.5">
-                    </select>
+                  </select>
                 </div>
                 <button onclick="addSplitExpense()" class="w-full py-2 bg-morandi-medium hover:bg-morandi-dark text-white rounded-lg font-bold transition mt-3">
                   確認記入 ➔
@@ -367,55 +404,14 @@
             <div class="space-y-2">
               <p class="font-bold text-stone-700">3. 結算清單 (誰該付誰多少)</p>
               <div id="split-results" class="bg-morandi-accentlight p-3 rounded-xl border border-morandi-goldborder text-xs space-y-1.5 font-sans">
-                </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
-          <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
-            <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
-              <span>🌦️ 盛夏北海道即時氣候指南</span>
-            </h4>
-            <span class="text-[9px] bg-emerald-50 text-emerald-800 border border-emerald-200 px-1.5 py-0.5 rounded font-bold animate-pulse">即時連線</span>
-          </div>
-          
-          <div class="space-y-3">
-            <div class="grid grid-cols-3 gap-2">
-              <div class="bg-purple-50 p-2.5 rounded-xl border border-purple-100 text-center">
-                <p class="text-[10px] text-purple-800 font-bold">札幌市</p>
-                <p class="text-xl my-1" id="weather-emoji-sapporo">☀️</p>
-                <p class="text-xs font-bold text-stone-700" id="weather-temp-sapporo">--°C</p>
-                <p class="text-[9px] text-stone-400" id="weather-status-sapporo">連線中</p>
-                <span id="weather-conn-sapporo" class="text-[8px] text-emerald-600 block mt-1 font-bold">● LIVE</span>
               </div>
-              <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-100 text-center">
-                <p class="text-[10px] text-amber-800 font-bold">小樽港</p>
-                <p class="text-xl my-1" id="weather-emoji-otaru">⛅</p>
-                <p class="text-xs font-bold text-stone-700" id="weather-temp-otaru">--°C</p>
-                <p class="text-[9px] text-stone-400" id="weather-status-otaru">連線中</p>
-                <span id="weather-conn-otaru" class="text-[8px] text-emerald-600 block mt-1 font-bold">● LIVE</span>
-              </div>
-              <div class="bg-indigo-50 p-2.5 rounded-xl border border-indigo-100 text-center">
-                <p class="text-[10px] text-indigo-800 font-bold">富良野</p>
-                <p class="text-xl my-1" id="weather-emoji-furano">☀️</p>
-                <p class="text-xs font-bold text-stone-700" id="weather-temp-furano">--°C</p>
-                <p class="text-[9px] text-stone-400" id="weather-status-furano">連線中</p>
-                <span id="weather-conn-furano" class="text-[8px] text-emerald-600 block mt-1 font-bold">● LIVE</span>
-              </div>
-            </div>
-
-            <div class="bg-stone-50 p-3 rounded-xl border border-stone-200 text-xs">
-              <p class="font-bold text-morandi-dark mb-1">👗 宮美盛夏穿搭與出行建議：</p>
-              <p class="text-stone-600 leading-relaxed text-[11px]">
-                北海道盛夏日照充足且涼爽，極度舒適。但清晨、入夜與海邊（小樽）風大體感偏涼，建議穿著優雅亮色洋裝，並**務必隨身攜帶一件薄針織或香檳色防風外衣**，防曬遮陽與保暖兼具。
-              </p>
             </div>
           </div>
         </div>
 
       </div>
 
+      <!-- Cloud Sync Dashboard at bottom -->
       <div class="bg-white rounded-2xl border border-morandi-accent p-6 shadow-sm mt-6 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-32 h-32 bg-morandi-accent/5 rounded-full -mr-12 -mt-12 pointer-events-none"></div>
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 relative z-10">
@@ -427,12 +423,12 @@
               </span>
             </h3>
             <p class="text-xs text-stone-500 max-w-3xl leading-relaxed">
-              建立或輸入群組代碼後，可實時同步「行程動線修改」、「手寫購物清單」以及「AA分帳費用」至好姊妹的裝置，同步體驗精彩絕倫的北國之旅。
+              建立或輸入群組代碼後，可實時同步「行程動線修改」、「手寫心願購物清單」以及「AA分帳費用」至好姊妹的裝置，同步體驗精彩絕倫的北國之旅。
             </p>
             <div id="presence-panel" class="hidden pt-3 border-t border-morandi-goldborder flex flex-wrap items-center gap-3 text-xs">
               <span class="text-stone-400">👭 當前在線共編姬：</span>
               <div id="presence-list" class="flex flex-wrap gap-2">
-                </div>
+              </div>
             </div>
           </div>
           
@@ -579,12 +575,12 @@
       user1: {
         name: "楓香嬌黛 👑",
         flights: {
-          go: "去程 ✈️ 星宇航空 (7/26) — 06:55 台北 ➔ 11:55 札幌",
-          back: "回程 ✈️ 星宇航空 (7/31) — 16:15 札幌 ➔ 19:15 台北"
+          go: "去程 ✈️ 長榮航空 (7/26) — 06:55 台北 ➔ 11:55 札幌",
+          back: "回程 ✈️ 長榮航空 (7/31) — 16:15 札幌 ➔ 19:15 台北"
         },
         days: [
           [
-            { id: "u1d1_1", time: "06:55 - 11:55", title: "星宇高奢啟航：飛往新千歲機場", desc: "在清晨飛向北國涼爽的天空，下飛機後前往 JR 乘車處搭乘快速 Airport 列車直接前往札幌市區。", type: "transport", loc: "新千歲機場", isPremium: false },
+            { id: "u1d1_1", time: "06:55 - 11:55", title: "長榮高奢啟航：飛往新千歲機場", desc: "在清晨飛向北國涼爽的天空，下飛機後前往 JR 乘車處搭乘快速 Airport 列車直接前往札幌市區。", type: "transport", loc: "新千歲機場", isPremium: false },
             { id: "u1d1_2", time: "13:30 - 14:30", title: "SAPPORO STREAM HOTEL 辦理入住", desc: "抵達飯店寄存行李，享受與 COCONO SUSUKINO 直接共構的頂級高奢便利感。", type: "hotel", loc: "SAPPORO STREAM HOTEL", isPremium: true },
             { id: "u1d1_3", time: "14:30 - 15:30", title: "體驗 COCONO SUSUKINO 與 どんぐり B1F 爆款烘焙", desc: "入住飯店後下樓直奔 B1 的「どんぐり (DONGURI)」麵包店，搶購薄野店限定商品與最經典的日本竹輪麵包始祖，鮪魚沙拉與 Q 彈竹輪完美融合！", type: "dining", loc: "どんぐり COCONO SUSUKINO店", isPremium: true },
             { id: "u1d1_4", time: "15:45 - 17:30", title: "北海道大學：漫步白楊木林蔭道", desc: "探訪日本最美的大學校園，徐徐涼風下散步在著名的古老建築與綠意盎然的白楊木大道，享受慢活午後。", type: "sight", loc: "北海道大學", isPremium: false },
@@ -629,7 +625,7 @@
             { id: "u1d6_3", time: "11:30 - 12:15", title: "搭乘 JR 快速 Airport 列車直奔新千歲機場", desc: "優雅出發，不用匆忙，提早抵達機場，因為新千歲機場國內線是日本公認最好逛的購物美食天堂！", type: "transport", loc: "新千歲機場", isPremium: false },
             { id: "u1d6_4", time: "12:30 - 13:45", title: "新千歲機場國內線：神級伴手禮大狂購", desc: "直奔國內線商場！橫掃「北菓樓」開拓泡芙、「六花亭」奶油夾心餅乾、「美瑛選菓」夢幻玉米麵包（需排隊），並買一隻「極上牛乳霜淇淋」邊吃邊逛。", type: "shopping", loc: "新千歲機場 國內線航廈", isPremium: true },
             { id: "u1d6_5", time: "13:45 - 14:15", title: "午餐朝朝聖：一幻甜蝦拉麵 (えびそば一幻)", desc: "在機場國內線「北海道拉麵道場」享用最富盛名的濃郁甜蝦頭熬製拉麵，湯頭鮮甜濃郁至極，為旅程進行完美收尾。", type: "dining", loc: "えびそば一幻 新千歲機場店", isPremium: true },
-            { id: "u1d6_6", time: "14:15 - 16:15", title: "辦理登機行李託運 ➔ 滿載幸福返台", desc: "14:15 抵達國際線櫃檯辦理退稅與登機。16:15 搭乘星宇航空客機起飛，19:15 順利抵達台北，結束精彩絕倫的奢華避暑假期！", type: "transport", loc: "新千歲機場 國際線航廈", isPremium: false }
+            { id: "u1d6_6", time: "14:15 - 16:15", title: "辦理登機行李託運 ➔ 滿載幸福返台", desc: "14:15 抵達國際線櫃檯辦理退稅與登機。16:15 搭乘長榮航空客機起飛，19:15 順利抵達台北，結束精彩絕倫的奢華避暑假期！", type: "transport", loc: "新千歲機場 國際線航廈", isPremium: false }
           ]
         ]
       },
@@ -637,7 +633,7 @@
         name: "KERRIE 🎀",
         flights: {
           go: "去程 ✈️ 酷航航空 (7/26) — 13:00 台北 ➔ 17:55 札幌 (晚到飛機)",
-          back: "回程 ✈️ 中華航空 (7/31) — 12:30 札幌 ➔ 15:30 台北 (中午航班)"
+          back: "回程 ✈️ 長榮航空 (7/31) — 12:30 札幌 ➔ 15:30 台北 (中午航班)"
         },
         days: [
           [
@@ -701,33 +697,69 @@
       { id: "mb10", name: "北菓樓 妖精之森年輪蛋糕", area: "airport", regionName: "✈️ 新千歲機場", desc: "以北海道頂級小麥與鮮奶油層層烘培，極度濕潤甜蜜，下午茶絕配。", price: "約 ￥1,600", icon: "🍩" }
     ];
 
-    // ==================== 應用程式狀態 State ====================
+    // ==================== STREAMING_CHUNK: Defining Application State ====================
     let state = {
       itinerary: JSON.parse(JSON.stringify(defaultItineraryData)),
       dragOrders: { user1: {}, user2: {} },
-      shoppingList: [
-        { id: "shop_1", name: "六花亭 萊姆葡萄夾心餅乾", qty: 2, area: "新千歲機場", note: "送給閨蜜們的手信", checked: false },
-        { id: "shop_2", name: "どんぐり 竹輪麵包", qty: 3, area: "札幌市區", note: "Day1 宵夜", checked: true }
-      ],
       checklist: ["item-passport", "item-visitjapan"],
       splitMembers: ["楓香嬌黛", "KERRIE"],
       splitExpenses: [
         { id: "exp_1", name: "大通啤酒花園扎啤", amount: 6400, payer: "楓香嬌黛" }
-      ]
+      ],
+      // New extensible planner list blocks
+      customLists: {
+        "dining": {
+          title: "要吃的店",
+          emoji: "🍽️",
+          items: [
+            { id: "d_1", name: "どんぐり (DONGURI) 經典竹輪麵包", checked: false },
+            { id: "d_2", name: "小樽 三角市場 滝波食堂極上海鮮丼", checked: false },
+            { id: "d_3", name: "INITIAL 法式哈密瓜聖代", checked: false }
+          ]
+        },
+        "buying": {
+          title: "要買的",
+          emoji: "🛍️",
+          items: [
+            { id: "b_1", name: "六花亭 萊姆葡萄夾心餅乾 (10入裝)", checked: false },
+            { id: "b_2", name: "美瑛選菓 夢幻爆水玉米麵包", checked: false },
+            { id: "b_3", name: "LeTAO 經典雙層乳酪起司蛋糕", checked: false }
+          ]
+        },
+        "brands": {
+          title: "想逛的牌子",
+          emoji: "💄",
+          items: [
+            { id: "br_1", name: "SHIRO 奢華經典香氛與護膚", checked: false },
+            { id: "br_2", name: "Maison Margiela 潮流沙龍香", checked: false },
+            { id: "br_3", name: "日本火腿鬥士隊官方限量周邊", checked: false }
+          ]
+        },
+        "packing": {
+          title: "要帶的東西",
+          emoji: "🧳",
+          items: [
+            { id: "p_1", name: "護照、日幣現鈔與海外回饋實體卡", checked: true },
+            { id: "p_2", name: "Visit Japan Web 完成申報截圖", checked: true },
+            { id: "p_3", name: "宮美防風防曬薄針織外套", checked: false },
+            { id: "p_4", name: "輕便自拍腳架與補光燈", checked: false }
+          ]
+        }
+      }
     };
 
     // ================== 持久化與本地快取 ==================
     function loadLocalState() {
-      const stored = localStorage.getItem('hokkaido_luxury_state_v3');
+      const stored = localStorage.getItem('hokkaido_luxury_state_v4');
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
           if (parsed.itinerary) state.itinerary = parsed.itinerary;
           if (parsed.dragOrders) state.dragOrders = parsed.dragOrders;
-          if (parsed.shoppingList) state.shoppingList = parsed.shoppingList;
           if (parsed.checklist) state.checklist = parsed.checklist;
           if (parsed.splitMembers) state.splitMembers = parsed.splitMembers;
           if (parsed.splitExpenses) state.splitExpenses = parsed.splitExpenses;
+          if (parsed.customLists) state.customLists = parsed.customLists;
         } catch (e) {
           console.error("解析本地狀態失敗，採用預設", e);
         }
@@ -735,10 +767,10 @@
     }
 
     function saveLocalState() {
-      localStorage.setItem('hokkaido_luxury_state_v3', JSON.stringify(state));
+      localStorage.setItem('hokkaido_luxury_state_v4', JSON.stringify(state));
     }
 
-    // ================== 雲端同步核心 (極速共編) ==================
+    // ================== STREAMING_CHUNK: Cloud Synchronization ==================
     async function syncToCloud() {
       if (!activeGroupCode || !db || !firebaseUser || isUpdatingCloud) return;
       isUpdatingCloud = true;
@@ -746,7 +778,6 @@
         const groupDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'rooms', activeGroupCode);
         const myName = currentUser === 'user1' ? '楓香嬌黛 👑' : 'KERRIE 🎀';
         
-        // 修正點：分開保存主狀態與更新目前使用者在線時間，避免 A 直接覆寫掉 B 剛推上來的最新 activeUsers
         await setDoc(groupDocRef, {
           state: state,
           updatedAt: new Date().toISOString(),
@@ -799,7 +830,7 @@
           }
         });
         
-        localStorage.setItem('hokkaido_active_group_v3', code);
+        localStorage.setItem('hokkaido_active_group_v4', code);
         setupGroupListener(code);
         showToast(`🎉 共編群組創建成功！房號: ${code}`, "💖");
       } catch (err) {
@@ -831,7 +862,7 @@
         
         if (docSnap.exists()) {
           activeGroupCode = targetCode;
-          localStorage.setItem('hokkaido_active_group_v3', targetCode);
+          localStorage.setItem('hokkaido_active_group_v4', targetCode);
           if (input) input.value = '';
           
           setupGroupListener(targetCode);
@@ -867,7 +898,7 @@
         groupUnsubscribe = null;
       }
       activeGroupCode = null;
-      localStorage.removeItem('hokkaido_active_group_v3');
+      localStorage.removeItem('hokkaido_active_group_v4');
       loadLocalState();
       renderAll();
       showToast("🔌 已成功斷開連線，退回本機儲存");
@@ -975,7 +1006,7 @@
       copyToClipboard(url, "📋 邀請連結已複製！發給好姊妹即刻合體 ➔");
     }
 
-    // ================== 實時氣候連線 (Open-Meteo API) ==================
+    // ================== STREAMING_CHUNK: Fetching live weather & Exchange rate ==================
     async function fetchHokkaidoWeather() {
       const cities = [
         { name: "札幌市", id: "sapporo", lat: 43.06, lon: 141.35 },
@@ -1019,7 +1050,6 @@
       }
     }
 
-    // ================== 實時匯率連線 (ExchangeRate API) ==================
     async function fetchExchangeRate() {
       try {
         const res = await fetch('https://open.er-api.com/v6/latest/JPY');
@@ -1053,7 +1083,7 @@
       }
     }
 
-    // ================== 行程與時間軸渲染 ==================
+    // ================== STREAMING_CHUNK: Itinerary and overview grid rendering ==================
     function renderOverviewGrid() {
       const grid = document.getElementById('overview-grid');
       const dayThemes = {
@@ -1135,6 +1165,7 @@
       }
     }
 
+    // ================== STREAMING_CHUNK: Timeline drag and drop controls ==================
     function renderTimeline() {
       const container = document.getElementById('timeline-drag-container');
       const spots = getSortedDaySpots();
@@ -1214,7 +1245,6 @@
           if (!state.dragOrders[currentUser]) state.dragOrders[currentUser] = {};
           state.dragOrders[currentUser][`day_${currentDayIdx}`] = sortedIds;
           
-          // 修正點：加上 await 確保拖拽排序即時上傳
           await saveState();
           showToast("💾 新的行程動線已實時同步雲端！");
         }
@@ -1295,7 +1325,6 @@
         spots.push(newSpot);
       }
 
-      // 修正點：加上 await 確保編輯視窗內存檔確實推送
       await saveState();
       renderTimeline();
       closeSpotModal();
@@ -1315,7 +1344,7 @@
       showToast("🗑️ 行程點已成功移除並雲端同步");
     }
 
-    // ================== 行前行李核對邏輯 ==================
+    // ================== STREAMING_CHUNK: Packing Checklists ==================
     const checklistTemplates = [
       { id: "item-passport", title: "護照（有效期大於6個月）與機票憑證", desc: "雲端和手機各存一份電子備份" },
       { id: "item-visitjapan", title: "Visit Japan Web 完成登錄", desc: "通關 QR Code 截圖備份" },
@@ -1326,15 +1355,17 @@
 
     function renderChecklist() {
       const container = document.getElementById('checklist-items');
-      container.innerHTML = checklistTemplates.map(item => `
-        <label class="flex items-start gap-2.5 p-1.5 hover:bg-morandi-light rounded cursor-pointer transition">
-          <input type="checkbox" id="${item.id}" onchange="toggleChecklistItem('${item.id}')" class="mt-0.5 rounded text-morandi-medium focus:ring-morandi-medium" ${state.checklist.includes(item.id) ? 'checked' : ''}>
-          <div>
-            <p class="font-bold text-stone-700">${item.title}</p>
-            <p class="text-[10px] text-stone-400">${item.desc}</p>
-          </div>
-        </label>
-      `).join('');
+      if (container) {
+        container.innerHTML = checklistTemplates.map(item => `
+          <label class="flex items-start gap-2.5 p-1.5 hover:bg-morandi-light rounded cursor-pointer transition">
+            <input type="checkbox" id="${item.id}" onchange="toggleChecklistItem('${item.id}')" class="mt-0.5 rounded text-morandi-medium focus:ring-morandi-medium" ${state.checklist.includes(item.id) ? 'checked' : ''}>
+            <div>
+              <p class="font-bold text-stone-700">${item.title}</p>
+              <p class="text-[10px] text-stone-400">${item.desc}</p>
+            </div>
+          </label>
+        `).join('');
+      }
       updateChecklistProgress();
     }
 
@@ -1352,24 +1383,29 @@
       const count = state.checklist.length;
       const total = checklistTemplates.length;
       const percent = total > 0 ? Math.round((count / total) * 100) : 0;
-      document.getElementById('checklist-progress').innerText = `${percent}%`;
+      const el = document.getElementById('checklist-progress');
+      if (el) el.innerText = `${percent}%`;
     }
 
     function renderFlightCards() {
       const flights = state.itinerary[currentUser].flights;
-      document.getElementById('flight-info-card').innerHTML = `
-        <div class="space-y-1.5 leading-normal">
-          <p class="font-bold text-morandi-medium">🛫 去程航班資訊</p>
-          <p class="text-stone-700">${flights.go}</p>
-          <div class="border-t border-dashed border-stone-200 my-1.5"></div>
-          <p class="font-bold text-morandi-medium">🛬 回程航班資訊</p>
-          <p class="text-stone-700">${flights.back}</p>
-        </div>
-      `;
+      const el = document.getElementById('flight-info-card');
+      if (el) {
+        el.innerHTML = `
+          <div class="space-y-1.5 leading-normal">
+            <p class="font-bold text-morandi-medium">🛫 去程航班資訊</p>
+            <p class="text-stone-700">${flights.go}</p>
+            <div class="border-t border-dashed border-stone-200 my-1.5"></div>
+            <p class="font-bold text-morandi-medium">🛬 回程航班資訊</p>
+            <p class="text-stone-700">${flights.back}</p>
+          </div>
+        `;
+      }
     }
 
     function renderLastDayAlert() {
       const container = document.getElementById('last-day-alert-container');
+      if (!container) return;
       if (currentUser === 'user1') {
         container.innerHTML = `
           <div class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 space-y-2 shadow-sm text-xs">
@@ -1398,13 +1434,14 @@
     // ================== 必買推薦功能 ==================
     function renderMustBuyList() {
       const container = document.getElementById('mustbuy-cards-container');
+      if (!container) return;
       
       const filtered = currentMustBuyArea === 'all' 
         ? defaultMustBuyData 
         : defaultMustBuyData.filter(item => item.area === currentMustBuyArea);
 
       container.innerHTML = filtered.map(item => `
-        <div class="bg-stone-50 hover:bg-morandi-accentlight border border-morandi-border hover:border-morandi-goldborder rounded-2xl p-4.5 transition duration-300 shadow-xs flex flex-col justify-between space-y-4">
+        <div class="bg-stone-50 hover:bg-morandi-accentlight border border-morandi-border hover:border-morandi-goldborder rounded-2xl p-4 transition duration-300 shadow-xs flex flex-col justify-between space-y-4">
           <div class="space-y-2">
             <div class="flex justify-between items-start">
               <span class="text-2xl">${item.icon}</span>
@@ -1416,7 +1453,7 @@
           
           <div class="flex justify-between items-center pt-2 border-t border-stone-200">
             <span class="font-bold text-morandi-accent text-xs">${item.price}</span>
-            <button onclick="addMustBuyToShopping('${item.name}', '${item.regionName.replace(/🏢|🕯️|🪻|✈️| /g, '')}')" class="text-[10px] bg-morandi-medium hover:bg-morandi-dark text-white px-3 py-1 rounded font-bold transition flex items-center gap-0.5">
+            <button onclick="addMustBuyToShopping('${item.name}', 'buying')" class="text-[10px] bg-morandi-medium hover:bg-morandi-dark text-white px-3 py-1 rounded font-bold transition flex items-center gap-0.5">
               🛒 加購物清單
             </button>
           </div>
@@ -1433,100 +1470,189 @@
       renderMustBuyList();
     }
 
-    async function addMustBuyToShopping(name, area) {
+    // ================== STREAMING_CHUNK: Dynamic Custom Wishlists & Planner Blocks ==================
+    async function addMustBuyToShopping(name, targetKey = 'buying') {
+      if (!state.customLists[targetKey]) {
+        targetKey = 'buying'; // fallback
+      }
+      
       const newItem = {
-        id: "shop_" + Date.now(),
-        name,
-        qty: 1,
-        area,
-        note: "名產區一鍵添加",
+        id: "item_" + Date.now() + "_" + Math.floor(Math.random()*100),
+        name: name,
         checked: false
       };
-      state.shoppingList.push(newItem);
+      
+      state.customLists[targetKey].items.push(newItem);
       await saveState();
-      showToast(`🛒 已將 ${name} 置入購物清單！`);
+      renderCustomLists();
+      showToast(`🛒 已將 ${name} 納入您的「${state.customLists[targetKey].title}」清單！`);
     }
 
-    // ================== 購物清單功能 ==================
-    function renderShoppingList() {
-      const container = document.getElementById('shopping-list-container');
-      const list = state.shoppingList || [];
+    function toggleAddBlockForm(show) {
+      const form = document.getElementById('add-block-form');
+      if (show) {
+        form.classList.remove('hidden');
+      } else {
+        form.classList.add('hidden');
+      }
+    }
 
-      if (list.length === 0) {
-        container.innerHTML = `<p class="text-center py-12 text-stone-400 italic text-xs">購物清單空空如也，快從「必買推薦」尋求靈感！</p>`;
-        document.getElementById('shopping-progress').innerText = "已採購 0 / 0";
+    async function createNewListBlock() {
+      const emojiInput = document.getElementById('new-block-emoji');
+      const titleInput = document.getElementById('new-block-title');
+
+      const emoji = emojiInput.value.trim() || "📌";
+      const title = titleInput.value.trim();
+
+      if (!title) {
+        showToast("⚠️ 請填寫區塊主題名稱！", "✏️");
         return;
       }
 
-      container.innerHTML = list.map((item, idx) => `
-        <div class="flex items-start justify-between p-3.5 hover:bg-morandi-accentlight rounded-xl border border-stone-100 transition group gap-3 bg-white">
-          <label class="flex items-start gap-2.5 cursor-pointer flex-1 min-w-0">
-            <input type="checkbox" onchange="toggleShoppingItem('${item.id}')" ${item.checked ? 'checked' : ''} class="mt-0.5 rounded text-morandi-medium focus:ring-morandi-medium">
-            <div class="min-w-0">
-              <span class="font-bold text-xs sm:text-sm text-stone-800 ${item.checked ? 'line-through text-stone-400 font-normal' : ''}">${item.name}</span>
-              <span class="ml-1.5 px-2 py-0.5 bg-stone-100 text-[9px] text-stone-500 rounded font-medium">數量: ${item.qty} (${item.area})</span>
-              ${item.note ? `<p class="text-[10px] text-stone-400 mt-1 italic">${item.note}</p>` : ''}
-            </div>
-          </label>
-          <button onclick="deleteShoppingItem('${item.id}')" class="text-stone-300 hover:text-red-500 transition text-sm">🗑️</button>
-        </div>
-      `).join('');
-
-      const checkedCount = list.filter(item => item.checked).length;
-      document.getElementById('shopping-progress').innerText = `已採購 ${checkedCount} / ${list.length}`;
-    }
-
-    async function addShoppingItem() {
-      const nameInput = document.getElementById('shop-input-name');
-      const qtyInput = document.getElementById('shop-input-qty');
-      const areaInput = document.getElementById('shop-input-area');
-      const noteInput = document.getElementById('shop-input-note');
-
-      const name = nameInput.value.trim();
-      const qty = parseInt(qtyInput.value) || 1;
-      const area = areaInput.value;
-      const note = noteInput.value.trim();
-
-      if (!name) {
-        showToast("⚠️ 請至少填寫商品名稱！", "✏️");
-        return;
-      }
-
-      const newItem = {
-        id: "shop_" + Date.now(),
-        name, qty, area, note, checked: false
+      const key = "custom_" + Date.now();
+      state.customLists[key] = {
+        title: title,
+        emoji: emoji,
+        items: []
       };
 
-      state.shoppingList.push(newItem);
       await saveState();
-      renderShoppingList();
-
-      nameInput.value = "";
-      qtyInput.value = "1";
-      noteInput.value = "";
-      showToast(`🛒 購物清單已同步新增: ${name}`);
+      renderCustomLists();
+      
+      emojiInput.value = "";
+      titleInput.value = "";
+      toggleAddBlockForm(false);
+      showToast(`✨ 成功創立新清單區塊：${emoji} ${title}`);
     }
 
-    async function toggleShoppingItem(id) {
-      const item = state.shoppingList.find(s => s.id === id);
-      if (item) {
-        item.checked = !item.checked;
+    async function deleteListBlock(key) {
+      if (state.customLists[key]) {
+        const title = state.customLists[key].title;
+        delete state.customLists[key];
         await saveState();
-        renderShoppingList();
+        renderCustomLists();
+        showToast(`🗑️ 已移除清單區塊：「${title}」`);
       }
     }
 
-    async function deleteShoppingItem(id) {
-      state.shoppingList = state.shoppingList.filter(s => s.id !== id);
+    async function addCustomListItem(key) {
+      const input = document.getElementById(`input-item-${key}`);
+      if (!input) return;
+
+      const val = input.value.trim();
+      if (!val) return;
+
+      const newItem = {
+        id: "item_" + Date.now() + "_" + Math.floor(Math.random()*100),
+        name: val,
+        checked: false
+      };
+
+      state.customLists[key].items.push(newItem);
       await saveState();
-      renderShoppingList();
-      showToast("🗑️ 購物清單品項已移除");
+      renderCustomLists();
+      showToast("💾 項目已成功新增並同步！");
     }
 
-    // ================== 旅行工具功能 ==================
+    async function toggleCustomListItem(blockKey, itemId) {
+      const block = state.customLists[blockKey];
+      if (block) {
+        const item = block.items.find(i => i.id === itemId);
+        if (item) {
+          item.checked = !item.checked;
+          await saveState();
+          renderCustomLists();
+        }
+      }
+    }
+
+    async function deleteCustomListItem(blockKey, itemId) {
+      const block = state.customLists[blockKey];
+      if (block) {
+        block.items = block.items.filter(i => i.id !== itemId);
+        await saveState();
+        renderCustomLists();
+        showToast("🗑️ 項目已成功刪除");
+      }
+    }
+
+    // Renders the expandable list boards beautifully
+    function renderCustomLists() {
+      const container = document.getElementById('custom-lists-container');
+      if (!container) return;
+
+      const keys = Object.keys(state.customLists);
+      if (keys.length === 0) {
+        container.innerHTML = `<p class="text-center py-12 text-stone-400 italic text-xs col-span-full">目前無任何自訂清單，快點擊「新增心願清單區塊」來建立吧！</p>`;
+        return;
+      }
+
+      container.innerHTML = keys.map(key => {
+        const block = state.customLists[key];
+        const items = block.items || [];
+        const completedCount = items.filter(i => i.checked).length;
+        
+        let itemsHTML = '';
+        if (items.length === 0) {
+          itemsHTML = `<p class="text-stone-400 italic text-[11px] py-4 text-center">暫無項目，立刻在下方新增吧！</p>`;
+        } else {
+          itemsHTML = items.map(item => {
+            // 除了要帶的東西外，其他清單（美食、品牌、想買項目）皆顯示 Google Maps 快速搜尋導航按鈕
+            const isPacking = key === 'packing';
+            const mapButton = !isPacking ? `
+              <a href="https://maps.google.com/?q=${encodeURIComponent(item.name)}" target="_blank" class="text-morandi-medium hover:text-morandi-dark text-xs p-1 rounded-md hover:bg-morandi-light transition opacity-40 group-hover:opacity-100 inline-flex items-center" title="在 Google Map 搜尋此地點">
+                🗺️
+              </a>
+            ` : '';
+
+            return `
+              <div class="flex items-center justify-between py-1.5 border-b border-stone-50 hover:bg-stone-50 px-1 rounded transition group gap-1">
+                <label class="flex items-center gap-2 cursor-pointer flex-1 min-w-0">
+                  <input type="checkbox" onchange="toggleCustomListItem('${key}', '${item.id}')" ${item.checked ? 'checked' : ''} class="rounded text-morandi-medium focus:ring-morandi-medium">
+                  <span class="text-xs text-stone-700 truncate ${item.checked ? 'line-through text-stone-400' : 'font-medium'}">${item.name}</span>
+                </label>
+                <div class="flex items-center gap-1.5 flex-shrink-0">
+                  ${mapButton}
+                  <button onclick="deleteCustomListItem('${key}', '${item.id}')" class="text-stone-300 hover:text-red-500 text-xs transition px-1 opacity-0 group-hover:opacity-100">✕</button>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        return `
+          <div class="bg-white rounded-2xl border border-morandi-border p-4 shadow-xs flex flex-col justify-between space-y-4">
+            <div>
+              <div class="flex justify-between items-center border-b border-stone-100 pb-2 mb-2">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-lg">${block.emoji || '📌'}</span>
+                  <h4 class="font-bold text-sm text-morandi-dark">${block.title}</h4>
+                  <span class="text-[9px] bg-morandi-light text-morandi-medium font-bold px-1.5 py-0.25 rounded-full">${completedCount}/${items.length}</span>
+                </div>
+                <button onclick="deleteListBlock('${key}')" class="text-stone-300 hover:text-red-500 text-xs transition" title="刪除整個區塊">🗑️</button>
+              </div>
+
+              <!-- List contents -->
+              <div class="space-y-1 max-h-[160px] overflow-y-auto custom-scrollbar pr-1">
+                ${itemsHTML}
+              </div>
+            </div>
+
+            <!-- Inline entry form -->
+            <div class="pt-2 border-t border-stone-100 flex gap-1.5">
+              <input type="text" id="input-item-${key}" placeholder="輸入項目後按 Enter..." onkeydown="if(event.key === 'Enter') addCustomListItem('${key}')" class="flex-1 px-2.5 py-1.5 border border-stone-200 rounded-lg text-xs bg-stone-50 focus:bg-white focus:outline-none focus:ring-1 focus:ring-morandi-medium">
+              <button onclick="addCustomListItem('${key}')" class="px-3 bg-morandi-medium hover:bg-morandi-dark text-white text-xs font-bold rounded-lg transition">+</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // ================== STREAMING_CHUNK: Multi-currency calculator ==================
     function convertCurrency(source) {
       const jpyEl = document.getElementById('rate-jpy');
       const twdEl = document.getElementById('rate-twd');
+      if (!jpyEl || !twdEl) return;
 
       if (source === 'jpy') {
         const jpyVal = parseFloat(jpyEl.value) || 0;
@@ -1577,6 +1703,7 @@
       showToast(`🧮 費用已實時同步分帳: ${name}`);
     }
 
+    // ================== STREAMING_CHUNK: Billing Settlement algorithm ==================
     function calculateAA() {
       const list = state.splitExpenses || [];
       const members = state.splitMembers || [];
@@ -1637,9 +1764,12 @@
         let i = 0, j = 0;
         let transferList = [];
         
-        while (i < debtors.length && j < creditors.length) {
-          const debtor = debtors[i];
-          const creditor = creditors[j];
+        const debtorsCopy = debtors.map(d => ({ ...d }));
+        const creditorsCopy = creditors.map(c => ({ ...c }));
+        
+        while (i < debtorsCopy.length && j < creditorsCopy.length) {
+          const debtor = debtorsCopy[i];
+          const creditor = creditorsCopy[j];
           
           const transferAmount = Math.min(-debtor.net, creditor.net);
           
@@ -1689,6 +1819,7 @@
       document.getElementById(`nav-${target}`).classList.add('tab-active');
 
       if (target === 'itinerary') renderTimeline();
+      if (target === 'shopping') renderCustomLists();
     }
 
     async function switchUser(userId) {
@@ -1710,7 +1841,6 @@
       renderOverviewGrid();
       renderTimeline();
       
-      // 修正點：切換旅伴視角時，主動通知雲端，避免覆寫 activeUsers 的錯誤
       if (activeGroupCode && db && firebaseUser) {
         const groupDocRef = doc(db, 'artifacts', appId, 'public', 'data', 'rooms', activeGroupCode);
         const myName = currentUser === 'user1' ? '楓香嬌黛 👑' : 'KERRIE 🎀';
@@ -1775,7 +1905,7 @@
         
         const urlParams = new URLSearchParams(window.location.search);
         const groupFromUrl = urlParams.get('group');
-        const savedGroup = localStorage.getItem('hokkaido_active_group_v3');
+        const savedGroup = localStorage.getItem('hokkaido_active_group_v4');
         
         if (groupFromUrl) {
           joinGroup(groupFromUrl);
@@ -1800,7 +1930,7 @@
       renderChecklist();
       renderTimeline();
       renderMustBuyList();
-      renderShoppingList();
+      renderCustomLists();
       renderPayerSelector();
       calculateAA();
       updateCloudUI();
@@ -1819,9 +1949,12 @@
     window.toggleChecklistItem = toggleChecklistItem;
     window.switchMustBuyArea = switchMustBuyArea;
     window.addMustBuyToShopping = addMustBuyToShopping;
-    window.addShoppingItem = addShoppingItem;
-    window.toggleShoppingItem = toggleShoppingItem;
-    window.deleteShoppingItem = deleteShoppingItem;
+    window.toggleAddBlockForm = toggleAddBlockForm;
+    window.createNewListBlock = createNewListBlock;
+    window.deleteListBlock = deleteListBlock;
+    window.addCustomListItem = addCustomListItem;
+    window.toggleCustomListItem = toggleCustomListItem;
+    window.deleteCustomListItem = deleteCustomListItem;
     window.convertCurrency = convertCurrency;
     window.updateSplitMembers = updateSplitMembers;
     window.addSplitExpense = addSplitExpense;
@@ -1833,7 +1966,6 @@
     window.copyInviteLink = copyInviteLink;
     window.copyToClipboard = copyToClipboard;
 
-    // 初始化加載
     window.onload = async function() {
       loadLocalState();
 

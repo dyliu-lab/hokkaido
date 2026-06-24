@@ -77,7 +77,7 @@
 
       </h1>
       <p class="text-[11px] md:text-xs text-stone-200 tracking-wider max-w-xl mx-auto leading-relaxed">
-        沉浸於北國盛夏的紫霧花海，整合實時氣候與匯率、自訂行程動線、必買推薦與閨蜜 AA 分帳秘書。
+        沉浸於北國盛夏的紫霧花海，整合實時氣候與匯率、自訂行程動線、必買推薦。
       </p>
     </div>
   </header>
@@ -166,7 +166,7 @@
             </div>
 
             <div class="bg-stone-50 p-3 rounded-xl border border-stone-200 text-xs">
-              <p class="font-bold text-morandi-dark mb-1">👗 宮美盛夏穿搭與出行建議：</p>
+              <p class="font-bold text-morandi-dark mb-1">👗 盛夏穿搭與出行建議：</p>
               <p class="text-stone-600 leading-relaxed text-[11px]">
                 北海道盛夏涼爽。但清晨、入夜與海邊（小樽）風大體感偏涼，建議穿著亮色洋裝，並**隨身攜帶一件薄針織或防風外衣**，防曬遮陽與保暖兼具。
               </p>
@@ -178,7 +178,7 @@
         <div class="bg-white rounded-2xl border border-morandi-border p-5 shadow-sm space-y-4">
           <div class="border-b border-stone-100 pb-2 flex justify-between items-center">
             <h4 class="font-bold text-sm text-morandi-dark flex items-center gap-1.5">
-              <span>💴 宮美即時匯率換算</span>
+              <span>💴 即時匯率換算</span>
             </h4>
             <span id="rate-display-badge" class="text-[9px] px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold animate-pulse">即時連線中</span>
           </div>
@@ -1090,7 +1090,7 @@
       const dayThemes = {
         user1: [
           { d: "7/26 D1", title: "盛夏啟航", core: "入住高奢、どんぐり竹輪包、啤酒節", icon: "🍺" },
-          { d: "7/27 D2", title: "美學與足湯", core: "真駒內頭大佛、神宮、場外市場、定山溪", icon: "🪷" },
+          { d: "7/27 D2", title: "真駒內頭大佛", core: "真駒內頭大佛、神宮、場外市場、定山溪", icon: "🪷" },
           { d: "7/28 D3", title: "浪漫小樽", core: "三角市場、運河散策、LeTAO下午茶、政壽司", icon: "🕯️" },
           { d: "7/29 D4", title: "富良野紫霧", core: "富田薰衣草、四季彩之丘、美瑛青池、哈密瓜", icon: "🪻" },
           { d: "7/30 D5", title: "晨漫與血拼", core: "圓山神宮、火腿商店、狸小路大掃貨、夜聖代", icon: "🛍️" },
@@ -1098,7 +1098,7 @@
         ],
         user2: [
           { d: "7/26 D1", title: "晚飛會合", core: "酷航抵達、Stream Hotel、直接合體啤酒節", icon: "✈️" },
-          { d: "7/27 D2", title: "美學與足湯", core: "真駒內頭大佛、神宮、場外市場、定山溪", icon: "🪷" },
+          { d: "7/27 D2", title: "真駒內頭大佛", core: "真駒內頭大佛、神宮、場外市場、定山溪", icon: "🪷" },
           { d: "7/28 D3", title: "市區精品血拼", core: "JR Tower大採購、白色戀人、藻岩山日本新三大夜景", icon: "💍" },
           { d: "7/29 D4", title: "富良野紫霧", core: "富田薰衣草、四季彩之丘、美瑛青池、哈密瓜", icon: "🪻" },
           { d: "7/30 D5", title: "晨漫與血拼", core: "圓山神宮、火腿商店、狸小路大掃貨、夜聖代", icon: "🛍️" },
@@ -1121,7 +1121,7 @@
 
     function renderDayTabs() {
       const container = document.getElementById('day-tabs-container');
-      const daysStr = ["7/26 (五) D1", "7/27 (六) D2", "7/28 (日) D3", "7/29 (一) D4", "7/30 (二) D5", "7/31 (三) D6"];
+      const daysStr = ["7/26 (日) D1", "7/27 (一) D2", "7/28 (二) D3", "7/29 (三) D4", "7/30 (四) D5", "7/31 (五) D6"];
       
       container.innerHTML = daysStr.map((day, idx) => `
         <button onclick="switchDay(${idx})" class="px-4 py-2 border-b-2 font-bold text-xs transition tracking-wider whitespace-nowrap ${idx === currentDayIdx ? 'border-morandi-medium text-morandi-dark font-black' : 'border-transparent text-stone-400 hover:text-stone-600'}">
